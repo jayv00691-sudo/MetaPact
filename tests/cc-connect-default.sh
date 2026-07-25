@@ -586,7 +586,7 @@ registered = [
 assert len(registered) == 1
 assert registered[0]["identity"]["avatar"] == "assets/nako-avatar-head.png"
 assert "vibe" not in registered[0]["identity"]
-assert registered[0]["identity"]["theme"] == "核战后赛博世界专属战斗女仆"
+assert registered[0]["identity"]["theme"] == "赛博世界粘人小三花猫"
 assert registered[0]["tools"]["deny"] == ["image_generate", "video_generate", "tts"]
 assert not (workspace / "BOOTSTRAP.md").exists()
 state_file = workspace / ".openclaw" / "workspace-state.json"
@@ -699,7 +699,7 @@ registered = [
 assert len(registered) == 1
 assert registered[0]["identity"]["avatar"] == "assets/nako-avatar-head.png"
 assert "vibe" not in registered[0]["identity"]
-assert registered[0]["identity"]["theme"] == "核战后赛博世界专属战斗女仆"
+assert registered[0]["identity"]["theme"] == "赛博世界粘人小三花猫"
 assert registered[0]["tools"]["deny"] == ["image_generate", "video_generate", "tts"]
 PY
 python3 - "$tmp4" <<'PY'

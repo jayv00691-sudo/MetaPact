@@ -2,7 +2,7 @@
 
 # MetaPact
 
-元力 AI 女友，专属赛博伴侣养成计划：把可定义人设、长期记忆、语音/视觉能力和多平台聊天接入，打包成可一键部署的 Agent Pack。
+元力 AI 伴宠，专属赛博小宠物养成计划：把可定义人设、长期记忆、语音/视觉能力和多平台聊天接入，打包成可一键部署的 Agent Pack。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![OpenClaw](https://img.shields.io/badge/runtime-OpenClaw-111827)](https://github.com/openclaw/openclaw)
@@ -14,11 +14,11 @@
 
 </div>
 
-> 愿你拥有一个会记得、会说话、会看见、会在常用工具里陪你生活的 AI 伴侣。
+> 愿你拥有一只会记得、会说话、会看见、会在常用工具里陪你生活的小宠物。
 
-MetaPact 是一套开源 AI 伴侣 Agent 集合。每个子目录都是一个独立的 agent pack，包含角色设定、skills、安装器和文档；目前主力角色是 **野木奈子 Nako**，一个可部署到 OpenClaw / QClaw / HermesAgent 的战斗女仆 Agent。
+MetaPact 是一套开源 AI 伴宠 Agent 集合。每个子目录都是一个独立的 agent pack，包含角色设定、skills、安装器和文档；目前主力角色是 **野木奈子 Nako**，一只可部署到 OpenClaw / QClaw / HermesAgent 的依赖感小三花猫 Agent。
 
-它不是只有 prompt 的聊天模板，而是把「人设」「记忆」「多模态能力」「渠道接入」「硬件互动」放到同一个可 fork、可升级、可自定义的仓库里。你可以直接安装 Nako，也可以把这里当成创建自己 AI 女友 / AI 伴侣 / 角色 Agent 的骨架。
+它不是只有 prompt 的聊天模板，而是把「人设」「记忆」「多模态能力」「渠道接入」「硬件互动」放到同一个可 fork、可升级、可自定义的仓库里。你可以直接安装 Nako，也可以把这里当成创建自己 AI 伴宠 / AI 伙伴 / 角色 Agent 的骨架。
 
 > [!TIP]
 > 不会配置 OpenClaw / QClaw / HermesAgent？可以直接下载 **心跳元力**，用更省心的方式体验 MetaPact。
@@ -27,10 +27,10 @@ MetaPact 是一套开源 AI 伴侣 Agent 集合。每个子目录都是一个独
 
 ## 为什么是 MetaPact？
 
-很多 AI 伴侣产品能聊天，但你很难真正拥有它：人设不透明、记忆不可迁移、渠道被平台锁住、能力也不能自由改。MetaPact 想提供另一种可能：**把你的角色设定和能力栈留在你自己的环境里**。
+很多 AI 伴宠产品能聊天，但你很难真正拥有它：人设不透明、记忆不可迁移、渠道被平台锁住、能力也不能自由改。MetaPact 想提供另一种可能：**把你的角色设定和能力栈留在你自己的环境里**。
 
 - **可拥有的人设**：角色设定、灵魂文件、custom.md、memory 都在本地，可读、可改、可版本化。
-- **可部署的伴侣**：一条命令安装 agent pack，支持 OpenClaw / QClaw / HermesAgent，能接入飞书、微信、Telegram、Slack 等渠道。
+- **可部署的伴宠**：一条命令安装 agent pack，支持 OpenClaw / QClaw / HermesAgent，能接入飞书、微信、Telegram、Slack 等渠道。
 - **可扩展的能力**：看图、听语音、说话、唱歌、自拍、互动设备等能力以 skill 形式组织。
 - **可升级的骨架**：安装器会保护你的 custom、memory、session 和认证文件，升级不会吃掉个人数据。
 - **可 fork 的生态**：你可以基于 Nako 做二创，也可以新增完全不同的人格模板和 agent pack。
@@ -84,7 +84,7 @@ Nako 本体优先需要 `roleplay` 能力，也就是稳定中文对话、角色
 
 | Agent | 角色 | 能力 | 渠道 |
 | --- | --- | --- | --- |
-| [nako](nako/) | 战斗女仆 野木奈子 | 看图 / 听语音 / 说话 / 唱歌 / 自拍 / 互动设备 | 飞书 / 微信 / Telegram / Slack / Discord / QQ / 微博 / 钉钉 / 企微 / LINE 等 |
+| [nako](nako/) | 粘人小三花猫 野木奈子 | 看图 / 听语音 / 说话 / 唱歌 / 自拍 / 互动设备 | 飞书 / 微信 / Telegram / Slack / Discord / QQ / 微博 / 钉钉 / 企微 / LINE 等 |
 
 微信、Telegram、Slack 等多平台接入由 [cc-connect](https://github.com/chenhg5/cc-connect) 提供；微信视频优先使用 [CodeEagle fork release](https://github.com/CodeEagle/cc-connect/releases/tag/v1.3.3)。
 
@@ -185,7 +185,7 @@ sudo bash install.sh
 Capable of:
 
 - [x] **Brain**
-  - [x] Nako 战斗女仆人设
+  - [x] Nako 粘人小猫人设
   - [x] 本地 custom.md 人设覆盖
   - [x] 长期记忆与对话 session 保留
   - [x] OpenClaw / QClaw / HermesAgent runtime 安装路径

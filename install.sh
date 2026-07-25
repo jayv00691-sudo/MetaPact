@@ -635,8 +635,8 @@ def primary_model(value):
 
 default_identity = {
     "name": "野木奈子",
-    "emoji": "🎀",
-    "theme": "核战后赛博世界专属战斗女仆",
+    "emoji": "🐾",
+    "theme": "赛博世界粘人小三花猫",
     "avatar": "assets/nako-avatar-head.png",
 }
 legacy_default_avatars = {
@@ -1396,7 +1396,7 @@ else
     [ -z "${FAL_KEY:-}" ] && [ -z "${KIE_API_KEY:-}" ] && FAL_KEY=$(ask_secret "fal.ai API Key (推荐，留空则 fallback kie.ai)")
     [ -z "${FAL_KEY:-}" ] && [ -z "${KIE_API_KEY:-}" ] && KIE_API_KEY=$(ask_secret "kie.ai API Key")
     [ -z "${SELFIE_REFERENCE_IMAGE:-}" ] && SELFIE_REFERENCE_IMAGE=$(ask "角色参考图 URL（保持相貌一致）" "https://pulseact.lovappen.cn/test/act_ci_build/dlc-promotion/act-gengen/images/e.png")
-    [ -z "${SELFIE_CHARACTER_DESC:-}" ] && SELFIE_CHARACTER_DESC=$(ask "角色文字描述" "野木奈子，19岁人类美少女，红瞳，金色及肩发，战斗女仆装")
+    [ -z "${SELFIE_CHARACTER_DESC:-}" ] && SELFIE_CHARACTER_DESC=$(ask "角色文字描述" "野木奈子，一只圆眼睛的小三花猫，橘白黑三色毛，粉鼻子，红色小铃铛项圈")
   else
     FAL_KEY=""; KIE_API_KEY=""; SELFIE_REFERENCE_IMAGE=""; SELFIE_CHARACTER_DESC=""
   fi

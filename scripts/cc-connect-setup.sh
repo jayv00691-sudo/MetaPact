@@ -641,8 +641,8 @@ def ensure_qclaw_identity_sync_fields(path):
             seen.add(match.group(1).lower())
     fields = [
         ("Name", "野木奈子"),
-        ("Emoji", "🎀"),
-        ("Vibe", "核战后赛博世界专属战斗女仆"),
+        ("Emoji", "🐾"),
+        ("Vibe", "赛博世界粘人小三花猫"),
         ("Avatar", "assets/nako-avatar-head.png"),
     ]
     missing = [(key, value) for key, value in fields if key.lower() not in seen]
@@ -844,8 +844,8 @@ def normalize_identity(value):
 identity = normalize_identity(existing.get("identity")) or identity_from_workspace()
 default_identity = {
     "name": "野木奈子",
-    "emoji": "🎀",
-    "theme": "核战后赛博世界专属战斗女仆",
+    "emoji": "🐾",
+    "theme": "赛博世界粘人小三花猫",
     "avatar": "assets/nako-avatar-head.png",
 }
 legacy_default_avatars = {

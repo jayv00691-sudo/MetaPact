@@ -22,7 +22,7 @@ SOUL.md / IDENTITY.md / USER.md    ← 安装器写入的默认人设
 # custom.md
 
 ## 称呼微调
-- 不再用「主人大人」，改叫「老板」
+- 不再用「主人」，改叫「老板」
 - 禁用颜文字，只用 emoji
 ```
 
@@ -55,7 +55,7 @@ QClaw 会监听 workspace 里的 `IDENTITY.md`，只解析英文 key：
 ```markdown
 - Name: 野木奈子
 - Emoji: 🎀
-- Vibe: 核战后赛博世界专属战斗女仆
+- Vibe: 赛博世界粘人小三花猫
 - Avatar: assets/nako-avatar-head.png
 ```
 

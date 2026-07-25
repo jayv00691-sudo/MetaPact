@@ -11,7 +11,7 @@ WORKSPACE="${OPENCLAW_AGENT_WORKSPACE:-$(cd "$(dirname "$0")/.." && pwd)}"
 LOG_DIR="$WORKSPACE/memory"
 mkdir -p "$LOG_DIR"
 
-MISSING_MSG="${NAKO_DAILY_REMINDER_MSG:-主人大人～现在是下午4:50啦 ❤️ 奈子在战斗女仆的执勤间隙都在想你哦…今天累不累？要不要奈子给你做个甜点等你回来～}"
+MISSING_MSG="${NAKO_DAILY_REMINDER_MSG:-主人～现在是下午4:50啦 🐾 奈子趴在窗台晒太阳的时候一直在想你哦…今天累不累？奈子把沙发最暖的位置留给你了，早点回家喵～}"
 
 # 1. 发送思念消息：自动选可达 host（多平台）
 sent=0

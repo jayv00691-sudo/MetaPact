@@ -819,7 +819,7 @@ if (-not $NonInteractive) {
       $env:SELFIE_REFERENCE_IMAGE = Ask "角色参考图 URL（保持相貌一致）" "https://pulseact.lovappen.cn/test/act_ci_build/dlc-promotion/act-gengen/images/e.png"
     }
     if (-not $env:SELFIE_CHARACTER_DESC) {
-      $env:SELFIE_CHARACTER_DESC = Ask "角色文字描述" "野木奈子，19岁人类美少女，红瞳，金色及肩发，战斗女仆装"
+      $env:SELFIE_CHARACTER_DESC = Ask "角色文字描述" "野木奈子，一只圆眼睛的小三花猫，橘白黑三色毛，粉鼻子，红色小铃铛项圈"
     }
   } else {
     $env:FAL_KEY = ""
@@ -1318,8 +1318,8 @@ def primary_model(value):
 
 default_identity = {
     "name": "野木奈子",
-    "emoji": "🎀",
-    "theme": "核战后赛博世界专属战斗女仆",
+    "emoji": "🐾",
+    "theme": "赛博世界粘人小三花猫",
     "avatar": "assets/nako-avatar-head.png",
 }
 legacy_default_avatars = {

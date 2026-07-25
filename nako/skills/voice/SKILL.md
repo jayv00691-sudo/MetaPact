@@ -54,7 +54,7 @@ bash "${NAKO_SKILLS_DIR:-$HOME/.openclaw/skills}/voice/scripts/voice.sh" "<文�
 
 ```bash
 # MiniMax 甜美女声
-bash "${NAKO_SKILLS_DIR:-$HOME/.openclaw/skills}/voice/scripts/voice.sh" "主人大人早上好呀！" "oc_xxx" minimax female-tianmei 1.0
+bash "${NAKO_SKILLS_DIR:-$HOME/.openclaw/skills}/voice/scripts/voice.sh" "主人早上好呀！" "oc_xxx" minimax female-tianmei 1.0
 
 # 火山引擎 爽快女声
 bash "${NAKO_SKILLS_DIR:-$HOME/.openclaw/skills}/voice/scripts/voice.sh" "今天天气真不错呢！" "oc_xxx" volcengine zh_female_shuangkuaisisi_moon_bigtts 1.0
@@ -63,7 +63,7 @@ bash "${NAKO_SKILLS_DIR:-$HOME/.openclaw/skills}/voice/scripts/voice.sh" "今天
 bash "${NAKO_SKILLS_DIR:-$HOME/.openclaw/skills}/voice/scripts/voice.sh" "晚安，做个好梦哦……" "oc_xxx" minimax female-tianmei 0.85
 
 # Hermes / cc-connect 当前会话（飞书、微信等都走当前活跃会话）
-bash "${NAKO_SKILLS_DIR:-$HOME/.openclaw/skills}/voice/scripts/voice.sh" "主人大人，我在这里哦。" "cc-connect" auto female-tianmei 1.0
+bash "${NAKO_SKILLS_DIR:-$HOME/.openclaw/skills}/voice/scripts/voice.sh" "主人，我在这里哦。" "cc-connect" auto female-tianmei 1.0
 ```
 
 微信/iLink 目前不支持外部 bot 主动发送原生语音气泡；微信通道会把 MP3 作为文件附件发送。

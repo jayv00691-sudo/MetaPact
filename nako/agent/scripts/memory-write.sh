@@ -114,11 +114,11 @@ def clamp(value: int) -> int:
 
 def stage_for(value: int) -> tuple[int, str]:
     if value >= 85:
-        return 4, "陷入热恋阶段"
+        return 4, "家人阶段"
     if value >= 60:
-        return 3, "感情亲密阶段 / 男女朋友"
+        return 3, "依赖阶段"
     if value >= 30:
-        return 2, "互有好感阶段"
+        return 2, "熟悉阶段"
     return 1, "初识阶段"
 
 def parse_int(name: str, value: str) -> int:

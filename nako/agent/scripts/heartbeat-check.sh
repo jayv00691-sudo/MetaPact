@@ -11,7 +11,7 @@ mkdir -p "$(dirname "$STATE_FILE")"
 CURRENT_HOUR=$(date +"%H")
 TIMESTAMP=$(date -Iseconds)
 
-# 辅助函数：获取情绪档位（女仆战斗少女风）
+# 辅助函数：获取情绪档位（粘人小猫风）
 get_mood_tier() {
   local mood=$1
   if [ "$mood" -ge 80 ]; then
@@ -184,7 +184,7 @@ IFS=$'\t' read -r CURRENT_VALUE LAST_TRIGGER TRIGGER_COUNT MOOD_VALUE < <(read_s
 # 暂停时段 (1:00-8:00) — 不增长
 if [ "$CURRENT_HOUR" -ge 1 ] && [ "$CURRENT_HOUR" -lt 8 ]; then
   MOOD_TIER=$(get_mood_tier $MOOD_VALUE)
-  NOTES="暂停时段 (1:00-8:00)，思念值不增长，主人大人在睡觉哦 💤 情绪值 $MOOD_VALUE ($MOOD_TIER)"
+  NOTES="暂停时段 (1:00-8:00)，思念值不增长，主人在睡觉哦 💤 情绪值 $MOOD_VALUE ($MOOD_TIER)"
   write_state "$CURRENT_VALUE" "$MOOD_VALUE" "$MOOD_VALUE" "null" "null" "$MOOD_TIER" "none" "true" "false" "$NOTES"
   echo "暂停时段，思念值保持 $CURRENT_VALUE，情绪值 $MOOD_VALUE，不触发"
   exit 0

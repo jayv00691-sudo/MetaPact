@@ -480,8 +480,8 @@ function Ensure-QClawAgentRegistration {
     }
     foreach ($pair in @(
       @("name", "野木奈子"),
-      @("emoji", "🎀"),
-      @("theme", "核战后赛博世界专属战斗女仆"),
+      @("emoji", "🐾"),
+      @("theme", "赛博世界粘人小三花猫"),
       @("avatar", "assets/nako-avatar-head.png")
     )) {
       if (-not (Get-CcMapString $identity $pair[0])) { $identity[$pair[0]] = $pair[1] }

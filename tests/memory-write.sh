@@ -60,7 +60,7 @@ function assert(condition, message) {
   }
 }
 
-assert(text.includes("**当前好感阶段**：2（互有好感阶段）"), "affinity stage should advance to stage 2");
+assert(text.includes("**当前好感阶段**：2（熟悉阶段）"), "affinity stage should advance to stage 2");
 assert(text.includes("**好感值**：35/100"), "affinity value should be updated");
 assert(!text.includes("**最后互动时间**：—"), "last interaction time should be updated");
 assert(text.includes("用户明确说周末会听爵士乐放松"), "long-term note should be appended");
@@ -83,7 +83,7 @@ OPENCLAW_AGENT_WORKSPACE="$workspace" \
 node - "$workspace/MEMORY.md" <<'NODE'
 const fs = require("fs");
 const text = fs.readFileSync(process.argv[2], "utf8");
-if (!text.includes("**当前好感阶段**：4（陷入热恋阶段）")) {
+if (!text.includes("**当前好感阶段**：4（家人阶段）")) {
   console.error("absolute affinity should advance to stage 4");
   process.exit(1);
 }

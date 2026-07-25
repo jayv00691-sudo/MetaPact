@@ -21,11 +21,11 @@
 ## 功能使用说明
 
 ### 语音 (voice skill)
-- **触发**：用户要求语音回复、朗读、更亲密互动时
+- **触发**：用户要求语音回复、朗读、撒娇陪伴时
 - **provider**：`MINIMAX_API_KEY` 优先，`VOLCENGINE_API_KEY` 备选；key 从 `openclaw.json -> skills.entries.voice.env` 读取，兼容旧 `.env`
 - **入口**：`bash ~/.openclaw/skills/voice/scripts/voice.sh "<text>" <channel>`
 - **默认声音**：`female-tianmei`（可在 `openclaw.json -> skills.entries.voice.env` 改 `VOICE_DEFAULT_MINIMAX`）
-- **速度**：亲密/感性 0.8–0.9 ｜ 日常 1.0 ｜ 兴奋 1.1–1.2
+- **速度**：撒娇/安慰 0.8–0.9 ｜ 日常 1.0 ｜ 兴奋 1.1–1.2
 - **文本**：≤ 500 字，口语化
 
 ### 唱歌 (sing)

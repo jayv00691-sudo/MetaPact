@@ -72,7 +72,7 @@ write_state() {
   MOOD_RECOVERY="$MOOD_RECOVERY" \
   MOOD_TIER="$MOOD_TIER" \
   CURRENT_VALUE="$CURRENT_VALUE" \
-  NOTES="主人大人来啦！思念值清零，情绪值回血 $MOOD_RECOVERY 到 $NEW_MOOD ($MOOD_TIER) ❤️" \
+  NOTES="主人来啦！思念值清零，情绪值回血 $MOOD_RECOVERY 到 $NEW_MOOD ($MOOD_TIER) ❤️" \
   node <<'NODE'
 const fs = require("fs");
 const path = require("path");

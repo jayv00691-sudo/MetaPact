@@ -78,7 +78,7 @@ skill 脚本支持两种产物投递方式，由环境变量 `NAKO_OUTPUT_MODE`�
 调用约定：
 ```bash
 bash <workspace>/scripts/heartbeat-check.sh   # 退出码 1 = 触发
-bash <workspace>/scripts/send-active-message.sh "主人大人～..."  # 主动发文字
+bash <workspace>/scripts/send-active-message.sh "主人～..."  # 主动发文字
 bash <workspace>/scripts/mood-recovery.sh     # 用户来消息时
 bash <workspace>/scripts/memory-write.sh --summary "用户喜欢周末听爵士乐" --long "用户明确说周末会听爵士乐放松" --affinity-delta 2
 ```
