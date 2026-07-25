@@ -326,7 +326,7 @@ ffmpeg_has_amr_encoder() {
 }
 
 MISSING_SOFT=()
-for b in whisper ffmpeg ffprobe xxd uuidgen doki; do
+for b in whisper ffmpeg ffprobe xxd uuidgen; do
   has_bin "$b" && info "$b (可选)" || { warn "$b 缺失 (可选)"; MISSING_SOFT+=("$b"); }
 done
 if [ "${#MISSING_SOFT[@]}" -gt 0 ]; then
@@ -335,8 +335,6 @@ if [ "${#MISSING_SOFT[@]}" -gt 0 ]; then
   dim "  whisper / ffmpeg → hearing skill (转写语音)"
   dim "  xxd / ffprobe    → voice skill"
   dim "  uuidgen          → outbound media filenames (falls back when possible)"
-  dim "  doki             → dokidoki skill"
-  dim "macOS 建议：brew install openai-whisper ffmpeg ; npm i -g @tryjoy/dokidoki"
   dim "Linux：sudo apt install ffmpeg libavcodec-extra（cc-connect 微信视频转码需要 AMR）"
   echo
 
@@ -391,48 +389,6 @@ if [ "${#MISSING_SOFT[@]}" -gt 0 ]; then
     fi
   fi
 
-  # 默认装 doki（dokidoki BLE；@abandonware/noble 需要 native build）
-  if echo "${MISSING_SOFT[@]}" | grep -q doki; then
-    if has_bin npm; then
-      info "doki 缺失，npm i -g @tryjoy/dokidoki ..."
-      _doki_log=/tmp/doki-install.log
-      _try_doki_install() { npm i -g @tryjoy/dokidoki >"$_doki_log" 2>&1; }
-
-      if ! _try_doki_install; then
-        # Linux 上 BLE native gyp 失败 → 补 dev 包 + retry
-        if [ "$(uname -s)" = "Linux" ] && grep -qE "gyp ERR|noble|bluetooth\.h|libudev" "$_doki_log"; then
-          info "  检测到 BLE native build 缺依赖，apt 装 build-essential + libbluetooth-dev + libudev-dev ..."
-          if command -v apt-get >/dev/null; then
-            DEBIAN_FRONTEND=noninteractive apt-get install -y \
-              build-essential libbluetooth-dev libudev-dev python3 >>"$_doki_log" 2>&1 \
-              || sudo apt-get install -y build-essential libbluetooth-dev libudev-dev python3 >>"$_doki_log" 2>&1 \
-              || true
-            info "  retry npm i -g @tryjoy/dokidoki ..."
-            _try_doki_install && info "doki 已装" || _doki_failed=1
-          fi
-        fi
-
-        if [ "${_doki_failed:-0}" = "1" ] || [ ! -x "$(command -v doki 2>/dev/null)" ]; then
-          warn "doki 安装失败，日志末尾："
-          tail -5 "$_doki_log" 2>&1 | sed "s/^/    /" >&2
-          if grep -q EACCES "$_doki_log"; then
-            dim "  权限不足 → sudo npm i -g @tryjoy/dokidoki"
-          elif grep -qE "gyp ERR|noble" "$_doki_log"; then
-            dim "  BLE native build 失败。Linux 需: sudo apt install build-essential libbluetooth-dev libudev-dev"
-            dim "  macOS 需: xcode-select --install"
-          elif grep -q EBADENGINE "$_doki_log"; then
-            dim "  Node 版本不符（需要更高版本）"
-          else
-            dim "  完整日志：$_doki_log"
-          fi
-        fi
-      else
-        info "doki 已装"
-      fi
-    else
-      warn "无 npm，跳过 doki 安装"
-    fi
-  fi
 fi
 
 if has_bin ffmpeg && ! ffmpeg_has_amr_encoder; then
@@ -1415,7 +1371,7 @@ if [ "$SKIP_SKILLS" != "1" ]; then
   safe_install_pack_file "$PACK_ROOT/skills/skill-log.sh" "$OPENCLAW_SKILLS_DIR/skill-log.sh"
 
   # each skill
-  for sk in vision hearing voice selfie dokidoki; do
+  for sk in vision hearing voice selfie; do
     src="$PACK_ROOT/skills/$sk"
     dst="$OPENCLAW_SKILLS_DIR/$sk"
     mkdir -p "$dst"
@@ -1430,7 +1386,7 @@ if [ "$SKIP_SKILLS" != "1" ]; then
         safe_install_pack_file "$s" "$dst/scripts/$(basename "$s")"
       done
     fi
-    # _meta.json (dokidoki)
+    # _meta.json
     [ -f "$src/_meta.json" ] && safe_install_pack_file "$src/_meta.json" "$dst/_meta.json"
     # ensure logs dir
     mkdir -p "$dst/logs"

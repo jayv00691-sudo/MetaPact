@@ -134,15 +134,6 @@ if [ -x "$SKILLS/selfie/scripts/selfie.sh" ]; then
   fi
 fi
 
-# Dokidoki
-if has_bin doki; then
-  info "dokidoki: doki 已装"
-  PASS=$((PASS+1))
-else
-  dim "dokidoki: doki 未装 — npm install -g @tryjoy/dokidoki （可选）"
-  SKIP=$((SKIP+1))
-fi
-
 echo
 info "通过 $PASS 项，跳过 $SKIP 项，未通过 $FAIL 项"
 [ "$FAIL" = "0" ]

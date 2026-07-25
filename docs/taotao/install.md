@@ -180,7 +180,7 @@ rm -rf ~/.openclaw/agents/agent-taotao
 ~/.openclaw/
 ├── openclaw.json                     # 合并 (备份保留)
 ├── skills/
-│   ├── vision/ hearing/ voice/ selfie/ dokidoki/   # 新增或更新
+│   ├── vision/ hearing/ voice/ selfie/   # 新增或更新
 │   ├── skill-log.sh                  # 新增或更新
 │   └── .env                          # key merge (只加不删)
 └── workspace/

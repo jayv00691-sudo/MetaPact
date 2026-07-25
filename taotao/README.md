@@ -45,7 +45,6 @@ pwsh MetaPact\install.ps1
 | 👀 vision | 看用户发的图 | 主模型多模态 |
 | 👂 hearing | 听用户发的语音 | 本地 whisper + ffmpeg |
 | 📸 selfie | 生成自拍 / 图生视频 | FAL_KEY 或 KIE_API_KEY |
-| 🎮 dokidoki | 蓝牙互动设备 | npm `@tryjoy/dokidoki` |
 
 ## 文档
 

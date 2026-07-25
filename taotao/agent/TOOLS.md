@@ -20,8 +20,6 @@
    - ${TAOTAO_SKILLS_DIR:-$HOME/.openclaw/skills}/selfie/scripts/selfie.sh "<prompt>" <channel> [caption] [aspect_ratio] [format] [provider]
    - ${TAOTAO_SKILLS_DIR:-$HOME/.openclaw/skills}/selfie/scripts/video.sh  "<image_url>" "<prompt>" <channel> ...
 
-🎮 dokidoki — BLE 互动设备
-   - doki scan / connect / action / player ...
 ```
 
 ## 技能选型

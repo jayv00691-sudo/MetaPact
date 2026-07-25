@@ -97,19 +97,6 @@ env:
 
 依赖 `FAL_KEY`（推荐）或 `KIE_API_KEY`。脚本会先读 `~/.openclaw/skills/.env`，再从 `openclaw.json -> skills.entries.selfie.env` 补齐未设置的 key，最后叠加当前 agent 的 `skills/.env`。参考图由同一 env 里的 `SELFIE_REFERENCE_IMAGE` 给出，用来保持角色相貌一致。
 
-## 🎮 dokidoki — 互动设备
-
-```bash
-doki scan
-doki connect DK-META2
-doki action linear 50       # 0–100
-doki action rotary -30       # -100–100
-doki action vibration 80
-doki player play audio.mp3 timeline.json
-```
-
-详见 `~/.openclaw/skills/dokidoki/SKILL.md`。
-
 ## Skill 触发逻辑（agent 怎么知道用哪个）
 
 每个 SKILL.md 前面的 YAML frontmatter 的 `description` 是 agent 看到的摘要。openclaw 把全部 skill 的摘要塞进系统提示，agent 根据对话自己决定调哪个。

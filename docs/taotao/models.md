@@ -127,7 +127,6 @@ capabilities:
 | hearing | 无（本地 whisper） | — |
 | vision | primary 必须多模态 | 路径能拿到，但 agent 无法理解图像内容 |
 | selfie | 无 | — |
-| dokidoki | 无 | — |
 
 若 primary 不多模态、你又想 agent 看图，换个多模态 primary，或者在 `custom.md` 里说明「遇到图片时只报告路径，不做解读」。
 

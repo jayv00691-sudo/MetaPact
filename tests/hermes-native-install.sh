@@ -77,7 +77,7 @@ skills = hermes / "skills" / "taotao"
 
 assert workspace.is_dir(), workspace
 assert skills.is_dir(), skills
-for name in ["voice", "selfie", "hearing", "vision", "dokidoki"]:
+for name in ["voice", "selfie", "hearing", "vision"]:
     assert (skills / name / "SKILL.md").exists(), name
 
 assert not (home / ".openclaw").exists()

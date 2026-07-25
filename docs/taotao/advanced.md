@@ -13,7 +13,7 @@ taotao 的核心设定在 `taotao/agent/`：
 | `USER.md` | 初始用户档案和关系状态 |
 | `HEARTBEAT.md` | 桃桃的主动联系规则 |
 | `MEMORY.md` | 好感阶段、短期记忆、用户个人信息库 |
-| `TOOLS.md` | voice、vision、hearing、selfie、dokidoki 的本地入口 |
+| `TOOLS.md` | voice、vision、hearing、selfie 的本地入口 |
 
 日常定制优先写安装后的 `<workspace>/custom.md`。只有要维护自己的 taotao fork，才建议改 `taotao/agent/*.md`。
 
@@ -222,38 +222,6 @@ TAOTAO_DAILY_REMINDER_CHAT=oc_xxx
 TAOTAO_DOKI_DEVICE=DK-META2
 TAOTAO_DOKI_VIBRATION=25
 ```
-
-## 调 dokidoki
-
-taotao 的 dokidoki skill 走 `doki` CLI：
-
-```bash
-doki scan
-doki connect DK-META2
-doki action vibration 50
-doki action pause
-```
-
-高级联动用 timeline JSON：
-
-```json
-{
-  "duration": 30,
-  "actions": [
-    {"timestamp": 0, "type": "VIBRATION", "value": 30},
-    {"timestamp": 10, "type": "LINEAR", "value": 45},
-    {"timestamp": 20, "type": "ROTARY", "value": -30}
-  ]
-}
-```
-
-播放：
-
-```bash
-doki player play audio.mp3 timeline.json
-```
-
-建议把设备名、强度上限和禁用时段写进 `custom.md` 或 `TOOLS.md`，避免桃桃每次猜。
 
 ## taotao 排错速查
 

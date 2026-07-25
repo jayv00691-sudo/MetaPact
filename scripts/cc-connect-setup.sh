@@ -955,7 +955,7 @@ def install(src: Path, dst: Path):
     changed = True
 
 install(src_root / "skill-log.sh", dst_root / "skill-log.sh")
-for name in ("vision", "hearing", "voice", "selfie", "dokidoki"):
+for name in ("vision", "hearing", "voice", "selfie"):
     src_skill = src_root / name
     dst_skill = dst_root / name
     if not src_skill.exists():

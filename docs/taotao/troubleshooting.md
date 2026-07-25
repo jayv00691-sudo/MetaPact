@@ -72,14 +72,6 @@
 **fal.ai 超时**
 → fal 某些时段不稳。降级到 `KIE_API_KEY` + `provider=kie`。
 
-## dokidoki
-
-**`doki: command not found`**
-→ `npm install -g @tryjoy/dokidoki`。macOS 下可能还需要 `npm config set unsafe-perm true`。
-
-**扫描不到设备**
-→ 开蓝牙。macOS 给终端 `Bluetooth` 权限（系统设置 → 隐私与安全性 → 蓝牙）。
-
 ## 通用
 
 **所有 skill 都挂**

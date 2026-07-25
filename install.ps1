@@ -443,7 +443,6 @@ if ($MissingSoft.Count -gt 0) {
   Write-Host ""
   Dim "可选依赖缺失，相关 skill 会在运行时报错提示："
   Dim "  whisper / ffmpeg → hearing (转写语音)   pip install openai-whisper; choco install ffmpeg"
-  Dim "  doki             → dokidoki              npm i -g @tryjoy/dokidoki"
   Write-Host ""
 
   if (($MissingSoft -contains "ffmpeg" -or $MissingSoft -contains "ffprobe") -and (-not $NonInteractive)) {
@@ -991,7 +990,7 @@ if (-not $SkipSkills) {
   New-Item -ItemType Directory -Path $OpenclawSkills -Force | Out-Null
   Safe-InstallPackFile (Join-Path $PackRoot "skills\skill-log.sh") (Join-Path $OpenclawSkills "skill-log.sh")
 
-  foreach ($sk in @("vision","hearing","voice","selfie","dokidoki")) {
+  foreach ($sk in @("vision","hearing","voice","selfie")) {
     $src = Join-Path $PackRoot "skills\$sk"
     $dst = Join-Path $OpenclawSkills $sk
     New-Item -ItemType Directory -Path $dst -Force | Out-Null
@@ -1211,7 +1210,7 @@ function Sync-QClawPackSkills($qclawSkills) {
   if (-not (Test-Path $skillsRoot)) { return }
   New-Item -ItemType Directory -Path $qclawSkills -Force | Out-Null
   Safe-InstallPackFile (Join-Path $skillsRoot "skill-log.sh") (Join-Path $qclawSkills "skill-log.sh")
-  foreach ($sk in @("vision","hearing","voice","selfie","dokidoki")) {
+  foreach ($sk in @("vision","hearing","voice","selfie")) {
     $src = Join-Path $skillsRoot $sk
     if (-not (Test-Path $src)) { continue }
     $dst = Join-Path $qclawSkills $sk

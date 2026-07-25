@@ -88,24 +88,12 @@ OpenClaw 模式会从 `openclaw.json -> agents.defaults.models` 读取已配置�
 
 微信、Telegram、Slack 等多平台接入由 [cc-connect](https://github.com/chenhg5/cc-connect) 提供；微信视频优先使用 [CodeEagle fork release](https://github.com/CodeEagle/cc-connect/releases/tag/v1.3.3)。
 
-## 适配设备
-
-MetaPact 当前适配以下设备，点击设备名可跳转到京东旗舰店查看规格与购买：
-
-| 图片 | 设备 | 说明 | 购买入口 |
-| --- | --- | --- | --- |
-| <img src="./docs/assets/devices/yuanli-2.png" alt="元力2" width="180"> | [元力2][device-yuanli-2] | 元力系列二代设备，适合作为 MetaPact 的主力接入硬件。 | [京东旗舰店][device-yuanli-2] |
-| <img src="./docs/assets/devices/black-hole-se.png" alt="黑洞SE" width="180"> | [黑洞SE][device-blackhole-se] | 黑洞系列 SE 设备，适合偏好紧凑机身和入门配置的接入场景。 | [京东旗舰店][device-blackhole-se] |
-
-[device-yuanli-2]: https://metapact.app/r/?target=yuanli-2&source=github-readme
-[device-blackhole-se]: https://metapact.app/r/?target=blackhole-se&source=github-readme
-
 ## 文档
 
 - [安装详解](docs/taotao/install.md)：安装参数、非交互模式、模型能力要求与排错。
 - [飞书接入](docs/taotao/feishu-setup.md)：创建飞书机器人并接入 桃桃。
 - [模型选型](docs/taotao/models.md)：多模型切换、能力字段与新增模型。
-- [Skills 参考](docs/taotao/skills.md)：voice、vision、hearing、selfie、dokidoki 的使用方式。
+- [Skills 参考](docs/taotao/skills.md)：voice、vision、hearing、selfie 的使用方式。
 - [人设定制](docs/taotao/customization.md)：改人设、换音色、维护 `custom.md`。
 - [进阶玩法](docs/advanced.md)：Agent 通用自定义与调优。
 - [桃桃 特色玩法](docs/taotao/advanced.md)：桃桃 专属高级用法。
