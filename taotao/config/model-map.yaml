@@ -97,8 +97,3 @@ skills:
     needs_any_env:
       - [FAL_KEY]
       - [KIE_API_KEY]
-  dokidoki:
-    needs_capabilities: []
-    needs_bins: [doki]
-    needs_env: []
-    note: "npm install -g @tryjoy/dokidoki 取得 doki"
