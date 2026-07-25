@@ -215,7 +215,7 @@ fi
 
 cat <<BANNER
 
-${C_BOLD}野木奈子 Agent Pack - 安装器${C_NC}
+${C_BOLD}桃桃 Agent Pack - 安装器${C_NC}
   ${C_DIM}Repo: github.com/Lovappen/MetaPact${C_NC}
   ${C_DIM}Agent: $AGENT_ID${C_NC}
   ${C_DIM}Runtime: $NAKO_AGENT_RUNTIME${C_NC}
@@ -634,9 +634,9 @@ def primary_model(value):
     return ""
 
 default_identity = {
-    "name": "野木奈子",
+    "name": "桃桃",
     "emoji": "🐾",
-    "theme": "赛博世界粘人小三花猫",
+    "theme": "赛博世界粘人小白桃猫",
     "avatar": "assets/nako-avatar-head.png",
 }
 legacy_default_avatars = {
@@ -1396,7 +1396,7 @@ else
     [ -z "${FAL_KEY:-}" ] && [ -z "${KIE_API_KEY:-}" ] && FAL_KEY=$(ask_secret "fal.ai API Key (推荐，留空则 fallback kie.ai)")
     [ -z "${FAL_KEY:-}" ] && [ -z "${KIE_API_KEY:-}" ] && KIE_API_KEY=$(ask_secret "kie.ai API Key")
     [ -z "${SELFIE_REFERENCE_IMAGE:-}" ] && SELFIE_REFERENCE_IMAGE=$(ask "角色参考图 URL（保持相貌一致）" "https://pulseact.lovappen.cn/test/act_ci_build/dlc-promotion/act-gengen/images/e.png")
-    [ -z "${SELFIE_CHARACTER_DESC:-}" ] && SELFIE_CHARACTER_DESC=$(ask "角色文字描述" "野木奈子，一只圆眼睛的小三花猫，橘白黑三色毛，粉鼻子，红色小铃铛项圈")
+    [ -z "${SELFIE_CHARACTER_DESC:-}" ] && SELFIE_CHARACTER_DESC=$(ask "角色文字描述" "桃桃，一只圆眼睛的白桃色小奶猫，毛茸茸带着柔和桃粉色光泽，桃粉色大眼睛，淡淡红晕，浅粉色丝带项圈挂带叶小桃子挂件")
   else
     FAL_KEY=""; KIE_API_KEY=""; SELFIE_REFERENCE_IMAGE=""; SELFIE_CHARACTER_DESC=""
   fi

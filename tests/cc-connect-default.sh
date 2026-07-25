@@ -586,7 +586,7 @@ registered = [
 assert len(registered) == 1
 assert registered[0]["identity"]["avatar"] == "assets/nako-avatar-head.png"
 assert "vibe" not in registered[0]["identity"]
-assert registered[0]["identity"]["theme"] == "赛博世界粘人小三花猫"
+assert registered[0]["identity"]["theme"] == "赛博世界粘人小白桃猫"
 assert registered[0]["tools"]["deny"] == ["image_generate", "video_generate", "tts"]
 assert not (workspace / "BOOTSTRAP.md").exists()
 state_file = workspace / ".openclaw" / "workspace-state.json"
@@ -652,7 +652,7 @@ workspace.mkdir(parents=True)
     encoding="utf-8",
 )
 (workspace / "IDENTITY.md").write_text(
-    "# IDENTITY - custom\n\n**姓名**：野木奈子\n- Avatar: https://pulseact.lovappen.cn/test/act_ci_build/dlc-promotion/act-gengen/images/e.png\n\ncustom line\n",
+    "# IDENTITY - custom\n\n**姓名**：桃桃\n- Avatar: https://pulseact.lovappen.cn/test/act_ci_build/dlc-promotion/act-gengen/images/e.png\n\ncustom line\n",
     encoding="utf-8",
 )
 (workspace / "AGENTS.md").write_text(
@@ -699,7 +699,7 @@ registered = [
 assert len(registered) == 1
 assert registered[0]["identity"]["avatar"] == "assets/nako-avatar-head.png"
 assert "vibe" not in registered[0]["identity"]
-assert registered[0]["identity"]["theme"] == "赛博世界粘人小三花猫"
+assert registered[0]["identity"]["theme"] == "赛博世界粘人小白桃猫"
 assert registered[0]["tools"]["deny"] == ["image_generate", "video_generate", "tts"]
 PY
 python3 - "$tmp4" <<'PY'

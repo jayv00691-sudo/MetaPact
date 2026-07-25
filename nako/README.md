@@ -1,6 +1,6 @@
-# 野木奈子 Agent Pack
+# 桃桃 Agent Pack
 
-一个可一键部署的 openclaw agent 包 — 粘人小三花猫人设 `野木奈子`，一只依赖感很强的赛博小宠物，自带看图/听语音/说话/唱歌/自拍/互动设备等能力。
+一个可一键部署的 openclaw agent 包 — 粘人小白桃猫人设 `桃桃`，一只依赖感很强的赛博小宠物，自带看图/听语音/说话/唱歌/自拍/互动设备等能力。
 
 ## 快装
 
@@ -79,4 +79,4 @@ pwsh MetaPact\install.ps1
 
 ## License
 
-MIT（见仓库根 `LICENSE`）。野木奈子角色设定属于项目作者，转发/二次创作请保留 SOUL/IDENTITY 文件中的版权注释。
+MIT（见仓库根 `LICENSE`）。桃桃角色设定属于项目作者，转发/二次创作请保留 SOUL/IDENTITY 文件中的版权注释。

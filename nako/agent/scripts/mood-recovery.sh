@@ -1,5 +1,5 @@
 #!/bin/bash
-# 奈子的情绪恢复 - 用户发消息时调用
+# 桃桃的情绪恢复 - 用户发消息时调用
 # 情绪值恢复 20-40，上限 100
 
 WORKSPACE="${OPENCLAW_AGENT_WORKSPACE:-$(cd "$(dirname "$0")/.." && pwd)}"

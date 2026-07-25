@@ -9,7 +9,7 @@ workspace="$TMP_DIR/workspace-agent-nako"
 mkdir -p "$workspace"
 
 cat > "$workspace/MEMORY.md" <<'EOF'
-# MEMORY - 野木奈子 记忆档案（测试）
+# MEMORY - 桃桃 记忆档案（测试）
 
 **当前好感阶段**：1（初识阶段）
 **好感值**：0/100

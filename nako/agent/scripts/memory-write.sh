@@ -128,7 +128,7 @@ def parse_int(name: str, value: str) -> int:
         raise SystemExit(f"memory-write: {name} must be an integer")
 
 def default_memory() -> str:
-    return """# MEMORY - 野木奈子 记忆档案
+    return """# MEMORY - 桃桃 记忆档案
 
 **当前好感阶段**：1（初识阶段）
 **好感值**：0/100

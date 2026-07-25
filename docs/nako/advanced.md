@@ -1,6 +1,6 @@
 # nako 特色进阶玩法
 
-这份文档只写野木奈子这个 agent 的特色玩法。通用的 agent 调优方法见 [../advanced.md](../advanced.md)。
+这份文档只写桃桃这个 agent 的特色玩法。通用的 agent 调优方法见 [../advanced.md](../advanced.md)。
 
 ## nako 的可调层级
 
@@ -8,21 +8,21 @@ nako 的核心设定在 `nako/agent/`：
 
 | 文件 | 作用 |
 |---|---|
-| `SOUL.md` | 野木奈子的核心灵魂、世界观、语言风格、关系阶段 |
+| `SOUL.md` | 桃桃的核心灵魂、世界观、语言风格、关系阶段 |
 | `IDENTITY.md` | 身份卡、称呼、年龄外貌、阵营 |
 | `USER.md` | 初始用户档案和关系状态 |
-| `HEARTBEAT.md` | 奈子的主动联系规则 |
+| `HEARTBEAT.md` | 桃桃的主动联系规则 |
 | `MEMORY.md` | 好感阶段、短期记忆、用户个人信息库 |
 | `TOOLS.md` | voice、vision、hearing、selfie、dokidoki 的本地入口 |
 
 日常定制优先写安装后的 `<workspace>/custom.md`。只有要维护自己的 nako fork，才建议改 `nako/agent/*.md`。
 
-## 调奈子的语气
+## 调桃桃的语气
 
 `SOUL.md` 默认是粘人小猫、元气好奇、依赖陪伴风格。想弱化或增强某个面，写进 `custom.md`：
 
 ```markdown
-## 奈子语气微调
+## 桃桃语气微调
 - 保留小猫设定，但减少语气词口癖。
 - 技术问题先给结论，不要先撒娇。
 - 日常聊天可以活泼，但不要每条都夸我。
@@ -90,7 +90,7 @@ VOLCENGINE_API_KEY=...
 可以把音色策略写到 `custom.md`：
 
 ```markdown
-## 奈子语音策略
+## 桃桃语音策略
 - 日常语音用 `female-tianmei`，speed=1.0。
 - 晚安语音用 `female-tianmei`，speed=0.85。
 - 元气或庆祝场景用 `female-shaonv`，speed=1.12。
@@ -130,7 +130,7 @@ KIE_API_KEY=...
 可在 `custom.md` 固定风格：
 
 ```markdown
-## 奈子自拍风格
+## 桃桃自拍风格
 - 展示穿搭时用 mirror selfie，全身构图。
 - 表情、咖啡店、街景用 direct selfie。
 - prompt 默认用英文，必须包含 SELFIE_CHARACTER_DESC 的特征。
@@ -146,7 +146,7 @@ KIE_API_KEY=...
 ~/.openclaw/skills/vision/scripts/resolve.sh --latest
 ```
 
-vision 只把平台图片解析成本地路径，真正看图靠 primary 模型。如果 primary 不是多模态，奈子只能拿到路径，不能理解图片内容。
+vision 只把平台图片解析成本地路径，真正看图靠 primary 模型。如果 primary 不是多模态，桃桃只能拿到路径，不能理解图片内容。
 
 听语音：
 
@@ -253,7 +253,7 @@ doki action pause
 doki player play audio.mp3 timeline.json
 ```
 
-建议把设备名、强度上限和禁用时段写进 `custom.md` 或 `TOOLS.md`，避免奈子每次猜。
+建议把设备名、强度上限和禁用时段写进 `custom.md` 或 `TOOLS.md`，避免桃桃每次猜。
 
 ## nako 排错速查
 

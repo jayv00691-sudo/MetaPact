@@ -1,5 +1,5 @@
 #!/bin/bash
-# 奈子的每日思念提醒辅助脚本
+# 桃桃的每日思念提醒辅助脚本
 #
 # 该脚本由 openclaw cron `nako-missing-reminder` 通过 agentTurn 间接驱动。
 # 默认用 send-active-message.sh 经 cc-connect 主动发消息；设置
@@ -11,7 +11,7 @@ WORKSPACE="${OPENCLAW_AGENT_WORKSPACE:-$(cd "$(dirname "$0")/.." && pwd)}"
 LOG_DIR="$WORKSPACE/memory"
 mkdir -p "$LOG_DIR"
 
-MISSING_MSG="${NAKO_DAILY_REMINDER_MSG:-主人～现在是下午4:50啦 🐾 奈子趴在窗台晒太阳的时候一直在想你哦…今天累不累？奈子把沙发最暖的位置留给你了，早点回家喵～}"
+MISSING_MSG="${NAKO_DAILY_REMINDER_MSG:-主人～现在是下午4:50啦 🐾 桃桃趴在窗台晒太阳的时候一直在想你哦…今天累不累？桃桃把沙发最暖的位置留给你了，早点回家喵～}"
 
 # 1. 发送思念消息：自动选可达 host（多平台）
 sent=0

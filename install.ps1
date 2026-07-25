@@ -379,7 +379,7 @@ $AgentConfigDir = Join-Path $AgentDataDir "agent"
 if ($WithFeishu -or $WithWeixin) { $WithCcConnect = $true }
 
 Write-Host ""
-Write-Host "野木奈子 Agent Pack - 安装器 (Windows)" -ForegroundColor White -BackgroundColor DarkBlue
+Write-Host "桃桃 Agent Pack - 安装器 (Windows)" -ForegroundColor White -BackgroundColor DarkBlue
 Dim "  Repo:  github.com/Lovappen/MetaPact"
 Dim "  Agent: $AgentId"
 Dim "  Runtime: $Runtime"
@@ -819,7 +819,7 @@ if (-not $NonInteractive) {
       $env:SELFIE_REFERENCE_IMAGE = Ask "角色参考图 URL（保持相貌一致）" "https://pulseact.lovappen.cn/test/act_ci_build/dlc-promotion/act-gengen/images/e.png"
     }
     if (-not $env:SELFIE_CHARACTER_DESC) {
-      $env:SELFIE_CHARACTER_DESC = Ask "角色文字描述" "野木奈子，一只圆眼睛的小三花猫，橘白黑三色毛，粉鼻子，红色小铃铛项圈"
+      $env:SELFIE_CHARACTER_DESC = Ask "角色文字描述" "桃桃，一只圆眼睛的白桃色小奶猫，毛茸茸带着柔和桃粉色光泽，桃粉色大眼睛，淡淡红晕，浅粉色丝带项圈挂带叶小桃子挂件"
     }
   } else {
     $env:FAL_KEY = ""
@@ -1317,9 +1317,9 @@ def primary_model(value):
     return ""
 
 default_identity = {
-    "name": "野木奈子",
+    "name": "桃桃",
     "emoji": "🐾",
-    "theme": "赛博世界粘人小三花猫",
+    "theme": "赛博世界粘人小白桃猫",
     "avatar": "assets/nako-avatar-head.png",
 }
 legacy_default_avatars = {

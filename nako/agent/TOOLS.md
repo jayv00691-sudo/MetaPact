@@ -65,7 +65,7 @@ skill 脚本支持两种产物投递方式，由环境变量 `NAKO_OUTPUT_MODE`�
 
 ## 主动行为脚本（workspace/scripts/）
 
-奈子有一套"思念机制"，由 openclaw cron 驱动 + 用户消息触发。脚本骨架已装到 `<workspace>/scripts/`。
+桃桃有一套"思念机制"，由 openclaw cron 驱动 + 用户消息触发。脚本骨架已装到 `<workspace>/scripts/`。
 
 | 脚本 | 谁来调 | 干什么 |
 |---|---|---|

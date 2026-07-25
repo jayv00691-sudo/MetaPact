@@ -479,9 +479,9 @@ function Ensure-QClawAgentRegistration {
       $identity["avatar"] = "assets/nako-avatar-head.png"
     }
     foreach ($pair in @(
-      @("name", "野木奈子"),
+      @("name", "桃桃"),
       @("emoji", "🐾"),
-      @("theme", "赛博世界粘人小三花猫"),
+      @("theme", "赛博世界粘人小白桃猫"),
       @("avatar", "assets/nako-avatar-head.png")
     )) {
       if (-not (Get-CcMapString $identity $pair[0])) { $identity[$pair[0]] = $pair[1] }

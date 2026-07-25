@@ -10,15 +10,15 @@
 [![HermesAgent](https://img.shields.io/badge/runtime-HermesAgent-f59e0b)](https://github.com/NousResearch/hermes-agent)
 [![MetaPact](https://img.shields.io/badge/site-metapact.app-ff4d8d)](https://www.metapact.app/)
 
-[官网](https://www.metapact.app/) · [一键安装](#一键安装) · [Nako 文档](docs/nako/README.md) · [进阶玩法](docs/advanced.md)
+[官网](https://www.metapact.app/) · [一键安装](#一键安装) · [桃桃 文档](docs/nako/README.md) · [进阶玩法](docs/advanced.md)
 
 </div>
 
 > 愿你拥有一只会记得、会说话、会看见、会在常用工具里陪你生活的小宠物。
 
-MetaPact 是一套开源 AI 伴宠 Agent 集合。每个子目录都是一个独立的 agent pack，包含角色设定、skills、安装器和文档；目前主力角色是 **野木奈子 Nako**，一只可部署到 OpenClaw / QClaw / HermesAgent 的依赖感小三花猫 Agent。
+MetaPact 是一套开源 AI 伴宠 Agent 集合。每个子目录都是一个独立的 agent pack，包含角色设定、skills、安装器和文档；目前主力角色是 **桃桃**，一只可部署到 OpenClaw / QClaw / HermesAgent 的依赖感小白桃猫 Agent。
 
-它不是只有 prompt 的聊天模板，而是把「人设」「记忆」「多模态能力」「渠道接入」「硬件互动」放到同一个可 fork、可升级、可自定义的仓库里。你可以直接安装 Nako，也可以把这里当成创建自己 AI 伴宠 / AI 伙伴 / 角色 Agent 的骨架。
+它不是只有 prompt 的聊天模板，而是把「人设」「记忆」「多模态能力」「渠道接入」「硬件互动」放到同一个可 fork、可升级、可自定义的仓库里。你可以直接安装 桃桃，也可以把这里当成创建自己 AI 伴宠 / AI 伙伴 / 角色 Agent 的骨架。
 
 > [!TIP]
 > 不会配置 OpenClaw / QClaw / HermesAgent？可以直接下载 **心跳元力**，用更省心的方式体验 MetaPact。
@@ -33,7 +33,7 @@ MetaPact 是一套开源 AI 伴宠 Agent 集合。每个子目录都是一个独
 - **可部署的伴宠**：一条命令安装 agent pack，支持 OpenClaw / QClaw / HermesAgent，能接入飞书、微信、Telegram、Slack 等渠道。
 - **可扩展的能力**：看图、听语音、说话、唱歌、自拍、互动设备等能力以 skill 形式组织。
 - **可升级的骨架**：安装器会保护你的 custom、memory、session 和认证文件，升级不会吃掉个人数据。
-- **可 fork 的生态**：你可以基于 Nako 做二创，也可以新增完全不同的人格模板和 agent pack。
+- **可 fork 的生态**：你可以基于 桃桃 做二创，也可以新增完全不同的人格模板和 agent pack。
 
 ## 一键安装
 
@@ -74,7 +74,7 @@ bash install.sh --help
 
 OpenClaw 模式会从 `openclaw.json -> agents.defaults.models` 读取已配置模型，并优先看模型条目里的 `capabilities` / `tags` / `features` / `modalities` 等能力字段。
 
-Nako 本体优先需要 `roleplay` 能力，也就是稳定中文对话、角色扮演和指令跟随；没有命中时会退到 `general`，只要求能完成日常对话、工具意图理解、总结和代码/配置分析。没有能力字段的已配置模型会被视为可用的 `general` 文本模型。
+桃桃 本体优先需要 `roleplay` 能力，也就是稳定中文对话、角色扮演和指令跟随；没有命中时会退到 `general`，只要求能完成日常对话、工具意图理解、总结和代码/配置分析。没有能力字段的已配置模型会被视为可用的 `general` 文本模型。
 
 `nako/config/model-map.yaml` 只是无能力字段时的偏好排序，不是固定支持列表。常见可用模型已经写入其中，包括 `moonshot/kimi-k2.6`、`moonshot/kimi-k2.5`、`volcengine/kimi-k2-5-260127`、`volcengine-plan/ark-code-latest`、`volcengine/deepseek-v3-2-251201` 等。
 
@@ -84,7 +84,7 @@ Nako 本体优先需要 `roleplay` 能力，也就是稳定中文对话、角色
 
 | Agent | 角色 | 能力 | 渠道 |
 | --- | --- | --- | --- |
-| [nako](nako/) | 粘人小三花猫 野木奈子 | 看图 / 听语音 / 说话 / 唱歌 / 自拍 / 互动设备 | 飞书 / 微信 / Telegram / Slack / Discord / QQ / 微博 / 钉钉 / 企微 / LINE 等 |
+| [nako](nako/) | 粘人小白桃猫 桃桃 | 看图 / 听语音 / 说话 / 唱歌 / 自拍 / 互动设备 | 飞书 / 微信 / Telegram / Slack / Discord / QQ / 微博 / 钉钉 / 企微 / LINE 等 |
 
 微信、Telegram、Slack 等多平台接入由 [cc-connect](https://github.com/chenhg5/cc-connect) 提供；微信视频优先使用 [CodeEagle fork release](https://github.com/CodeEagle/cc-connect/releases/tag/v1.3.3)。
 
@@ -103,12 +103,12 @@ MetaPact 当前适配以下设备，点击设备名可跳转到京东旗舰店�
 ## 文档
 
 - [安装详解](docs/nako/install.md)：安装参数、非交互模式、模型能力要求与排错。
-- [飞书接入](docs/nako/feishu-setup.md)：创建飞书机器人并接入 Nako。
+- [飞书接入](docs/nako/feishu-setup.md)：创建飞书机器人并接入 桃桃。
 - [模型选型](docs/nako/models.md)：多模型切换、能力字段与新增模型。
 - [Skills 参考](docs/nako/skills.md)：voice、vision、hearing、selfie、dokidoki 的使用方式。
 - [人设定制](docs/nako/customization.md)：改人设、换音色、维护 `custom.md`。
 - [进阶玩法](docs/advanced.md)：Agent 通用自定义与调优。
-- [Nako 特色玩法](docs/nako/advanced.md)：Nako 专属高级用法。
+- [桃桃 特色玩法](docs/nako/advanced.md)：桃桃 专属高级用法。
 - [常见错误](docs/nako/troubleshooting.md)：安装、渠道、依赖与平台限制。
 
 ## 与 Agent 无关的工具
@@ -134,7 +134,7 @@ bash scripts/cc-connect-setup.sh --agent-id agent-foo --runtime hermes --with-fe
 # QClaw ACP 后端，QClaw 需已安装并已生成 ~/.qclaw/qclaw.json
 bash scripts/cc-connect-setup.sh --agent-id agent-foo --runtime qclaw --with-feishu
 
-# 从 0 直接安装 Nako 到 QClaw，不要求 ~/.openclaw/openclaw.json
+# 从 0 直接安装 桃桃 到 QClaw，不要求 ~/.openclaw/openclaw.json
 bash install.sh --runtime qclaw --agent-id agent-nako --non-interactive
 
 # 卸载某个 agent 的 cc-connect 接入
@@ -166,7 +166,7 @@ bash scripts/cc-connect-setup.sh --help
 
 ### `scripts/nako-agent-factory/`
 
-局域网自助创建 Nako agent。它会给一台 host 部署 8088 管理页，每个客户端 IP 只分配一个 `agent-nako-N`，页面可选择 OpenClaw 或 HermesAgent 作为消息后端，生成 / 刷新飞书和微信二维码，并直接展示安装与 QR 日志。
+局域网自助创建 桃桃 agent。它会给一台 host 部署 8088 管理页，每个客户端 IP 只分配一个 `agent-nako-N`，页面可选择 OpenClaw 或 HermesAgent 作为消息后端，生成 / 刷新飞书和微信二维码，并直接展示安装与 QR 日志。
 
 QClaw 只能通过上面的 `scripts/cc-connect-setup.sh --runtime qclaw` 脚本绑定。
 
@@ -185,7 +185,7 @@ sudo bash install.sh
 Capable of:
 
 - [x] **Brain**
-  - [x] Nako 粘人小猫人设
+  - [x] 桃桃 粘人小猫人设
   - [x] 本地 custom.md 人设覆盖
   - [x] 长期记忆与对话 session 保留
   - [x] OpenClaw / QClaw / HermesAgent runtime 安装路径

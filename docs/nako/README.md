@@ -1,6 +1,6 @@
 # nako 文档
 
-野木奈子 agent 的专属文档放在这里。所有 agent 都通用的进阶玩法见 [../advanced.md](../advanced.md)。
+桃桃 agent 的专属文档放在这里。所有 agent 都通用的进阶玩法见 [../advanced.md](../advanced.md)。
 
 - [install.md](install.md) — 安装详解 / 非交互模式 / 排错
 - [feishu-setup.md](feishu-setup.md) — 建飞书机器人

@@ -53,9 +53,9 @@ Agent 会调 `openclaw` 的 model-switch API（如支持），或提示用户换
 QClaw 会监听 workspace 里的 `IDENTITY.md`，只解析英文 key：
 
 ```markdown
-- Name: 野木奈子
+- Name: 桃桃
 - Emoji: 🎀
-- Vibe: 赛博世界粘人小三花猫
+- Vibe: 赛博世界粘人小白桃猫
 - Avatar: assets/nako-avatar-head.png
 ```
 
