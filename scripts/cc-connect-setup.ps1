@@ -6,7 +6,7 @@
 
 [CmdletBinding()]
 param(
-  [string]$AgentId = "agent-nako",
+  [string]$AgentId = "agent-taotao",
   [ValidateSet("openclaw","hermes","qclaw")]
   [string]$Runtime = "openclaw",
   [string]$DisplayName = "",
@@ -39,9 +39,9 @@ Initialize-Utf8Console
 
 $ErrorActionPreference = "Stop"
 
-if ($env:NAKO_AGENT_RUNTIME -and -not $PSBoundParameters.ContainsKey("Runtime")) {
-  if ($env:NAKO_AGENT_RUNTIME -in @("openclaw","hermes","qclaw")) {
-    $Runtime = $env:NAKO_AGENT_RUNTIME
+if ($env:TAOTAO_AGENT_RUNTIME -and -not $PSBoundParameters.ContainsKey("Runtime")) {
+  if ($env:TAOTAO_AGENT_RUNTIME -in @("openclaw","hermes","qclaw")) {
+    $Runtime = $env:TAOTAO_AGENT_RUNTIME
   }
 }
 if ($env:CC_CONNECT_SOURCE -and -not $PSBoundParameters.ContainsKey("CcConnectSource")) {
@@ -470,19 +470,19 @@ function Ensure-QClawAgentRegistration {
   if ($identity.Count -eq 0) {
     $identity = Get-QClawIdentityFromWorkspace $layout.Workspace
   }
-  if ($AgentId.StartsWith("agent-nako", [StringComparison]::Ordinal)) {
+  if ($AgentId.StartsWith("agent-taotao", [StringComparison]::Ordinal)) {
     $legacyAvatars = @(
-      "assets/nako-avatar.svg",
+      "assets/taotao-avatar.svg",
       "https://pulseact.lovappen.cn/test/act_ci_build/dlc-promotion/act-gengen/images/e.png"
     )
     if ((Get-CcMapString $identity "avatar") -in $legacyAvatars) {
-      $identity["avatar"] = "assets/nako-avatar-head.png"
+      $identity["avatar"] = "assets/taotao-avatar-head.png"
     }
     foreach ($pair in @(
       @("name", "桃桃"),
       @("emoji", "🐾"),
       @("theme", "赛博世界粘人小白桃猫"),
-      @("avatar", "assets/nako-avatar-head.png")
+      @("avatar", "assets/taotao-avatar-head.png")
     )) {
       if (-not (Get-CcMapString $identity $pair[0])) { $identity[$pair[0]] = $pair[1] }
     }
@@ -514,7 +514,7 @@ function Ensure-QClawAgentRegistration {
   }
   if ($model) { $entry["model"] = $model }
 
-  if ($AgentId.StartsWith("agent-nako", [StringComparison]::Ordinal)) {
+  if ($AgentId.StartsWith("agent-taotao", [StringComparison]::Ordinal)) {
     $tools = if (Test-CcMapKey $entry "tools" -and $entry["tools"] -is [System.Collections.IDictionary]) {
       Copy-CcJsonMap $entry["tools"]
     } else {
@@ -662,12 +662,12 @@ function New-AgentSection($RuntimeName) {
       PATH = $env:PATH
     }
     foreach ($entry in $ccEnv.GetEnumerator()) { $envMap[$entry.Key] = $entry.Value }
-    $envMap["NAKO_OUTPUT_MODE"] = "acp"
-    $envMap["NAKO_CCCONNECT_PROJECT"] = $CcProjectId
-    $envMap["NAKO_AGENT_WORKSPACE"] = $workspace
-    $envMap["NAKO_SKILLS_DIR"] = Join-Path $hermesHome "skills/nako"
-    $envMap["NAKO_MEDIA_HOME"] = Join-Path $hermesHome "media"
-    $envMap["NAKO_AGENT_RUNTIME"] = "hermes"
+    $envMap["TAOTAO_OUTPUT_MODE"] = "acp"
+    $envMap["TAOTAO_CCCONNECT_PROJECT"] = $CcProjectId
+    $envMap["TAOTAO_AGENT_WORKSPACE"] = $workspace
+    $envMap["TAOTAO_SKILLS_DIR"] = Join-Path $hermesHome "skills/taotao"
+    $envMap["TAOTAO_MEDIA_HOME"] = Join-Path $hermesHome "media"
+    $envMap["TAOTAO_AGENT_RUNTIME"] = "hermes"
     return [pscustomobject]@{ WorkDir = $workspace; Command = $hermesCmd; Args = @("acp"); Env = $envMap }
   }
   if ($RuntimeName -eq "qclaw") {
@@ -687,12 +687,12 @@ function New-AgentSection($RuntimeName) {
     foreach ($entry in $ccEnv.GetEnumerator()) { $envMap[$entry.Key] = $entry.Value }
     $envMap["OPENCLAW_OUTPUT_MODE"] = "acp"
     $envMap["OPENCLAW_CCCONNECT_PROJECT"] = $CcProjectId
-    $envMap["NAKO_OUTPUT_MODE"] = "acp"
-    $envMap["NAKO_CCCONNECT_PROJECT"] = $CcProjectId
-    $envMap["NAKO_AGENT_WORKSPACE"] = $layout.Workspace
-    $envMap["NAKO_SKILLS_DIR"] = Join-Path $layout.Home "skills"
-    $envMap["NAKO_MEDIA_HOME"] = Join-Path $layout.Home "media"
-    $envMap["NAKO_AGENT_RUNTIME"] = "qclaw"
+    $envMap["TAOTAO_OUTPUT_MODE"] = "acp"
+    $envMap["TAOTAO_CCCONNECT_PROJECT"] = $CcProjectId
+    $envMap["TAOTAO_AGENT_WORKSPACE"] = $layout.Workspace
+    $envMap["TAOTAO_SKILLS_DIR"] = Join-Path $layout.Home "skills"
+    $envMap["TAOTAO_MEDIA_HOME"] = Join-Path $layout.Home "media"
+    $envMap["TAOTAO_AGENT_RUNTIME"] = "qclaw"
     $token = Get-GatewayToken $layout.ConfigPath
     if ($token) { $envMap["OPENCLAW_GATEWAY_TOKEN"] = $token }
     return [pscustomobject]@{
@@ -714,12 +714,12 @@ function New-AgentSection($RuntimeName) {
   foreach ($entry in $ccEnv.GetEnumerator()) { $envMap[$entry.Key] = $entry.Value }
   $envMap["OPENCLAW_OUTPUT_MODE"] = "acp"
   $envMap["OPENCLAW_CCCONNECT_PROJECT"] = $CcProjectId
-  $envMap["NAKO_OUTPUT_MODE"] = "acp"
-  $envMap["NAKO_CCCONNECT_PROJECT"] = $CcProjectId
-  $envMap["NAKO_AGENT_WORKSPACE"] = $workspace
-  $envMap["NAKO_SKILLS_DIR"] = Join-Path $openclawHome "skills"
-  $envMap["NAKO_MEDIA_HOME"] = Join-Path $openclawHome "media"
-  $envMap["NAKO_AGENT_RUNTIME"] = "openclaw"
+  $envMap["TAOTAO_OUTPUT_MODE"] = "acp"
+  $envMap["TAOTAO_CCCONNECT_PROJECT"] = $CcProjectId
+  $envMap["TAOTAO_AGENT_WORKSPACE"] = $workspace
+  $envMap["TAOTAO_SKILLS_DIR"] = Join-Path $openclawHome "skills"
+  $envMap["TAOTAO_MEDIA_HOME"] = Join-Path $openclawHome "media"
+  $envMap["TAOTAO_AGENT_RUNTIME"] = "openclaw"
   $token = Get-GatewayToken (Join-Path $openclawHome "openclaw.json")
   if ($token) { $envMap["OPENCLAW_GATEWAY_TOKEN"] = $token }
   [pscustomobject]@{ WorkDir = $openclawHome; Command = $openclawCmd; Args = @("acp", "--session", "agent:${AgentId}:main"); Env = $envMap }
@@ -935,7 +935,7 @@ function Update-CcConnectConfig {
     }
     $nameMatch = [regex]::Match($part, '(?m)^name\s*=\s*"([^"]+)"\s*$')
     $projectName = if ($nameMatch.Success) { $nameMatch.Groups[1].Value } else { "" }
-    $runtimeMatch = [regex]::Match($part, 'NAKO_AGENT_RUNTIME\s*=\s*"([^"]+)"')
+    $runtimeMatch = [regex]::Match($part, 'TAOTAO_AGENT_RUNTIME\s*=\s*"([^"]+)"')
     $projectRuntime = if ($runtimeMatch.Success) { $runtimeMatch.Groups[1].Value } else { "" }
     $isTarget = $projectName -eq $CcProjectId
     $isLegacySameRuntime = (
@@ -1402,7 +1402,7 @@ function Invoke-CcUninstallAll {
   if (Test-Path $script:CcHome) {
     Move-Item $script:CcHome "$script:CcHome.bak-uninstall-all-$(Get-Date -Format yyyyMMdd-HHmmss)" -Force
   }
-  $backupRoot = Join-Path $script:HomeDir ".nako-agent.bak-uninstall-all-$AgentId-$(Get-Date -Format yyyyMMdd-HHmmss)"
+  $backupRoot = Join-Path $script:HomeDir ".taotao-agent.bak-uninstall-all-$AgentId-$(Get-Date -Format yyyyMMdd-HHmmss)"
   Remove-AgentFromJsonConfig (Join-Path $script:HomeDir ".openclaw/openclaw.json") $backupRoot "openclaw"
   Backup-PathToDir (Join-Path $script:HomeDir ".openclaw/workspace/$AgentId") $backupRoot "openclaw-workspace-$AgentId"
   Backup-PathToDir (Join-Path $script:HomeDir ".openclaw/agents/$AgentId") $backupRoot "openclaw-agent-$AgentId"
@@ -1414,8 +1414,8 @@ function Invoke-CcUninstallAll {
   Backup-PathToDir (Join-Path $qclaw.Home "agents/$AgentId") $backupRoot "qclaw-agent-$AgentId"
 }
 
-$homeSeed = if ($env:NAKO_HOME) {
-  $env:NAKO_HOME
+$homeSeed = if ($env:TAOTAO_HOME) {
+  $env:TAOTAO_HOME
 } elseif ($env:USERPROFILE) {
   $env:USERPROFILE
 } elseif ($HOME) {

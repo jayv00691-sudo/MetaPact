@@ -5,7 +5,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TMP_DIR="$(mktemp -d "${TMPDIR:-/tmp}/memory-write.XXXXXX")"
 trap 'rm -rf "$TMP_DIR"' EXIT
 
-workspace="$TMP_DIR/workspace-agent-nako"
+workspace="$TMP_DIR/workspace-agent-taotao"
 mkdir -p "$workspace"
 
 cat > "$workspace/MEMORY.md" <<'EOF'
@@ -39,7 +39,7 @@ cat > "$workspace/MEMORY.md" <<'EOF'
 EOF
 
 OPENCLAW_AGENT_WORKSPACE="$workspace" \
-  bash "$ROOT/nako/agent/scripts/memory-write.sh" \
+  bash "$ROOT/taotao/agent/scripts/memory-write.sh" \
   --summary "用户喜欢周末听爵士乐" \
   --long "用户明确说周末会听爵士乐放松" \
   --affinity-delta 35 \
@@ -75,7 +75,7 @@ assert(!items.some((line) => line.includes("旧记忆 5")), "oldest short-term i
 NODE
 
 OPENCLAW_AGENT_WORKSPACE="$workspace" \
-  bash "$ROOT/nako/agent/scripts/memory-write.sh" \
+  bash "$ROOT/taotao/agent/scripts/memory-write.sh" \
   --summary "第二条记忆" \
   --affinity 88 \
   >/dev/null
@@ -97,8 +97,8 @@ if (!text.match(/1\. .*第二条记忆/)) {
 }
 NODE
 
-grep -Fq 'memory-write.sh' "$ROOT/nako/agent/AGENTS.md"
-grep -Fq 'memory-write.sh' "$ROOT/nako/agent/TOOLS.md"
-grep -Fq 'memory-write.sh' "$ROOT/nako/agent/MEMORY.md"
+grep -Fq 'memory-write.sh' "$ROOT/taotao/agent/AGENTS.md"
+grep -Fq 'memory-write.sh' "$ROOT/taotao/agent/TOOLS.md"
+grep -Fq 'memory-write.sh' "$ROOT/taotao/agent/MEMORY.md"
 
 echo "memory write checks passed"

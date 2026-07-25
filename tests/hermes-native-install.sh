@@ -63,7 +63,7 @@ HOME="$home" HERMES_HOME="$home/.hermes" PATH="$home/.local/bin:$PATH" \
     --non-interactive \
     --skip-models \
     --with-cc-connect \
-    --cc-connect-source skip >/tmp/nako-hermes-native-install.log
+    --cc-connect-source skip >/tmp/taotao-hermes-native-install.log
 
 python3 - "$home" <<'PY'
 import re
@@ -73,7 +73,7 @@ from pathlib import Path
 home = Path(sys.argv[1])
 hermes = home / ".hermes"
 workspace = hermes / "workspace" / "agent-test"
-skills = hermes / "skills" / "nako"
+skills = hermes / "skills" / "taotao"
 
 assert workspace.is_dir(), workspace
 assert skills.is_dir(), skills
@@ -84,16 +84,16 @@ assert not (home / ".openclaw").exists()
 assert not (hermes / "skills" / "openclaw-imports").exists()
 
 tools = (workspace / "TOOLS.md").read_text(encoding="utf-8")
-assert "~/.hermes/skills/nako" in tools
+assert "~/.hermes/skills/taotao" in tools
 assert "~/.openclaw" not in tools
 assert "openclaw.json" not in tools
 
 memory = (workspace / "MEMORY.md").read_text(encoding="utf-8")
-assert "~/.hermes/skills/nako/.env" in memory
+assert "~/.hermes/skills/taotao/.env" in memory
 assert "openclaw.json" not in memory
 
 cfg = (hermes / "config.yaml").read_text(encoding="utf-8")
-managed = re.search(r"# BEGIN NAKO HERMES RUNTIME\n.*?# END NAKO HERMES RUNTIME", cfg, re.S).group(0)
+managed = re.search(r"# BEGIN TAOTAO HERMES RUNTIME\n.*?# END TAOTAO HERMES RUNTIME", cfg, re.S).group(0)
 assert str(skills) in managed
 assert "SenseChat-Character-Agt" in managed
 assert "provider: \"sensenova\"" in managed
@@ -114,7 +114,7 @@ assert "sensenova" in cfg
 
 cc = (home / ".cc-connect" / "config.toml").read_text(encoding="utf-8")
 project = re.search(r"\[\[projects\]\].*", cc, re.S).group(0)
-assert 'NAKO_AGENT_RUNTIME = "hermes"' in project
+assert 'TAOTAO_AGENT_RUNTIME = "hermes"' in project
 assert "OPENCLAW_OUTPUT_MODE" not in project
 assert "OPENCLAW_CCCONNECT_PROJECT" not in project
 assert ".openclaw" not in project

@@ -24,7 +24,7 @@ scripts=(
 
 for rel in "${scripts[@]}"; do
   mkdir -p "$tmp/.qclaw/skills/$(dirname "$rel")"
-  cp "$ROOT/nako/skills/$rel" "$tmp/.qclaw/skills/$rel"
+  cp "$ROOT/taotao/skills/$rel" "$tmp/.qclaw/skills/$rel"
 done
 
 for rel in "${scripts[@]}"; do
@@ -35,7 +35,7 @@ for rel in "${scripts[@]}"; do
   grep -Fq 'sourced' "$marker"
 done
 
-mkdir -p "$tmp/.qclaw/workspace-agent-nako"
+mkdir -p "$tmp/.qclaw/workspace-agent-taotao"
 for rel in "selfie/scripts/selfie.sh" "selfie/scripts/video.sh" "voice/scripts/voice.sh" "voice/scripts/sing.sh"; do
   funcs="$(
     awk '
@@ -45,15 +45,15 @@ for rel in "selfie/scripts/selfie.sh" "selfie/scripts/video.sh" "voice/scripts/v
     ' "$tmp/.qclaw/skills/$rel"
   )"
   project="$(
-    cd "$tmp/.qclaw/workspace-agent-nako"
+    cd "$tmp/.qclaw/workspace-agent-taotao"
     eval "$funcs"
     _infer_ccconnect_project
   )"
-  test "$project" = "agent-nako"
+  test "$project" = "agent-taotao"
 done
 
 mkdir -p "$tmp/.cc-connect/sessions"
-cat > "$tmp/.cc-connect/sessions/agent-nako_main.json" <<'EOF'
+cat > "$tmp/.cc-connect/sessions/agent-taotao_main.json" <<'EOF'
 {
   "active_session": {
     "weixin:wx-room": "w1",
@@ -75,17 +75,17 @@ for rel in "selfie/scripts/selfie.sh" "selfie/scripts/video.sh"; do
     ' "$tmp/.qclaw/skills/$rel"
   )"
   session="$(
-    cd "$tmp/.qclaw/workspace-agent-nako"
+    cd "$tmp/.qclaw/workspace-agent-taotao"
     HOME="$tmp"
     CC_CONNECT_SESSION_DIR="$tmp/.cc-connect/sessions"
     export HOME CC_CONNECT_SESSION_DIR
     eval "$funcs"
-    _infer_ccconnect_session agent-nako
+    _infer_ccconnect_session agent-taotao
   )"
   test "$session" = "feishu:oc_chat_123:ou_user_456"
 
   receive="$(
-    cd "$tmp/.qclaw/workspace-agent-nako"
+    cd "$tmp/.qclaw/workspace-agent-taotao"
     HOME="$tmp"
     CHANNEL=""
     CC_CONNECT_SESSION_DIR="$tmp/.cc-connect/sessions"
@@ -98,8 +98,8 @@ done
 
 json_log="$tmp/skill.jsonl"
 export SKILL_LOG_FILE="$json_log"
-source "$ROOT/nako/skills/skill-log.sh"
-skill_log_fail voice tts_generate $'error=line1\nline2' 'path=C:\Program Files\Nako\audio.mp3'
+source "$ROOT/taotao/skills/skill-log.sh"
+skill_log_fail voice tts_generate $'error=line1\nline2' 'path=C:\Program Files\Taotao\audio.mp3'
 node - "$json_log" <<'NODE'
 const fs = require("fs");
 const line = fs.readFileSync(process.argv[2], "utf8").trim();
@@ -107,7 +107,7 @@ const record = JSON.parse(line);
 if (record.error !== "line1\nline2") {
   throw new Error("newline value was not preserved as JSON string");
 }
-if (record.path !== "C:\\Program Files\\Nako\\audio.mp3") {
+if (record.path !== "C:\\Program Files\\Taotao\\audio.mp3") {
   throw new Error("backslash path was not preserved as JSON string");
 }
 NODE

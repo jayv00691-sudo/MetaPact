@@ -10,7 +10,7 @@
 [![HermesAgent](https://img.shields.io/badge/runtime-HermesAgent-f59e0b)](https://github.com/NousResearch/hermes-agent)
 [![MetaPact](https://img.shields.io/badge/site-metapact.app-ff4d8d)](https://www.metapact.app/)
 
-[官网](https://www.metapact.app/) · [一键安装](#一键安装) · [桃桃 文档](docs/nako/README.md) · [进阶玩法](docs/advanced.md)
+[官网](https://www.metapact.app/) · [一键安装](#一键安装) · [桃桃 文档](docs/taotao/README.md) · [进阶玩法](docs/advanced.md)
 
 </div>
 
@@ -40,7 +40,7 @@ MetaPact 是一套开源 AI 伴宠 Agent 集合。每个子目录都是一个独
 **macOS / Linux**
 
 ```bash
-# 默认安装 nako，安装器会交互式完成 agent 配置
+# 默认安装 taotao，安装器会交互式完成 agent 配置
 curl -fsSL https://cdn.jsdelivr.net/gh/Lovappen/MetaPact@main/install.sh | bash
 
 # 非交互 + QR 飞书一气呵成
@@ -61,7 +61,7 @@ Windows PowerShell 建议直接走 GitHub raw，避免 `cdn.jsdelivr.net @main` 
 $u = "https://raw.githubusercontent.com/Lovappen/MetaPact/main/install.ps1?ts=$([DateTimeOffset]::UtcNow.ToUnixTimeSeconds())"
 $p = Join-Path $env:TEMP "metapact-install.ps1"
 iwr -UseBasicParsing $u -OutFile $p
-pwsh -NoProfile -ExecutionPolicy Bypass -File $p -Runtime qclaw -AgentId agent-nako -WithWeixin
+pwsh -NoProfile -ExecutionPolicy Bypass -File $p -Runtime qclaw -AgentId agent-taotao -WithWeixin
 ```
 
 完整 flag：
@@ -76,15 +76,15 @@ OpenClaw 模式会从 `openclaw.json -> agents.defaults.models` 读取已配置�
 
 桃桃 本体优先需要 `roleplay` 能力，也就是稳定中文对话、角色扮演和指令跟随；没有命中时会退到 `general`，只要求能完成日常对话、工具意图理解、总结和代码/配置分析。没有能力字段的已配置模型会被视为可用的 `general` 文本模型。
 
-`nako/config/model-map.yaml` 只是无能力字段时的偏好排序，不是固定支持列表。常见可用模型已经写入其中，包括 `moonshot/kimi-k2.6`、`moonshot/kimi-k2.5`、`volcengine/kimi-k2-5-260127`、`volcengine-plan/ark-code-latest`、`volcengine/deepseek-v3-2-251201` 等。
+`taotao/config/model-map.yaml` 只是无能力字段时的偏好排序，不是固定支持列表。常见可用模型已经写入其中，包括 `moonshot/kimi-k2.6`、`moonshot/kimi-k2.5`、`volcengine/kimi-k2-5-260127`、`volcengine-plan/ark-code-latest`、`volcengine/deepseek-v3-2-251201` 等。
 
-图片理解是可选的 `vision` 能力，只影响 vision skill，不影响安装和文字聊天。语音/唱歌/自拍主要依赖对应外部 key 和本地工具，不靠主模型能力判断。完整说明见 [安装详解：模型能力要求](docs/nako/install.md#模型能力要求)。
+图片理解是可选的 `vision` 能力，只影响 vision skill，不影响安装和文字聊天。语音/唱歌/自拍主要依赖对应外部 key 和本地工具，不靠主模型能力判断。完整说明见 [安装详解：模型能力要求](docs/taotao/install.md#模型能力要求)。
 
 ## 现有 Agents
 
 | Agent | 角色 | 能力 | 渠道 |
 | --- | --- | --- | --- |
-| [nako](nako/) | 粘人小白桃猫 桃桃 | 看图 / 听语音 / 说话 / 唱歌 / 自拍 / 互动设备 | 飞书 / 微信 / Telegram / Slack / Discord / QQ / 微博 / 钉钉 / 企微 / LINE 等 |
+| [taotao](taotao/) | 粘人小白桃猫 桃桃 | 看图 / 听语音 / 说话 / 唱歌 / 自拍 / 互动设备 | 飞书 / 微信 / Telegram / Slack / Discord / QQ / 微博 / 钉钉 / 企微 / LINE 等 |
 
 微信、Telegram、Slack 等多平台接入由 [cc-connect](https://github.com/chenhg5/cc-connect) 提供；微信视频优先使用 [CodeEagle fork release](https://github.com/CodeEagle/cc-connect/releases/tag/v1.3.3)。
 
@@ -102,14 +102,14 @@ MetaPact 当前适配以下设备，点击设备名可跳转到京东旗舰店�
 
 ## 文档
 
-- [安装详解](docs/nako/install.md)：安装参数、非交互模式、模型能力要求与排错。
-- [飞书接入](docs/nako/feishu-setup.md)：创建飞书机器人并接入 桃桃。
-- [模型选型](docs/nako/models.md)：多模型切换、能力字段与新增模型。
-- [Skills 参考](docs/nako/skills.md)：voice、vision、hearing、selfie、dokidoki 的使用方式。
-- [人设定制](docs/nako/customization.md)：改人设、换音色、维护 `custom.md`。
+- [安装详解](docs/taotao/install.md)：安装参数、非交互模式、模型能力要求与排错。
+- [飞书接入](docs/taotao/feishu-setup.md)：创建飞书机器人并接入 桃桃。
+- [模型选型](docs/taotao/models.md)：多模型切换、能力字段与新增模型。
+- [Skills 参考](docs/taotao/skills.md)：voice、vision、hearing、selfie、dokidoki 的使用方式。
+- [人设定制](docs/taotao/customization.md)：改人设、换音色、维护 `custom.md`。
 - [进阶玩法](docs/advanced.md)：Agent 通用自定义与调优。
-- [桃桃 特色玩法](docs/nako/advanced.md)：桃桃 专属高级用法。
-- [常见错误](docs/nako/troubleshooting.md)：安装、渠道、依赖与平台限制。
+- [桃桃 特色玩法](docs/taotao/advanced.md)：桃桃 专属高级用法。
+- [常见错误](docs/taotao/troubleshooting.md)：安装、渠道、依赖与平台限制。
 
 ## 与 Agent 无关的工具
 
@@ -135,13 +135,13 @@ bash scripts/cc-connect-setup.sh --agent-id agent-foo --runtime hermes --with-fe
 bash scripts/cc-connect-setup.sh --agent-id agent-foo --runtime qclaw --with-feishu
 
 # 从 0 直接安装 桃桃 到 QClaw，不要求 ~/.openclaw/openclaw.json
-bash install.sh --runtime qclaw --agent-id agent-nako --non-interactive
+bash install.sh --runtime qclaw --agent-id agent-taotao --non-interactive
 
 # 卸载某个 agent 的 cc-connect 接入
 bash scripts/cc-connect-setup.sh --agent-id agent-foo --uninstall
 
-# 一键完整卸载 cc-connect，并移除指定 agent runtime 数据；不传则默认 agent-nako
-bash scripts/cc-connect-setup.sh --agent-id agent-nako --uninstall-all
+# 一键完整卸载 cc-connect，并移除指定 agent runtime 数据；不传则默认 agent-taotao
+bash scripts/cc-connect-setup.sh --agent-id agent-taotao --uninstall-all
 ```
 
 Windows PowerShell：
@@ -164,17 +164,17 @@ QClaw 后端需要和 `cc-connect` 跑在同一个 host/user 下；如果 `cc-co
 bash scripts/cc-connect-setup.sh --help
 ```
 
-### `scripts/nako-agent-factory/`
+### `scripts/taotao-agent-factory/`
 
-局域网自助创建 桃桃 agent。它会给一台 host 部署 8088 管理页，每个客户端 IP 只分配一个 `agent-nako-N`，页面可选择 OpenClaw 或 HermesAgent 作为消息后端，生成 / 刷新飞书和微信二维码，并直接展示安装与 QR 日志。
+局域网自助创建 桃桃 agent。它会给一台 host 部署 8088 管理页，每个客户端 IP 只分配一个 `agent-taotao-N`，页面可选择 OpenClaw 或 HermesAgent 作为消息后端，生成 / 刷新飞书和微信二维码，并直接展示安装与 QR 日志。
 
 QClaw 只能通过上面的 `scripts/cc-connect-setup.sh --runtime qclaw` 脚本绑定。
 
 ```bash
-curl -fsSL https://cdn.jsdelivr.net/gh/Lovappen/MetaPact@main/scripts/nako-agent-factory/install.sh | sudo bash
+curl -fsSL https://cdn.jsdelivr.net/gh/Lovappen/MetaPact@main/scripts/taotao-agent-factory/install.sh | sudo bash
 
 # 或本地 clone 后运行
-cd scripts/nako-agent-factory
+cd scripts/taotao-agent-factory
 sudo bash install.sh
 ```
 
@@ -209,12 +209,12 @@ Capable of:
 - [ ] **微信 cron 主动推送**：`context_token` TTL 短，cron-driven daily-reminder 不保证送达。需要 cc-connect 实现 token 续期或更换协议。
 - [ ] **MiniMax 国际版**：支持 `api.minimax.io`。
 - [ ] **更多 agent 模板**：办公助手、学习搭档、不同人格模板等。
-- [ ] **共享 skill 库**：把 `nako/skills/` 里的 vision、hearing、voice、selfie 等通用能力提取到 root 让多 agent 复用。
+- [ ] **共享 skill 库**：把 `taotao/skills/` 里的 vision、hearing、voice、selfie 等通用能力提取到 root 让多 agent 复用。
 - [ ] **人设库与社区作品流**：整理更多可直接 fork 的人格模板、示例对话和用户作品展示。
 
 ## 贡献
 
-欢迎开 PR 加新 agent pack。格式参考 `nako/` 的目录结构：
+欢迎开 PR 加新 agent pack。格式参考 `taotao/` 的目录结构：
 
 ```text
 your-agent/

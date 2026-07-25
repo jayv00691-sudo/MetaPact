@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-for script in "$ROOT/nako/skills/voice/scripts/voice.sh" "$ROOT/nako/skills/voice/scripts/sing.sh"; do
+for script in "$ROOT/taotao/skills/voice/scripts/voice.sh" "$ROOT/taotao/skills/voice/scripts/sing.sh"; do
   ! grep -Fq '_ccconnect_send_attachment_fallback' "$script"
   ! grep -Fq 'zipfile.ZipFile' "$script"
   ! grep -Fq '.mp3.zip' "$script"
@@ -13,10 +13,10 @@ for script in "$ROOT/nako/skills/voice/scripts/voice.sh" "$ROOT/nako/skills/voic
 done
 
 for script in \
-  "$ROOT/nako/skills/voice/scripts/voice.sh" \
-  "$ROOT/nako/skills/voice/scripts/sing.sh" \
-  "$ROOT/nako/skills/selfie/scripts/selfie.sh" \
-  "$ROOT/nako/skills/selfie/scripts/video.sh"; do
+  "$ROOT/taotao/skills/voice/scripts/voice.sh" \
+  "$ROOT/taotao/skills/voice/scripts/sing.sh" \
+  "$ROOT/taotao/skills/selfie/scripts/selfie.sh" \
+  "$ROOT/taotao/skills/selfie/scripts/video.sh"; do
   grep -Fq '_ccconnect_session_files()' "$script"
   grep -Fq 'CC_CONNECT_SESSION_DIR' "$script"
   grep -Fq '$HOME/.cc-connect/.cc-connect/sessions' "$script"

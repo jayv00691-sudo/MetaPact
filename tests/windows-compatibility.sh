@@ -16,8 +16,8 @@ grep -Fq '& $bashCmd $bashPath @Flags' "$ROOT/install.ps1"
 
 grep -Fq 'Windows shell detected' "$ROOT/install.sh"
 grep -Fq 'pwsh install.ps1' "$ROOT/install.sh"
-grep -Fq 'Nako Agent Factory requires Linux/systemd' "$ROOT/scripts/nako-agent-factory/install.sh"
-grep -Fq 'Nako Agent Factory requires Linux/systemd' "$ROOT/scripts/nako-agent-factory/uninstall.sh"
+grep -Fq 'Taotao Agent Factory requires Linux/systemd' "$ROOT/scripts/taotao-agent-factory/install.sh"
+grep -Fq 'Taotao Agent Factory requires Linux/systemd' "$ROOT/scripts/taotao-agent-factory/uninstall.sh"
 
 grep -Fq 'tasklist //FI "IMAGENAME eq cc-connect.exe" //FO CSV //NH' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'taskkill //PID "$pid"' "$ROOT/scripts/cc-connect-setup.sh"

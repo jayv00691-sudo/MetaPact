@@ -1,15 +1,15 @@
 #!/bin/bash
-# install.sh — Lovappen/MetaPact Nako installer for macOS / Linux.
+# install.sh — Lovappen/MetaPact Taotao installer for macOS / Linux.
 #
 # Usage:
 #   curl -fsSL https://cdn.jsdelivr.net/gh/Lovappen/MetaPact@main/install.sh | bash
 #   # or clone repo then:  bash install.sh [--force] [--agent-id <id>] [--non-interactive]
 #
 # Flags:
-#   --agent nako        : compatibility selector (default: nako)
+#   --agent taotao        : compatibility selector (default: taotao)
 #   --list             : list available agents and exit
 #   --force             : overwrite existing persona files (user data still preserved)
-#   --agent-id ID       : rename the agent (default: agent-nako)
+#   --agent-id ID       : rename the agent (default: agent-taotao)
 #   --runtime NAME      : openclaw|hermes|qclaw messaging runtime (default: openclaw)
 #   --non-interactive   : no prompts; expects env vars set already; picks defaults
 #   --skip-skills       : skip skill install (persona only)
@@ -70,15 +70,15 @@ else
   git clone --depth 1 https://github.com/Lovappen/MetaPact.git "$TMPDL" >/dev/null 2>&1
   REPO_ROOT="$TMPDL"
 fi
-PACK_ROOT="$REPO_ROOT/nako"
+PACK_ROOT="$REPO_ROOT/taotao"
 
 SCRIPT_DIR="$PACK_ROOT/scripts"
 source "$SCRIPT_DIR/lib.sh"
 
 # ─── Parse flags ────────────────────────────────────────────────────────────
 FORCE=0
-AGENT="nako"
-AGENT_ID="agent-nako"
+AGENT="taotao"
+AGENT_ID="agent-taotao"
 LIST=0
 NON_INTERACTIVE=0
 SKIP_SKILLS=0
@@ -89,11 +89,11 @@ WITH_FEISHU=0
 WITH_WEIXIN=0
 CC_CONNECT_SOURCE="${CC_CONNECT_SOURCE:-lazycat}"
 CC_PROJECT_ID="${CC_PROJECT_ID:-${CC_CONNECT_PROJECT_ID:-}}"
-NAKO_AGENT_RUNTIME="${NAKO_AGENT_RUNTIME:-openclaw}"
+TAOTAO_AGENT_RUNTIME="${TAOTAO_AGENT_RUNTIME:-openclaw}"
 HERMES_HOME="${HERMES_HOME:-$HOME/.hermes}"
 HERMES_BIN="${HERMES_BIN:-}"
 HERMES_DEFAULT_MODEL="${HERMES_DEFAULT_MODEL:-zai/glm-4.5-flash}"
-HERMES_SKILLS_DIR="${HERMES_SKILLS_DIR:-$HERMES_HOME/skills/nako}"
+HERMES_SKILLS_DIR="${HERMES_SKILLS_DIR:-$HERMES_HOME/skills/taotao}"
 HERMES_MEDIA_HOME="${HERMES_MEDIA_HOME:-$HERMES_HOME/media}"
 QCLAW_HOME="${QCLAW_HOME:-$HOME/.qclaw}"
 QCLAW_NODE_BIN="${QCLAW_NODE_BIN:-}"
@@ -105,7 +105,7 @@ while [ $# -gt 0 ]; do
     --list) LIST=1; shift ;;
     --force) FORCE=1; export FORCE; shift ;;
     --agent-id) AGENT_ID="$2"; shift 2 ;;
-    --runtime|--backend) NAKO_AGENT_RUNTIME="$2"; shift 2 ;;
+    --runtime|--backend) TAOTAO_AGENT_RUNTIME="$2"; shift 2 ;;
     --non-interactive) NON_INTERACTIVE=1; export NON_INTERACTIVE; shift ;;
     --skip-skills) SKIP_SKILLS=1; shift ;;
     --skip-models) SKIP_MODELS=1; shift ;;
@@ -126,7 +126,7 @@ case "$CC_CONNECT_SOURCE" in
   *) err "--cc-connect-source 只支持 auto|npm|lazycat|skip"; exit 1 ;;
 esac
 
-case "$NAKO_AGENT_RUNTIME" in
+case "$TAOTAO_AGENT_RUNTIME" in
   openclaw|hermes|qclaw) ;;
   *) err "--runtime 只支持 openclaw|hermes|qclaw"; exit 1 ;;
 esac
@@ -169,7 +169,7 @@ print(cur if isinstance(cur, str) else "")
 PY
 }
 
-if [ "$NAKO_AGENT_RUNTIME" = "hermes" ]; then
+if [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ]; then
   HERMES_HOME="$(expand_path "$HERMES_HOME")"
   HERMES_SKILLS_DIR="$(expand_path "$HERMES_SKILLS_DIR")"
   HERMES_MEDIA_HOME="$(expand_path "$HERMES_MEDIA_HOME")"
@@ -177,7 +177,7 @@ if [ "$NAKO_AGENT_RUNTIME" = "hermes" ]; then
   OPENCLAW_SKILLS_DIR="$HERMES_SKILLS_DIR"
   OPENCLAW_WORKSPACES="$HERMES_HOME/workspace"
   OPENCLAW_CONFIG="$HERMES_HOME/openclaw-compat.json"
-elif [ "$NAKO_AGENT_RUNTIME" = "qclaw" ]; then
+elif [ "$TAOTAO_AGENT_RUNTIME" = "qclaw" ]; then
   QCLAW_HOME="$(expand_path "$QCLAW_HOME")"
   QCLAW_APP_CONFIG="$QCLAW_HOME/qclaw.json"
   _qclaw_state_dir="$(qclaw_app_value_early "$QCLAW_APP_CONFIG" stateDir)"
@@ -204,12 +204,12 @@ export HERMES_HOME HERMES_SKILLS_DIR HERMES_MEDIA_HOME QCLAW_HOME
 
 if [ "$LIST" = "1" ]; then
   echo "可用 agent:"
-  echo "  - nako"
+  echo "  - taotao"
   exit 0
 fi
 
-if [ "$AGENT" != "nako" ]; then
-  err "Agent '$AGENT' 不存在；当前仓库只提供 nako"
+if [ "$AGENT" != "taotao" ]; then
+  err "Agent '$AGENT' 不存在；当前仓库只提供 taotao"
   exit 1
 fi
 
@@ -218,7 +218,7 @@ cat <<BANNER
 ${C_BOLD}桃桃 Agent Pack - 安装器${C_NC}
   ${C_DIM}Repo: github.com/Lovappen/MetaPact${C_NC}
   ${C_DIM}Agent: $AGENT_ID${C_NC}
-  ${C_DIM}Runtime: $NAKO_AGENT_RUNTIME${C_NC}
+  ${C_DIM}Runtime: $TAOTAO_AGENT_RUNTIME${C_NC}
   ${C_DIM}Pack: $PACK_ROOT${C_NC}
 
 BANNER
@@ -282,7 +282,7 @@ for b in python3 jq curl; do
   if has_bin "$b"; then info "$b"; else err "$b"; MISSING_HARD+=("$b"); fi
 done
 
-if [ "$NAKO_AGENT_RUNTIME" = "hermes" ]; then
+if [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ]; then
   if [ -z "${HERMES_BIN:-}" ]; then
     HERMES_BIN="$(find_hermes_bin || true)"
   fi
@@ -292,7 +292,7 @@ if [ "$NAKO_AGENT_RUNTIME" = "hermes" ]; then
   fi
   mkdir -p "$HERMES_HOME" "$HERMES_SKILLS_DIR" "$HERMES_MEDIA_HOME"
   info "Hermes 目录 $HERMES_HOME"
-elif [ "$NAKO_AGENT_RUNTIME" = "qclaw" ]; then
+elif [ "$TAOTAO_AGENT_RUNTIME" = "qclaw" ]; then
   if [ ! -f "$QCLAW_HOME/qclaw.json" ]; then
     err "选择 QClaw runtime，但找不到 $QCLAW_HOME/qclaw.json。请先下载安装并启动一次 QClaw。"
     exit 1
@@ -637,10 +637,10 @@ default_identity = {
     "name": "桃桃",
     "emoji": "🐾",
     "theme": "赛博世界粘人小白桃猫",
-    "avatar": "assets/nako-avatar-head.png",
+    "avatar": "assets/taotao-avatar-head.png",
 }
 legacy_default_avatars = {
-    "assets/nako-avatar.svg",
+    "assets/taotao-avatar.svg",
     "https://pulseact.lovappen.cn/test/act_ci_build/dlc-promotion/act-gengen/images/e.png",
 }
 
@@ -660,7 +660,7 @@ def normalize_identity(identity):
 
 def apply_default_identity(identity):
     result = normalize_identity(identity)
-    if agent_id.startswith("agent-nako"):
+    if agent_id.startswith("agent-taotao"):
         if result.get("avatar") in legacy_default_avatars:
             result["avatar"] = default_identity["avatar"]
         for key, value in default_identity.items():
@@ -669,7 +669,7 @@ def apply_default_identity(identity):
     return result
 
 def apply_qclaw_script_media_policy(item):
-    if not agent_id.startswith("agent-nako"):
+    if not agent_id.startswith("agent-taotao"):
         return item
     tools = item.get("tools")
     if not isinstance(tools, dict):
@@ -732,14 +732,14 @@ old = config_path.read_text(encoding="utf-8", errors="ignore") if config_path.ex
 new = json.dumps(cfg, ensure_ascii=False, indent=2) + "\n"
 if old != new:
     if config_path.exists():
-        backup = config_path.with_name(f"openclaw.json.bak-nako-qclaw-{time.strftime('%Y%m%d-%H%M%S')}")
+        backup = config_path.with_name(f"openclaw.json.bak-taotao-qclaw-{time.strftime('%Y%m%d-%H%M%S')}")
         backup.write_text(old, encoding="utf-8")
     config_path.write_text(new, encoding="utf-8")
 PY
 
   local status_pid elapsed=0 status_timeout="${QCLAW_STATUS_TIMEOUT:-20}"
   OPENCLAW_STATE_DIR="$QCLAW_HOME" OPENCLAW_CONFIG_PATH="${QCLAW_OPENCLAW_CONFIG:-$QCLAW_HOME/openclaw.json}" \
-    "$QCLAW_NODE_BIN" "$QCLAW_OPENCLAW_MJS" agents list --json >/tmp/nako-qclaw-status.log 2>&1 &
+    "$QCLAW_NODE_BIN" "$QCLAW_OPENCLAW_MJS" agents list --json >/tmp/taotao-qclaw-status.log 2>&1 &
   status_pid=$!
   while kill -0 "$status_pid" 2>/dev/null; do
     if [ "$elapsed" -ge "$status_timeout" ]; then
@@ -747,7 +747,7 @@ PY
       sleep 1
       kill -9 "$status_pid" 2>/dev/null || true
       wait "$status_pid" 2>/dev/null || true
-      warn "QClaw 状态检查超时；已写入 workspace/config，日志 /tmp/nako-qclaw-status.log"
+      warn "QClaw 状态检查超时；已写入 workspace/config，日志 /tmp/taotao-qclaw-status.log"
       return 0
     fi
     sleep 1
@@ -756,7 +756,7 @@ PY
   if wait "$status_pid"; then
     info "QClaw runtime 已同步: $qclaw_workspace"
   else
-    warn "QClaw 状态检查未完全通过；已写入 workspace/config，日志 /tmp/nako-qclaw-status.log"
+    warn "QClaw 状态检查未完全通过；已写入 workspace/config，日志 /tmp/taotao-qclaw-status.log"
   fi
 }
 
@@ -932,7 +932,7 @@ for name in managed_provider_names:
 
 custom_provider_block = (["custom_providers:"] + provider_lines) if provider_lines else []
 managed = "\n".join([
-    "# BEGIN NAKO HERMES RUNTIME",
+    "# BEGIN TAOTAO HERMES RUNTIME",
     "model:",
     f"  default: {yaml_quote(model)}",
     f"  provider: {yaml_quote(provider)}",
@@ -942,14 +942,14 @@ managed = "\n".join([
     "skills:",
     "  external_dirs:",
     f"    - {yaml_quote(hermes_skills)}",
-    "# END NAKO HERMES RUNTIME",
+    "# END TAOTAO HERMES RUNTIME",
     "",
 ])
 
 config_path = home / "config.yaml"
 old = config_path.read_text(encoding="utf-8", errors="ignore") if config_path.exists() else ""
 new = re.sub(
-    r"(?ms)^# BEGIN NAKO HERMES RUNTIME\n.*?^# END NAKO HERMES RUNTIME\n?",
+    r"(?ms)^# BEGIN TAOTAO HERMES RUNTIME\n.*?^# END TAOTAO HERMES RUNTIME\n?",
     "",
     old,
 ).rstrip()
@@ -957,17 +957,17 @@ new = re.sub(r"(?ms)^(?:model|custom_providers|skills):\n(?:^[ \t].*\n?)*", "", 
 new = (new + "\n\n" if new else "") + managed
 if old != new:
     if config_path.exists():
-        backup = config_path.with_name("config.yaml.bak-nako-hermes")
+        backup = config_path.with_name("config.yaml.bak-taotao-hermes")
         backup.write_text(old, encoding="utf-8")
     config_path.write_text(new, encoding="utf-8")
 PY
 
-  HERMES_HOME="$HERMES_HOME" "$HERMES_BIN" status >/tmp/nako-hermes-status.log 2>&1 \
+  HERMES_HOME="$HERMES_HOME" "$HERMES_BIN" status >/tmp/taotao-hermes-status.log 2>&1 \
     && info "Hermes runtime 已同步: $hermes_workspace" \
-    || warn "Hermes status 未完全通过；已写入 workspace/config，日志 /tmp/nako-hermes-status.log"
+    || warn "Hermes status 未完全通过；已写入 workspace/config，日志 /tmp/taotao-hermes-status.log"
 }
 
-if [ "$NAKO_AGENT_RUNTIME" = "openclaw" ]; then
+if [ "$TAOTAO_AGENT_RUNTIME" = "openclaw" ]; then
   # 0) 修复常见配置障碍：缺 gateway.mode 直接 block 启动
   _changed_mode=0
   if ! openclaw config get gateway.mode >/dev/null 2>&1; then
@@ -1029,26 +1029,26 @@ if [ "$NAKO_AGENT_RUNTIME" = "openclaw" ]; then
     fi
   fi
 else
-  info "$NAKO_AGENT_RUNTIME runtime 已选择，跳过 OpenClaw gateway 预检"
+  info "$TAOTAO_AGENT_RUNTIME runtime 已选择，跳过 OpenClaw gateway 预检"
 fi
 
 # ─── Existing agent check ───────────────────────────────────────────────────
 step "2. 检查 agent 冲突"
 
-if [ "$NAKO_AGENT_RUNTIME" = "hermes" ]; then
+if [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ]; then
   AGENT_WORKSPACE="$HERMES_HOME/workspace/$AGENT_ID"
-elif [ "$NAKO_AGENT_RUNTIME" = "qclaw" ]; then
+elif [ "$TAOTAO_AGENT_RUNTIME" = "qclaw" ]; then
   AGENT_WORKSPACE="$QCLAW_HOME/workspace-$AGENT_ID"
 else
   AGENT_WORKSPACE="$OPENCLAW_WORKSPACES/$AGENT_ID"
 fi
-if [ "$NAKO_AGENT_RUNTIME" = "hermes" ]; then
+if [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ]; then
   AGENT_DIR="$HERMES_HOME/agents/$AGENT_ID"
 else
   AGENT_DIR="$OPENCLAW_HOME/agents/$AGENT_ID"
 fi
-NAKO_AGENT_CONFIG_DIR="$AGENT_DIR/agent"
-export AGENT_WORKSPACE NAKO_AGENT_CONFIG_DIR
+TAOTAO_AGENT_CONFIG_DIR="$AGENT_DIR/agent"
+export AGENT_WORKSPACE TAOTAO_AGENT_CONFIG_DIR
 
 if [ -d "$AGENT_WORKSPACE" ] || [ -d "$AGENT_DIR" ]; then
   warn "已存在 $AGENT_ID 的 workspace 或数据目录"
@@ -1064,22 +1064,22 @@ if [ -d "$AGENT_WORKSPACE" ] || [ -d "$AGENT_DIR" ]; then
     case "$CHOICE" in
       升级*) info "将保留用户数据，仅刷人设文件" ;;
       用别的*)
-        NEW=$(ask "新 agent id（如 agent-nako2）" "${AGENT_ID}2")
+        NEW=$(ask "新 agent id（如 agent-taotao2）" "${AGENT_ID}2")
         AGENT_ID="$NEW"
-        if [ "$NAKO_AGENT_RUNTIME" = "hermes" ]; then
+        if [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ]; then
           AGENT_WORKSPACE="$HERMES_HOME/workspace/$AGENT_ID"
-        elif [ "$NAKO_AGENT_RUNTIME" = "qclaw" ]; then
+        elif [ "$TAOTAO_AGENT_RUNTIME" = "qclaw" ]; then
           AGENT_WORKSPACE="$QCLAW_HOME/workspace-$AGENT_ID"
         else
           AGENT_WORKSPACE="$OPENCLAW_WORKSPACES/$AGENT_ID"
         fi
-        if [ "$NAKO_AGENT_RUNTIME" = "hermes" ]; then
+        if [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ]; then
           AGENT_DIR="$HERMES_HOME/agents/$AGENT_ID"
         else
           AGENT_DIR="$OPENCLAW_HOME/agents/$AGENT_ID"
         fi
-        NAKO_AGENT_CONFIG_DIR="$AGENT_DIR/agent"
-        export AGENT_WORKSPACE NAKO_AGENT_CONFIG_DIR
+        TAOTAO_AGENT_CONFIG_DIR="$AGENT_DIR/agent"
+        export AGENT_WORKSPACE TAOTAO_AGENT_CONFIG_DIR
         ;;
       中止) err "已中止"; exit 0 ;;
     esac
@@ -1092,9 +1092,9 @@ fi
 # zai/glm-4.5-flash，避免把 OpenClaw provider 名同步成 Hermes unknown provider。
 step "3a. Provider 预设 (zai + sensenova)"
 PRESET_FILE="$PACK_ROOT/config/providers-preset.json"
-if [ "$NAKO_AGENT_RUNTIME" = "hermes" ]; then
+if [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ]; then
   info "Hermes runtime 使用 Hermes 自身模型配置，跳过 OpenClaw provider preset"
-elif [ "$NAKO_AGENT_RUNTIME" = "qclaw" ]; then
+elif [ "$TAOTAO_AGENT_RUNTIME" = "qclaw" ]; then
   info "QClaw runtime 使用 QClaw 自带模型路由，跳过 OpenClaw provider preset"
 elif [ -f "$PRESET_FILE" ]; then
   python3 - "$OPENCLAW_CONFIG" "$PRESET_FILE" <<'PY'
@@ -1132,7 +1132,7 @@ fi
 # ─── Model selection ────────────────────────────────────────────────────────
 step "3. 模型匹配"
 
-if [ "$NAKO_AGENT_RUNTIME" = "hermes" ]; then
+if [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ]; then
   PRIMARY="${HERMES_MODEL:-}"
   if [ -z "$PRIMARY" ] && [ -f "$HERMES_HOME/config.yaml" ]; then
     PRIMARY="$(python3 - "$HERMES_HOME/config.yaml" <<'PY'
@@ -1164,7 +1164,7 @@ supported_providers = {
     "gemini", "kimi-coding", "minimax", "minimax-cn", "anthropic",
     "dashscope", "deepseek", "xai", "ai-gateway",
     # Hermes resolves non-built-in OpenAI-compatible endpoints from
-    # custom_providers. Nako writes that block for providers in the preset.
+    # custom_providers. Taotao writes that block for providers in the preset.
     "sensenova",
 }
 if not primary:
@@ -1193,7 +1193,7 @@ print(((data.get("agents") or {}).get("defaults") or {}).get("model", {}).get("p
 PY
 )
   info "跳过模型映射，继承当前 primary: ${PRIMARY:-<空>}"
-elif [ "$NAKO_AGENT_RUNTIME" = "qclaw" ]; then
+elif [ "$TAOTAO_AGENT_RUNTIME" = "qclaw" ]; then
   PRIMARY=$(python3 - "$OPENCLAW_CONFIG" <<'PY'
 import json
 import sys
@@ -1214,7 +1214,7 @@ else
   "$SCRIPT_DIR/detect-models.sh" | sed 's/^/  /' || true
   echo
 
-  # Pick for nako (capability: roleplay)
+  # Pick for taotao (capability: roleplay)
   set +e
   PRIMARY=$("$SCRIPT_DIR/map-model.sh" roleplay 2>/tmp/mapmodel.err)
   RC=$?
@@ -1263,12 +1263,12 @@ step "4. 收集凭据 (可选)"
 dim "下面会逐项问 5 类凭据：飞书 App、MiniMax、Volcengine、fal.ai、kie.ai。"
 dim "  - 任意项**直接回车**跳过，对应能力会被标记 '未启用'，不影响其他能力。"
 dim "  - API key 类输入是**隐藏**的（屏幕看不见但你确实在输入），不要以为卡住"
-if [ "$NAKO_AGENT_RUNTIME" = "hermes" ]; then
+if [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ]; then
   dim "  - 全跳过也行：装完后随时通过 $HERMES_SKILLS_DIR/.env 或 $HERMES_HOME/.env 补。"
 else
   dim "  - 全跳过也行：装完后随时通过 openclaw.json 的 skills.entries.*.env 补；旧版 .env 仍兼容"
 fi
-dim "详见仓库根目录 docs/nako/feishu-setup.md / docs/nako/models.md。"
+dim "详见仓库根目录 docs/taotao/feishu-setup.md / docs/taotao/models.md。"
 echo
 
 # Reuse existing secrets from prior install (unless --reset-secrets)
@@ -1277,7 +1277,7 @@ AGENT_ENV="$AGENT_WORKSPACE/skills/.env"
 if [ "$RESET_SECRETS" != "1" ]; then
   _reused=()
   _OPENCLAW_JSON_REUSED_KEYS=""
-  if [ "$NAKO_AGENT_RUNTIME" = "hermes" ]; then
+  if [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ]; then
     _cfg_skill_exports=""
   else
     _cfg_skill_exports="$(python3 - "$OPENCLAW_CONFIG" <<'PY'
@@ -1323,7 +1323,7 @@ PY
     fi
   fi
   _envfiles=("$SHARED_ENV" "$AGENT_ENV")
-  [ "$NAKO_AGENT_RUNTIME" = "hermes" ] && _envfiles+=("$HERMES_HOME/.env")
+  [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ] && _envfiles+=("$HERMES_HOME/.env")
   for envfile in "${_envfiles[@]}"; do
     if [ -f "$envfile" ]; then
       # Source existing values into shell only if NOT already set by caller env
@@ -1466,7 +1466,7 @@ fi
 step "6. 安装 agent 人设 → $AGENT_WORKSPACE"
 
 mkdir -p "$AGENT_WORKSPACE"
-export NAKO_OVERWRITE_DEFAULT_WORKSPACE_TEMPLATES=1
+export TAOTAO_OVERWRITE_DEFAULT_WORKSPACE_TEMPLATES=1
 for f in AGENTS.md IDENTITY.md SOUL.md USER.md HEARTBEAT.md TOOLS.md; do
   safe_install_file "$PACK_ROOT/agent/$f" "$AGENT_WORKSPACE/$f"
 done
@@ -1477,7 +1477,7 @@ if [ -d "$PACK_ROOT/agent/assets" ]; then
     safe_install_file "$asset" "$AGENT_WORKSPACE/assets/$(basename "$asset")"
   done
 fi
-unset NAKO_OVERWRITE_DEFAULT_WORKSPACE_TEMPLATES
+unset TAOTAO_OVERWRITE_DEFAULT_WORKSPACE_TEMPLATES
 
 python3 - "$AGENT_WORKSPACE" <<'PY'
 import json
@@ -1505,13 +1505,13 @@ if "# BOOTSTRAP.md - Hello, World" in text and "_You just woke up." in text:
 identity_path = workspace / "IDENTITY.md"
 identity_text = read(identity_path)
 legacy_avatars = {
-    "assets/nako-avatar.svg",
+    "assets/taotao-avatar.svg",
     "https://pulseact.lovappen.cn/test/act_ci_build/dlc-promotion/act-gengen/images/e.png",
 }
 for legacy_avatar in legacy_avatars:
     identity_text = re.sub(
         rf"(?m)^-\s*Avatar:\s*{re.escape(legacy_avatar)}\s*$",
-        "- Avatar: assets/nako-avatar-head.png",
+        "- Avatar: assets/taotao-avatar-head.png",
         identity_text,
     )
 if identity_path.exists() and identity_text != read(identity_path):
@@ -1568,14 +1568,14 @@ if new_text != text:
     path.write_text(new_text)
 PY
 
-if [ "$NAKO_AGENT_RUNTIME" = "hermes" ]; then
+if [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ]; then
   python3 - "$AGENT_WORKSPACE" "$HERMES_SKILLS_DIR" <<'PY' || true
 import re
 import sys
 from pathlib import Path
 
 workspace = Path(sys.argv[1])
-skills_dir_display = "~/.hermes/skills/nako"
+skills_dir_display = "~/.hermes/skills/taotao"
 
 def replace(path, replacements):
     if not path.exists():
@@ -1597,11 +1597,11 @@ replace(workspace / "TOOLS.md", [
         f"- selfie / video 的共享生成 key 同样从 `{skills_dir_display}/.env`、`~/.hermes/.env` 或本 agent 的 `skills/.env` 读取。"),
     (re.compile(r"(?m)^- 如果用户问语音/唱歌 key 在哪，.*$"),
         f"- 如果用户问语音/唱歌 key 在哪，先回答 `{skills_dir_display}/.env`，不要只提示去 `.env`。"),
-    ("~/.openclaw/skills", "~/.hermes/skills/nako"),
-    ("OPENCLAW_OUTPUT_MODE", "NAKO_OUTPUT_MODE"),
-    ("OPENCLAW_CCCONNECT_PROJECT", "NAKO_CCCONNECT_PROJECT"),
-    ("OPENCLAW_CONFIG_PATH", "NAKO_CONFIG"),
-    ("OPENCLAW_CONFIG", "NAKO_CONFIG"),
+    ("~/.openclaw/skills", "~/.hermes/skills/taotao"),
+    ("OPENCLAW_OUTPUT_MODE", "TAOTAO_OUTPUT_MODE"),
+    ("OPENCLAW_CCCONNECT_PROJECT", "TAOTAO_CCCONNECT_PROJECT"),
+    ("OPENCLAW_CONFIG_PATH", "TAOTAO_CONFIG"),
+    ("OPENCLAW_CONFIG", "TAOTAO_CONFIG"),
     ("cc-connect / openclaw 多渠道层", "cc-connect / Hermes 多渠道层"),
     ("openclaw cron", "Hermes/外部调度"),
     ("openclaw 原生 feishu channel", "Feishu 直连模式"),
@@ -1616,7 +1616,7 @@ replace(workspace / "MEMORY.md", [
         f"- **provider**：`MINIMAX_API_KEY` 优先，`VOLCENGINE_API_KEY` 备选；key 从 `{skills_dir_display}/.env` 读取，兼容本 agent `skills/.env`"),
     (re.compile(r"(?m)^- \*\*provider\*\*：`FAL_KEY` 优先，`KIE_API_KEY` 备选.*$"),
         f"- **provider**：`FAL_KEY` 优先，`KIE_API_KEY` 备选；key 从 `{skills_dir_display}/.env` 读取，兼容本 agent `skills/.env`"),
-    ("~/.openclaw/skills", "~/.hermes/skills/nako"),
+    ("~/.openclaw/skills", "~/.hermes/skills/taotao"),
     ("openclaw.json -> skills.entries.voice.env", f"{skills_dir_display}/.env"),
     ("openclaw.json -> skills.entries.selfie.env", f"{skills_dir_display}/.env"),
 ])
@@ -1681,14 +1681,14 @@ fi
 # `openclaw capability model auth status`），同时每个 agent 的 agentDir 自己
 # 也存一份。新 agent / fresh openclaw 这两个位置都可能空 → "No API key found
 # for provider"。把 auth-profiles.json 同时种到这两个位置。
-if [ "$NAKO_AGENT_RUNTIME" = "hermes" ]; then
+if [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ]; then
   info "Hermes runtime 使用 Hermes .env/config.yaml，跳过 OpenClaw auth-profiles 复制"
-elif [ "$NAKO_AGENT_RUNTIME" = "qclaw" ]; then
-  mkdir -p "$NAKO_AGENT_CONFIG_DIR"
+elif [ "$TAOTAO_AGENT_RUNTIME" = "qclaw" ]; then
+  mkdir -p "$TAOTAO_AGENT_CONFIG_DIR"
   info "QClaw runtime 使用 QClaw 模型路由，跳过 OpenClaw auth-profiles 复制"
 else
   MAIN_DIR="$OPENCLAW_HOME/agents/main/agent"
-  mkdir -p "$NAKO_AGENT_CONFIG_DIR" "$MAIN_DIR"
+  mkdir -p "$TAOTAO_AGENT_CONFIG_DIR" "$MAIN_DIR"
 
   # 找一份可复制的种子 auth
   SEED_AUTH=""
@@ -1699,7 +1699,7 @@ else
   done
 
   if [ -n "$SEED_AUTH" ]; then
-    for tgt in "$MAIN_DIR/auth-profiles.json" "$NAKO_AGENT_CONFIG_DIR/auth-profiles.json"; do
+    for tgt in "$MAIN_DIR/auth-profiles.json" "$TAOTAO_AGENT_CONFIG_DIR/auth-profiles.json"; do
       if [ ! -f "$tgt" ] || ! cmp -s "$SEED_AUTH" "$tgt"; then
         cp "$SEED_AUTH" "$tgt"
         info "auth-profiles.json 已写入 $(dirname "$tgt")"
@@ -1711,17 +1711,17 @@ else
 fi
 
 # ─── Merge runtime config ───────────────────────────────────────────────────
-if [ "$NAKO_AGENT_RUNTIME" = "hermes" ]; then
+if [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ]; then
   step "7. 合并 Hermes config.yaml"
 else
   step "7. 合并 openclaw.json"
   "$SCRIPT_DIR/merge-config.sh" "$AGENT_ID" "${PRIMARY:-}"
 fi
 
-if [ "$NAKO_AGENT_RUNTIME" = "hermes" ]; then
+if [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ]; then
   step "7a. 同步 Hermes runtime"
   sync_hermes_runtime
-elif [ "$NAKO_AGENT_RUNTIME" = "qclaw" ]; then
+elif [ "$TAOTAO_AGENT_RUNTIME" = "qclaw" ]; then
   step "7a. 同步 QClaw runtime"
   sync_qclaw_runtime
 fi
@@ -1731,9 +1731,9 @@ step "7b. 注册 cron jobs (heartbeat / daily-script / missing-reminder)"
 
 cron_definitions() {
   cat <<EOF
-nako-heartbeat|*/30 * * * *|every 30m|执行思念机制：先用 Bash 跑 $AGENT_WORKSPACE/scripts/heartbeat-check.sh。若退出码为 1，基于 HEARTBEAT.md、memory/daily-script.md 和当前情绪生成一条不超过100字的主动问候，然后必须用 Bash 调用 $AGENT_WORKSPACE/scripts/send-active-message.sh "<消息>" 发送；发送成功后最终只回复 HEARTBEAT_SENT。若未触发，只回复 HEARTBEAT_OK。不要依赖 openclaw cron delivery 发送消息。
-nako-daily-script|0 8 * * *|0 8 * * *|更新 memory/daily-script.md：参考前几日剧本生成今天的剧情（早午下晚四段），保持人物连续性、有生活感+恋爱气息，结尾加'角色状态'与'明日预告'。最终只回复 DAILY_SCRIPT_UPDATED，不要发送给用户。
-nako-missing-reminder|50 16 * * *|50 16 * * *|每天 16:50 思念提醒：生成一条不超过100字的主动问候，用 Bash 调用 $AGENT_WORKSPACE/scripts/send-active-message.sh "<消息>" 发送给主人；随后用 NAKO_REMINDER_SKIP_SEND=1 bash $AGENT_WORKSPACE/scripts/daily-missing-reminder.sh 触发设备振动并记录状态。最终只回复 MISSING_REMINDER_SENT。不要依赖 openclaw cron delivery 发送消息。
+taotao-heartbeat|*/30 * * * *|every 30m|执行思念机制：先用 Bash 跑 $AGENT_WORKSPACE/scripts/heartbeat-check.sh。若退出码为 1，基于 HEARTBEAT.md、memory/daily-script.md 和当前情绪生成一条不超过100字的主动问候，然后必须用 Bash 调用 $AGENT_WORKSPACE/scripts/send-active-message.sh "<消息>" 发送；发送成功后最终只回复 HEARTBEAT_SENT。若未触发，只回复 HEARTBEAT_OK。不要依赖 openclaw cron delivery 发送消息。
+taotao-daily-script|0 8 * * *|0 8 * * *|更新 memory/daily-script.md：参考前几日剧本生成今天的剧情（早午下晚四段），保持人物连续性、有生活感+恋爱气息，结尾加'角色状态'与'明日预告'。最终只回复 DAILY_SCRIPT_UPDATED，不要发送给用户。
+taotao-missing-reminder|50 16 * * *|50 16 * * *|每天 16:50 思念提醒：生成一条不超过100字的主动问候，用 Bash 调用 $AGENT_WORKSPACE/scripts/send-active-message.sh "<消息>" 发送给主人；随后用 TAOTAO_REMINDER_SKIP_SEND=1 bash $AGENT_WORKSPACE/scripts/daily-missing-reminder.sh 触发设备振动并记录状态。最终只回复 MISSING_REMINDER_SENT。不要依赖 openclaw cron delivery 发送消息。
 EOF
 }
 
@@ -1822,15 +1822,15 @@ ensure_hermes_gateway_for_cron() {
   fi
 
   dim "  Hermes gateway 未运行，尝试安装并启动 service..."
-  hermes_timed gateway install >/tmp/nako-hermes-gateway.log 2>&1 || true
-  hermes_timed gateway start >>/tmp/nako-hermes-gateway.log 2>&1 || true
+  hermes_timed gateway install >/tmp/taotao-hermes-gateway.log 2>&1 || true
+  hermes_timed gateway start >>/tmp/taotao-hermes-gateway.log 2>&1 || true
   status="$(hermes_timed cron status 2>&1 || true)"
   if echo "$status" | grep -q "Gateway is running"; then
     info "Hermes gateway 已启动，cron 会自动触发"
     return 0
   fi
   warn "Hermes gateway 未启动；cron 已注册也不会自动跑"
-  dim "  查看：/tmp/nako-hermes-gateway.log"
+  dim "  查看：/tmp/taotao-hermes-gateway.log"
   dim "  手动：HERMES_HOME=\"$HERMES_HOME\" \"$HERMES_BIN\" gateway install && HERMES_HOME=\"$HERMES_HOME\" \"$HERMES_BIN\" gateway start"
   return 1
 }
@@ -1855,29 +1855,29 @@ register_or_update_hermes_cron() {
   fi
 }
 
-if [ "$NAKO_AGENT_RUNTIME" = "openclaw" ] && ! has_bin openclaw; then
+if [ "$TAOTAO_AGENT_RUNTIME" = "openclaw" ] && ! has_bin openclaw; then
   warn "未发现 openclaw 命令，跳过 cron 注册"
-elif [ "$NAKO_AGENT_RUNTIME" = "openclaw" ] && ! wait_for_cron_ready openclaw openclaw_cron_ready "OpenClaw"; then
+elif [ "$TAOTAO_AGENT_RUNTIME" = "openclaw" ] && ! wait_for_cron_ready openclaw openclaw_cron_ready "OpenClaw"; then
   warn "gateway 自动启动失败，跳过 cron 注册"
   dim "  手动起后再 cron add，或重跑 installer："
   dim "    openclaw daemon install && openclaw daemon start"
   dim "    或：openclaw gateway --auth none  &"
   dim "  cron 命令："
-  for cron in "nako-heartbeat|*/30 * * * *" "nako-daily-script|0 8 * * *" "nako-missing-reminder|50 16 * * *"; do
+  for cron in "taotao-heartbeat|*/30 * * * *" "taotao-daily-script|0 8 * * *" "taotao-missing-reminder|50 16 * * *"; do
     n="${cron%%|*}"; e="${cron#*|}"
     dim "    openclaw cron add --name $n --agent $AGENT_ID --cron \"$e\" --message ... --session-key agent:$AGENT_ID:main --session isolated --no-deliver"
   done
-elif [ "$NAKO_AGENT_RUNTIME" = "qclaw" ] && ! wait_for_cron_ready qclaw qclaw_cron_ready "QClaw"; then
+elif [ "$TAOTAO_AGENT_RUNTIME" = "qclaw" ] && ! wait_for_cron_ready qclaw qclaw_cron_ready "QClaw"; then
   warn "QClaw gateway 不可用，跳过 cron 注册"
   dim "  请确认 QClaw.app 正在运行后重跑 installer。"
-elif [ "$NAKO_AGENT_RUNTIME" = "hermes" ] && ! hermes_cron_ready; then
+elif [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ] && ! hermes_cron_ready; then
   warn "Hermes cron CLI 不可用，跳过 cron 注册"
   dim "  手动检查：HERMES_HOME=\"$HERMES_HOME\" \"$HERMES_BIN\" cron status"
 else
-  [ "$NAKO_AGENT_RUNTIME" = "hermes" ] && ensure_hermes_gateway_for_cron || true
+  [ "$TAOTAO_AGENT_RUNTIME" = "hermes" ] && ensure_hermes_gateway_for_cron || true
   while IFS='|' read -r name expr hermes_schedule msg; do
     [ -n "$name" ] || continue
-    case "$NAKO_AGENT_RUNTIME" in
+    case "$TAOTAO_AGENT_RUNTIME" in
       openclaw) register_or_update_openclaw_cron "$name" "$expr" "$msg" ;;
       qclaw) register_or_update_qclaw_cron "$name" "$expr" "$msg" ;;
       hermes) register_or_update_hermes_cron "$name" "$hermes_schedule" "$msg" ;;
@@ -1891,7 +1891,7 @@ fi
 if [ "$WITH_CC_CONNECT" = "1" ] || { [ "$NON_INTERACTIVE" != "1" ] && confirm "现在配置 cc-connect 接入飞书/微信等多平台？" n; }; then
   step "8. cc-connect 多平台接入"
   CC_FLAGS=(--agent-id "$AGENT_ID")
-  CC_FLAGS+=(--runtime "$NAKO_AGENT_RUNTIME")
+  CC_FLAGS+=(--runtime "$TAOTAO_AGENT_RUNTIME")
   [ "$NON_INTERACTIVE" = "1" ] && CC_FLAGS+=(--non-interactive)
   [ "$WITH_FEISHU" = "1" ]     && CC_FLAGS+=(--with-feishu)
   [ "$WITH_WEIXIN" = "1" ]     && CC_FLAGS+=(--with-weixin)
@@ -1899,7 +1899,7 @@ if [ "$WITH_CC_CONNECT" = "1" ] || { [ "$NON_INTERACTIVE" != "1" ] && confirm "�
   [ -n "$CC_PROJECT_ID" ] && CC_FLAGS+=(--cc-project-id "$CC_PROJECT_ID")
   CC_SETUP="$PACK_ROOT/../scripts/cc-connect-setup.sh"
   if [ ! -f "$CC_SETUP" ]; then CC_SETUP="$SCRIPT_DIR/cc-connect-setup.sh"; fi  # legacy fallback
-  if [ "$NAKO_AGENT_RUNTIME" = "qclaw" ] && [ "$FORCE" = "1" ]; then
+  if [ "$TAOTAO_AGENT_RUNTIME" = "qclaw" ] && [ "$FORCE" = "1" ]; then
     QCLAW_PERSONA_CHANGED=1 bash "$CC_SETUP" "${CC_FLAGS[@]}" \
       || warn "cc-connect 配置未完成（可后续手动跑 scripts/cc-connect-setup.sh）"
   else
@@ -1911,9 +1911,9 @@ fi
 # ─── @reboot persistence (no launchd/systemd → fall back to crontab) ───────
 # 在没有 launchd/systemd 的容器/精简 Linux 上，gateway / cc-connect 不会自动
 # 重启。用 user crontab @reboot 兜底，幂等：每次 install 重新装一次。
-if [ "$NAKO_AGENT_RUNTIME" = "openclaw" ] && has_bin crontab && ! has_bin launchctl && ! systemctl --user status >/dev/null 2>&1; then
+if [ "$TAOTAO_AGENT_RUNTIME" = "openclaw" ] && has_bin crontab && ! has_bin launchctl && ! systemctl --user status >/dev/null 2>&1; then
   step "8b. 配置 @reboot 自动起 gateway + cc-connect"
-  CRON_TAG="# nako-autostart"
+  CRON_TAG="# taotao-autostart"
   REBOOT_CMD="@reboot ( $(which openclaw 2>/dev/null) gateway --allow-unconfigured --auth none >/tmp/openclaw-gw.log 2>&1 & sleep 5 ; $(which cc-connect 2>/dev/null) >/tmp/cc-connect.log 2>&1 & ) $CRON_TAG"
   ( crontab -l 2>/dev/null | grep -v "$CRON_TAG"; echo "$REBOOT_CMD" ) | crontab - 2>/dev/null \
     && info "已写 @reboot 入 user crontab" \
@@ -1927,13 +1927,13 @@ step "9. 冒烟测试"
 echo
 info "安装完成！"
 dim "下一步："
-if [ "$NAKO_AGENT_RUNTIME" = "openclaw" ]; then
+if [ "$TAOTAO_AGENT_RUNTIME" = "openclaw" ]; then
   dim "  1. 重启 gateway: launchctl kickstart -k gui/\$(id -u)/ai.openclaw.gateway  (macOS)"
-elif [ "$NAKO_AGENT_RUNTIME" = "qclaw" ]; then
+elif [ "$TAOTAO_AGENT_RUNTIME" = "qclaw" ]; then
   dim "  1. QClaw workspace: $QCLAW_HOME/workspace-$AGENT_ID"
 else
   dim "  1. Hermes workspace: $HERMES_HOME/workspace/$AGENT_ID"
 fi
 dim "  2. 在飞书里 @ $AGENT_ID 或私聊它"
 dim "  3. 要定制：编辑 $AGENT_WORKSPACE/custom.md（Hermes/QClaw 会从这里同步）"
-dim "  4. 文档：仓库根目录 docs/nako/ 和 docs/advanced.md"
+dim "  4. 文档：仓库根目录 docs/taotao/ 和 docs/advanced.md"

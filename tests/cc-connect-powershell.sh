@@ -52,8 +52,8 @@ grep -Fq 'cc-connect 绑定已写入配置，但后续启动/收尾失败' "$ROO
 grep -Fq '未识别到模型能力声明，也未命中偏好表' "$ROOT/install.ps1"
 grep -Fq 'Select-ModelIdsByDeclaredCapability' "$ROOT/install.ps1"
 grep -Fq '"inputModalities", "input_modalities"' "$ROOT/install.ps1"
-grep -Fq 'moonshot/kimi-k2.6' "$ROOT/nako/config/model-map.yaml"
-grep -Fq 'volcengine-plan/ark-code-latest' "$ROOT/nako/config/model-map.yaml"
+grep -Fq 'moonshot/kimi-k2.6' "$ROOT/taotao/config/model-map.yaml"
+grep -Fq 'volcengine-plan/ark-code-latest' "$ROOT/taotao/config/model-map.yaml"
 grep -Fq 'exit 0' "$ROOT/scripts/cc-connect-setup.ps1"
 
 tmp="$(mktemp -d)"
@@ -65,7 +65,7 @@ case "$1" in
   --version) echo "cc-connect v1.3.3"; exit 0 ;;
   daemon)
     if [ "${2:-}" = "start" ]; then
-      base="${NAKO_HOME:-$HOME}/.cc-connect"
+      base="${TAOTAO_HOME:-$HOME}/.cc-connect"
       if [ "${FAKE_CC_CONNECT_NO_SOCKET:-0}" != "1" ]; then
         mkdir -p "$base/run"
         : > "$base/run/api.sock"
@@ -161,7 +161,7 @@ tmp_fail="$(mktemp -d)"
 mkdir -p "$tmp_fail/.openclaw/workspace/agent-test" "$tmp_fail/.openclaw"
 printf '{"gateway":{"auth":{"token":"tok_test"}}}\n' > "$tmp_fail/.openclaw/openclaw.json"
 set +e
-FAKE_OPENCLAW_FAIL=1 NAKO_HOME="$tmp_fail" PATH="$tmp/bin:$PATH" \
+FAKE_OPENCLAW_FAIL=1 TAOTAO_HOME="$tmp_fail" PATH="$tmp/bin:$PATH" \
   pwsh -NoProfile -File "$ROOT/scripts/cc-connect-setup.ps1" \
   -AgentId agent-test -Runtime openclaw -CcConnectSource skip -NonInteractive \
   >"$tmp_fail/setup.out" 2>&1
@@ -177,7 +177,7 @@ printf '{"gateway":{"auth":{"token":"tok_test"}}}\n' > "$tmp_socket/.openclaw/op
 set +e
 FAKE_CC_CONNECT_NO_SOCKET=1 CC_CONNECT_SOCKET_TIMEOUT=1 \
   FAKE_CC_CONNECT_APPEND_CONFIG="$tmp_socket/.cc-connect/config.toml" \
-  NAKO_HOME="$tmp_socket" PATH="$tmp/bin:$PATH" \
+  TAOTAO_HOME="$tmp_socket" PATH="$tmp/bin:$PATH" \
   pwsh -NoProfile -File "$ROOT/scripts/cc-connect-setup.ps1" \
   -AgentId agent-test -Runtime openclaw -CcConnectSource skip -WithWeixin \
   >"$tmp_socket/setup.out" 2>&1
@@ -187,7 +187,7 @@ test "$rc" -ne 0
 grep -Fq "cc-connect API socket not ready" "$tmp_socket/setup.out"
 grep -Fq "api.sock" "$tmp_socket/setup.out"
 
-NAKO_HOME="$tmp" PATH="$tmp/bin:$PATH" pwsh -NoProfile -File "$ROOT/scripts/cc-connect-setup.ps1" \
+TAOTAO_HOME="$tmp" PATH="$tmp/bin:$PATH" pwsh -NoProfile -File "$ROOT/scripts/cc-connect-setup.ps1" \
   -AgentId agent-test -Runtime openclaw -CcConnectSource skip -NonInteractive >/dev/null
 
 tmp_qclaw="$(mktemp -d)"
@@ -240,7 +240,7 @@ type = "acp"
 work_dir = "/existing-openclaw"
 command = "openclaw"
 args = ["acp", "--session", "agent:agent-test:main"]
-env = { NAKO_AGENT_RUNTIME = "openclaw", NAKO_CCCONNECT_PROJECT = "agent-test" }
+env = { TAOTAO_AGENT_RUNTIME = "openclaw", TAOTAO_CCCONNECT_PROJECT = "agent-test" }
 
 [[projects.platforms]]
 type = "weixin"
@@ -251,7 +251,7 @@ token = "openclaw-token"
     encoding="utf-8",
 )
 PY
-EXPECTED_QCLAW_MJS="$qclaw_mjs" NAKO_HOME="$tmp_qclaw" PATH="$tmp/bin:$PATH" \
+EXPECTED_QCLAW_MJS="$qclaw_mjs" TAOTAO_HOME="$tmp_qclaw" PATH="$tmp/bin:$PATH" \
   pwsh -NoProfile -File "$ROOT/scripts/cc-connect-setup.ps1" \
   -AgentId agent-test -Runtime qclaw -CcConnectSource skip -NonInteractive >/dev/null
 grep -Fq "$qclaw_mjs" "$tmp_qclaw/.cc-connect/config.toml"
@@ -292,12 +292,12 @@ assert set(projects) == {"agent-test", "agent-test-qclaw"}, projects
 assert 'args = ["acp", "--session", "agent:agent-test:main"]' in projects["agent-test"]
 assert 'token = "openclaw-token"' in projects["agent-test"]
 assert 'agent:agent-test:session-cc-connect' in projects["agent-test-qclaw"]
-assert 'NAKO_CCCONNECT_PROJECT = "agent-test-qclaw"' in projects["agent-test-qclaw"]
+assert 'TAOTAO_CCCONNECT_PROJECT = "agent-test-qclaw"' in projects["agent-test-qclaw"]
 PY
 
 printf 'qclaw workspace marker\n' > "$tmp_qclaw/.qclaw-state/workspace-agent-test/reinstall-marker.txt"
 printf 'qclaw agent marker\n' > "$tmp_qclaw/.qclaw-state/agents/agent-test/agent/reinstall-marker.txt"
-NAKO_HOME="$tmp_qclaw" PATH="$tmp/bin:$PATH" \
+TAOTAO_HOME="$tmp_qclaw" PATH="$tmp/bin:$PATH" \
   pwsh -NoProfile -File "$ROOT/scripts/cc-connect-setup.ps1" \
   -AgentId agent-test -Runtime qclaw -CcConnectSource skip -UninstallAll >/dev/null
 cp "$tmp/bin/cc-connect.fake" "$tmp/bin/cc-connect"
@@ -312,7 +312,7 @@ assert not (root / ".cc-connect").exists()
 cfg = json.loads((root / ".qclaw-state" / "openclaw.json").read_text(encoding="utf-8"))
 agents = cfg.get("agents", {}).get("list", [])
 assert all(item.get("id") != "agent-test" for item in agents), cfg
-backups = list(root.glob(".nako-agent.bak-uninstall-all-agent-test-*"))
+backups = list(root.glob(".taotao-agent.bak-uninstall-all-agent-test-*"))
 assert len(backups) == 1, backups
 expected = {
     "qclaw-workspace-agent-test/reinstall-marker.txt",
@@ -323,7 +323,7 @@ missing = expected - found
 assert not missing, missing
 assert list(root.glob(".cc-connect.bak-uninstall-all-*"))
 PY
-EXPECTED_QCLAW_MJS="$qclaw_mjs" NAKO_HOME="$tmp_qclaw" PATH="$tmp/bin:$PATH" \
+EXPECTED_QCLAW_MJS="$qclaw_mjs" TAOTAO_HOME="$tmp_qclaw" PATH="$tmp/bin:$PATH" \
   pwsh -NoProfile -File "$ROOT/scripts/cc-connect-setup.ps1" \
   -AgentId agent-test -Runtime qclaw -CcConnectSource skip -NonInteractive >/dev/null
 python3 - "$tmp_qclaw" <<'PY'
@@ -340,7 +340,7 @@ sessions = json.loads((root / ".qclaw-state" / "agents" / "agent-test" / "sessio
 assert "agent:agent-test:session-cc-connect" in sessions, sessions
 cc = (root / ".cc-connect" / "config.toml").read_text(encoding="utf-8")
 assert 'name = "agent-test-qclaw"' in cc
-assert 'NAKO_AGENT_RUNTIME = "qclaw"' in cc
+assert 'TAOTAO_AGENT_RUNTIME = "qclaw"' in cc
 PY
 
 cat > "$tmp_qclaw/bin/node" <<'EOF'
@@ -351,7 +351,7 @@ exit 24
 EOF
 chmod +x "$tmp_qclaw/bin/node"
 set +e
-EXPECTED_QCLAW_MJS="$qclaw_mjs" NAKO_HOME="$tmp_qclaw" PATH="$tmp/bin:$PATH" \
+EXPECTED_QCLAW_MJS="$qclaw_mjs" TAOTAO_HOME="$tmp_qclaw" PATH="$tmp/bin:$PATH" \
   pwsh -NoProfile -File "$ROOT/scripts/cc-connect-setup.ps1" \
   -AgentId agent-test -Runtime qclaw -CcConnectSource skip -NonInteractive \
   >"$tmp_qclaw/delayed-failure.out" 2>&1
@@ -374,7 +374,7 @@ command = "$tmp/missing/claude"
 EOF
 
 FAKE_CC_CONNECT_QR_MARKER="$tmp/qr-marker" FAKE_OPEN_MARKER="$tmp/open-marker" \
-  NAKO_HOME="$tmp" PATH="$tmp/bin:$PATH" \
+  TAOTAO_HOME="$tmp" PATH="$tmp/bin:$PATH" \
   pwsh -NoProfile -File "$ROOT/scripts/cc-connect-setup.ps1" \
   -AgentId agent-test -Runtime openclaw -CcConnectSource skip -WithWeixin >/dev/null
 test -f "$tmp/qr-marker"
@@ -394,7 +394,7 @@ token = "old-token"
 base_url = "https://ilinkai.weixin.qq.com"
 EOF
 printf 'y\n' | FAKE_CC_CONNECT_QR_MARKER="$tmp/rebind-marker" FAKE_OPEN_MARKER="$tmp/rebind-open-marker" \
-  FAKE_CC_CONNECT_APPEND_CONFIG="$tmp/.cc-connect/config.toml" NAKO_HOME="$tmp" PATH="$tmp/bin:$PATH" \
+  FAKE_CC_CONNECT_APPEND_CONFIG="$tmp/.cc-connect/config.toml" TAOTAO_HOME="$tmp" PATH="$tmp/bin:$PATH" \
   pwsh -NoProfile -File "$ROOT/scripts/cc-connect-setup.ps1" \
   -AgentId agent-test -Runtime openclaw -CcConnectSource skip -WithWeixin >/dev/null
 test -f "$tmp/rebind-marker"
@@ -418,7 +418,7 @@ assert 'name = "agent-test"' in cfg
 assert f'command = "{root / "bin" / "openclaw"}"' in cfg
 assert 'args = ["acp", "--session", "agent:agent-test:main"]' in cfg
 assert 'OPENCLAW_GATEWAY_TOKEN = "tok_test"' in cfg
-assert 'NAKO_CCCONNECT_PROJECT = "agent-test"' in cfg
+assert 'TAOTAO_CCCONNECT_PROJECT = "agent-test"' in cfg
 assert '[stream_preview]' in cfg
 assert 'tool_messages = false' in cfg
 assert 'token = "new-token"' in cfg

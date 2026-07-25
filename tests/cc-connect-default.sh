@@ -7,9 +7,9 @@ grep -Fq 'CC_CONNECT_SOURCE="${CC_CONNECT_SOURCE:-lazycat}"' "$ROOT/install.sh"
 grep -Fq 'QClaw runtime 使用 QClaw 自带模型路由，跳过 OpenClaw provider preset' "$ROOT/install.sh"
 grep -Fq 'AGENT_WORKSPACE="$QCLAW_HOME/workspace-$AGENT_ID"' "$ROOT/install.sh"
 grep -Fq 'name = identity.get("name") or agent_id' "$ROOT/install.sh"
-grep -Fq '"avatar": "assets/nako-avatar-head.png"' "$ROOT/install.sh"
+grep -Fq '"avatar": "assets/taotao-avatar-head.png"' "$ROOT/install.sh"
 grep -Fq 'legacy_default_avatars = {' "$ROOT/install.sh"
-grep -Fq 'NAKO_OVERWRITE_DEFAULT_WORKSPACE_TEMPLATES=1' "$ROOT/install.sh"
+grep -Fq 'TAOTAO_OVERWRITE_DEFAULT_WORKSPACE_TEMPLATES=1' "$ROOT/install.sh"
 grep -Fq 'BOOTSTRAP.md.bak-qclaw-template-' "$ROOT/install.sh"
 grep -Fq '[string]$CcConnectSource = "lazycat"' "$ROOT/install.ps1"
 grep -Fq '[ValidateSet("openclaw","hermes","qclaw")]' "$ROOT/install.ps1"
@@ -21,42 +21,42 @@ grep -Fq 'Test-DefaultWorkspaceTemplate' "$ROOT/install.ps1"
 grep -Fq '@("--agent-id", $AgentId, "--runtime", $Runtime)' "$ROOT/install.ps1"
 grep -Fq 'QClaw 主模型继承' "$ROOT/install.ps1"
 grep -Fq 'name = identity.get("name") or agent_id' "$ROOT/install.ps1"
-grep -Fq '"avatar": "assets/nako-avatar-head.png"' "$ROOT/install.ps1"
+grep -Fq '"avatar": "assets/taotao-avatar-head.png"' "$ROOT/install.ps1"
 grep -Fq 'legacy_default_avatars = {' "$ROOT/install.ps1"
 grep -Fq 'for tool_name in ("image_generate", "video_generate", "tts"):' "$ROOT/install.ps1"
-grep -Fq 'OPENCLAW_CONFIG="${OPENCLAW_CONFIG:-${OPENCLAW_CONFIG_PATH:-$OPENCLAW_HOME/openclaw.json}}"' "$ROOT/nako/scripts/lib.sh"
-grep -Fq 'safe_install_pack_file()' "$ROOT/nako/scripts/lib.sh"
-grep -Fq 'non-interactive; use --force to overwrite' "$ROOT/nako/scripts/lib.sh"
-grep -Fq 'CONFIG="${OPENCLAW_CONFIG:-${OPENCLAW_CONFIG_PATH:-$OPENCLAW_HOME/openclaw.json}}"' "$ROOT/nako/scripts/detect-models.sh"
-grep -Fq 'local _cfg="${NAKO_CONFIG:-${OPENCLAW_CONFIG:-${OPENCLAW_CONFIG_PATH:-$HOME/.openclaw/openclaw.json}}}"' "$ROOT/nako/skills/voice/scripts/voice.sh"
-grep -Fq 'local _cfg="${NAKO_CONFIG:-${OPENCLAW_CONFIG:-${OPENCLAW_CONFIG_PATH:-$HOME/.openclaw/openclaw.json}}}"' "$ROOT/nako/skills/selfie/scripts/selfie.sh"
+grep -Fq 'OPENCLAW_CONFIG="${OPENCLAW_CONFIG:-${OPENCLAW_CONFIG_PATH:-$OPENCLAW_HOME/openclaw.json}}"' "$ROOT/taotao/scripts/lib.sh"
+grep -Fq 'safe_install_pack_file()' "$ROOT/taotao/scripts/lib.sh"
+grep -Fq 'non-interactive; use --force to overwrite' "$ROOT/taotao/scripts/lib.sh"
+grep -Fq 'CONFIG="${OPENCLAW_CONFIG:-${OPENCLAW_CONFIG_PATH:-$OPENCLAW_HOME/openclaw.json}}"' "$ROOT/taotao/scripts/detect-models.sh"
+grep -Fq 'local _cfg="${TAOTAO_CONFIG:-${OPENCLAW_CONFIG:-${OPENCLAW_CONFIG_PATH:-$HOME/.openclaw/openclaw.json}}}"' "$ROOT/taotao/skills/voice/scripts/voice.sh"
+grep -Fq 'local _cfg="${TAOTAO_CONFIG:-${OPENCLAW_CONFIG:-${OPENCLAW_CONFIG_PATH:-$HOME/.openclaw/openclaw.json}}}"' "$ROOT/taotao/skills/selfie/scripts/selfie.sh"
 grep -Fq 'SELFIE_REFERENCE_IMAGE' "$ROOT/scripts/internal/sync-provider-keys-to-openclaw-json.sh"
-grep -Fq 'send --data-dir "$data_dir" --image' "$ROOT/nako/skills/selfie/scripts/selfie.sh"
-grep -Fq '_feishu_send_image_file "$temp_file"' "$ROOT/nako/skills/selfie/scripts/selfie.sh"
-grep -Fq 'send --data-dir "$data_dir" --file' "$ROOT/nako/skills/selfie/scripts/video.sh"
-grep -Fq '_feishu_send_video_file "$VIDEO_FILE"' "$ROOT/nako/skills/selfie/scripts/video.sh"
-grep -Fq 'send --data-dir "$data_dir" --file' "$ROOT/nako/skills/voice/scripts/voice.sh"
-grep -Fq 'send --data-dir "$data_dir" --file' "$ROOT/nako/skills/voice/scripts/sing.sh"
-grep -Fq 'cc-connect media rule' "$ROOT/nako/agent/AGENTS.md"
-grep -Fq 'Skill script path rule' "$ROOT/nako/agent/AGENTS.md"
-grep -Fq 'Installed skill scripts are read-only runtime artifacts' "$ROOT/nako/agent/AGENTS.md"
-grep -Fq '$HOME/.qclaw/skills' "$ROOT/nako/agent/TOOLS.md"
-grep -Fq '不要调用 OpenClaw 原生 `image_generate` / `tts` / `video_generate`' "$ROOT/nako/agent/TOOLS.md"
-grep -Fq '不要热修已安装脚本' "$ROOT/nako/agent/TOOLS.md"
-grep -Fq 'never call OpenClaw native `video_generate` under any circumstance' "$ROOT/nako/agent/AGENTS.md"
-grep -Fq 'Never set `NAKO_OUTPUT_MODE=webchat`' "$ROOT/nako/agent/AGENTS.md"
-grep -Fq '即使工具列表里出现 `video_generate`，也绝对不要调用' "$ROOT/nako/agent/TOOLS.md"
-grep -Fq '不要写 `NAKO_OUTPUT_MODE=webchat`' "$ROOT/nako/agent/TOOLS.md"
-grep -Fq '全能力展示' "$ROOT/nako/agent/TOOLS.md"
-grep -Fq 'memory-write.sh' "$ROOT/nako/agent/AGENTS.md"
-grep -Fq 'memory-write.sh' "$ROOT/nako/agent/TOOLS.md"
-grep -Fq 'memory-write.sh' "$ROOT/nako/agent/MEMORY.md"
-test -x "$ROOT/nako/agent/scripts/memory-write.sh"
-grep -Fq 'Do not use OpenClaw native `image_generate`' "$ROOT/nako/skills/selfie/SKILL.md"
-grep -Fq 'never call OpenClaw native `video_generate` in Feishu/Weixin/ACP sessions' "$ROOT/nako/skills/selfie/SKILL.md"
-grep -Fq 'Do not set `NAKO_OUTPUT_MODE=webchat`' "$ROOT/nako/skills/selfie/SKILL.md"
-grep -Fq '不要调用 OpenClaw 原生 `tts`' "$ROOT/nako/skills/voice/SKILL.md"
-grep -Fq '不要设置 `NAKO_OUTPUT_MODE=webchat`' "$ROOT/nako/skills/voice/SKILL.md"
+grep -Fq 'send --data-dir "$data_dir" --image' "$ROOT/taotao/skills/selfie/scripts/selfie.sh"
+grep -Fq '_feishu_send_image_file "$temp_file"' "$ROOT/taotao/skills/selfie/scripts/selfie.sh"
+grep -Fq 'send --data-dir "$data_dir" --file' "$ROOT/taotao/skills/selfie/scripts/video.sh"
+grep -Fq '_feishu_send_video_file "$VIDEO_FILE"' "$ROOT/taotao/skills/selfie/scripts/video.sh"
+grep -Fq 'send --data-dir "$data_dir" --file' "$ROOT/taotao/skills/voice/scripts/voice.sh"
+grep -Fq 'send --data-dir "$data_dir" --file' "$ROOT/taotao/skills/voice/scripts/sing.sh"
+grep -Fq 'cc-connect media rule' "$ROOT/taotao/agent/AGENTS.md"
+grep -Fq 'Skill script path rule' "$ROOT/taotao/agent/AGENTS.md"
+grep -Fq 'Installed skill scripts are read-only runtime artifacts' "$ROOT/taotao/agent/AGENTS.md"
+grep -Fq '$HOME/.qclaw/skills' "$ROOT/taotao/agent/TOOLS.md"
+grep -Fq '不要调用 OpenClaw 原生 `image_generate` / `tts` / `video_generate`' "$ROOT/taotao/agent/TOOLS.md"
+grep -Fq '不要热修已安装脚本' "$ROOT/taotao/agent/TOOLS.md"
+grep -Fq 'never call OpenClaw native `video_generate` under any circumstance' "$ROOT/taotao/agent/AGENTS.md"
+grep -Fq 'Never set `TAOTAO_OUTPUT_MODE=webchat`' "$ROOT/taotao/agent/AGENTS.md"
+grep -Fq '即使工具列表里出现 `video_generate`，也绝对不要调用' "$ROOT/taotao/agent/TOOLS.md"
+grep -Fq '不要写 `TAOTAO_OUTPUT_MODE=webchat`' "$ROOT/taotao/agent/TOOLS.md"
+grep -Fq '全能力展示' "$ROOT/taotao/agent/TOOLS.md"
+grep -Fq 'memory-write.sh' "$ROOT/taotao/agent/AGENTS.md"
+grep -Fq 'memory-write.sh' "$ROOT/taotao/agent/TOOLS.md"
+grep -Fq 'memory-write.sh' "$ROOT/taotao/agent/MEMORY.md"
+test -x "$ROOT/taotao/agent/scripts/memory-write.sh"
+grep -Fq 'Do not use OpenClaw native `image_generate`' "$ROOT/taotao/skills/selfie/SKILL.md"
+grep -Fq 'never call OpenClaw native `video_generate` in Feishu/Weixin/ACP sessions' "$ROOT/taotao/skills/selfie/SKILL.md"
+grep -Fq 'Do not set `TAOTAO_OUTPUT_MODE=webchat`' "$ROOT/taotao/skills/selfie/SKILL.md"
+grep -Fq '不要调用 OpenClaw 原生 `tts`' "$ROOT/taotao/skills/voice/SKILL.md"
+grep -Fq '不要设置 `TAOTAO_OUTPUT_MODE=webchat`' "$ROOT/taotao/skills/voice/SKILL.md"
 grep -Fq 'CC_CONNECT_SOURCE="${CC_CONNECT_SOURCE:-lazycat}"' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'elif [ "$CC_CONNECT_SOURCE" = "lazycat" ] || [ "$CC_CONNECT_SOURCE" = "auto" ]; then' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'CC_CONNECT_GO_DOWNLOAD_VERSION="${CC_CONNECT_GO_DOWNLOAD_VERSION:-1.25.0}"' "$ROOT/scripts/cc-connect-setup.sh"
@@ -78,7 +78,7 @@ grep -Fq 'remove_cc_connect_project' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'uninstall_cc_connect_all' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'uninstall_agent_runtime_data' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'remove_agent_from_openclaw_config' "$ROOT/scripts/cc-connect-setup.sh"
-grep -Fq '.nako-agent.bak-uninstall-all-' "$ROOT/scripts/cc-connect-setup.sh"
+grep -Fq '.taotao-agent.bak-uninstall-all-' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq '.cc-connect.bak-uninstall-all-' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'ps -eo pid=,args=' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'looks_like_cc_connect_main(args)' "$ROOT/scripts/cc-connect-setup.sh"
@@ -88,17 +88,17 @@ grep -Fq 'stop_cc_connect_pids force $old_pids' "$ROOT/scripts/cc-connect-setup.
 grep -Fq 'cc-connect daemon install --work-dir "$HOME/.cc-connect" --force' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'cc-connect daemon start --work-dir "$HOME/.cc-connect"' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'cc_connect_has_startable_projects()' "$ROOT/scripts/cc-connect-setup.sh"
-grep -Fq 'cc-connect 还没有平台绑定，跳过启动；扫码完成后 Nako Factory 会自动重启' "$ROOT/scripts/cc-connect-setup.sh"
+grep -Fq 'cc-connect 还没有平台绑定，跳过启动；扫码完成后 Taotao Factory 会自动重启' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'ensure_cc_connect_api_socket_compat()' "$ROOT/scripts/cc-connect-setup.sh"
-grep -Fq 'ensure_cc_connect_api_socket_compat(work_dir)' "$ROOT/scripts/nako-agent-factory/nako-server.py"
+grep -Fq 'ensure_cc_connect_api_socket_compat(work_dir)' "$ROOT/scripts/taotao-agent-factory/taotao-server.py"
 grep -Fq 'sync_hermes_feishu_env_from_cc_config()' "$ROOT/scripts/cc-connect-setup.sh"
-grep -Fq 'sync_hermes_feishu_env_for_project(aid)' "$ROOT/scripts/nako-agent-factory/nako-server.py"
+grep -Fq 'sync_hermes_feishu_env_for_project(aid)' "$ROOT/scripts/taotao-agent-factory/taotao-server.py"
 grep -Fq 'stream_preview' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'tool_messages = false' "$ROOT/scripts/cc-connect-setup.sh"
-grep -Fq 'stream_preview.enabled=true display.tool_messages=false' "$ROOT/scripts/nako-agent-factory/nako-server.py"
-grep -Fq 'openclaw|hermes)' "$ROOT/scripts/nako-agent-factory/install.sh"
-grep -Fq 'QClaw 不能通过 Nako Agent Factory 网页绑定' "$ROOT/scripts/nako-agent-factory/nako-server.py"
-! grep -Fq 'openclaw|hermes|qclaw)' "$ROOT/scripts/nako-agent-factory/install.sh"
+grep -Fq 'stream_preview.enabled=true display.tool_messages=false' "$ROOT/scripts/taotao-agent-factory/taotao-server.py"
+grep -Fq 'openclaw|hermes)' "$ROOT/scripts/taotao-agent-factory/install.sh"
+grep -Fq 'QClaw 不能通过 Taotao Agent Factory 网页绑定' "$ROOT/scripts/taotao-agent-factory/taotao-server.py"
+! grep -Fq 'openclaw|hermes|qclaw)' "$ROOT/scripts/taotao-agent-factory/install.sh"
 grep -Fq 'nohup cc-connect </dev/null >"$HOME/.cc-connect/cc-connect.log" 2>&1 &' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'start_cc_connect_background()' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'warn "${reason}，重启旧 cc-connect 进程: $old_pids"' "$ROOT/scripts/cc-connect-setup.sh"
@@ -106,7 +106,7 @@ grep -Fq 'warn "${reason}，重启旧 cc-connect 进程: $old_pids"' "$ROOT/scri
 grep -Fq 'ensure_cc_connect_running "$desc onboarding 完成"' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'CC_CONNECT_CHANGED=1' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq -- '--set-allow-from-empty' "$ROOT/scripts/cc-connect-setup.sh"
-grep -Fq 'weixin_args.append("--set-allow-from-empty")' "$ROOT/scripts/nako-agent-factory/nako-server.py"
+grep -Fq 'weixin_args.append("--set-allow-from-empty")' "$ROOT/scripts/taotao-agent-factory/taotao-server.py"
 grep -Fq 'remove_platform_binding()' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'confirm "$desc 已绑定，是否解绑并重新扫码？" n' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'info "$desc 已配，跳过"' "$ROOT/scripts/cc-connect-setup.sh"
@@ -119,12 +119,12 @@ grep -Fq 'runtime failed during setup preflight' "$ROOT/scripts/cc-connect-setup
 grep -Fq 'openclaw|hermes|qclaw)' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'QCLAW_OPENCLAW_MJS' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'resolve_qclaw_layout' "$ROOT/scripts/cc-connect-setup.sh"
-grep -Fq 'NAKO_OUTPUT_MODE' "$ROOT/scripts/cc-connect-setup.sh"
-grep -Fq 'NAKO_CCCONNECT_PROJECT' "$ROOT/scripts/cc-connect-setup.sh"
+grep -Fq 'TAOTAO_OUTPUT_MODE' "$ROOT/scripts/cc-connect-setup.sh"
+grep -Fq 'TAOTAO_CCCONNECT_PROJECT' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'OPENCLAW_GATEWAY_TOKEN' "$ROOT/scripts/cc-connect-setup.sh"
-grep -Fq 'gateway_auth_token' "$ROOT/scripts/nako-agent-factory/nako-server.py"
-grep -Fq '"NAKO_SKILLS_DIR": str(Path(openclaw_home) / "skills")' "$ROOT/scripts/cc-connect-setup.sh"
-grep -Fq '"NAKO_MEDIA_HOME": str(Path(openclaw_home) / "media")' "$ROOT/scripts/cc-connect-setup.sh"
+grep -Fq 'gateway_auth_token' "$ROOT/scripts/taotao-agent-factory/taotao-server.py"
+grep -Fq '"TAOTAO_SKILLS_DIR": str(Path(openclaw_home) / "skills")' "$ROOT/scripts/cc-connect-setup.sh"
+grep -Fq '"TAOTAO_MEDIA_HOME": str(Path(openclaw_home) / "media")' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq '"OPENCLAW_CONFIG": qclaw_config_path' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq '"OPENCLAW_CONFIG_PATH": qclaw_config_path' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'QCLAW_CC_SESSION_SUFFIX="${QCLAW_CC_SESSION_SUFFIX:-session-cc-connect}"' "$ROOT/scripts/cc-connect-setup.sh"
@@ -133,12 +133,12 @@ grep -Fq 'for tool_name in ("image_generate", "video_generate", "tts"):' "$ROOT/
 grep -Fq 'QCLAW_AGENT_REGISTRATION_STATUS="$(ensure_qclaw_agent_registration)"' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'ensure_qclaw_cc_session' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'sync_qclaw_pack_skills' "$ROOT/scripts/cc-connect-setup.sh"
-grep -Fq 'ensure_qclaw_nako_persona' "$ROOT/scripts/cc-connect-setup.sh"
+grep -Fq 'ensure_qclaw_taotao_persona' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'ensure_qclaw_agent_registration' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'ensure_hermes_venv_launcher' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'ensure_hermes_venv_launcher' "$ROOT/install.sh"
-grep -Fq 'ensure_hermes_venv_launcher' "$ROOT/scripts/nako-agent-factory/nako-server.py"
-grep -Fq '"avatar": "assets/nako-avatar-head.png"' "$ROOT/scripts/cc-connect-setup.sh"
+grep -Fq 'ensure_hermes_venv_launcher' "$ROOT/scripts/taotao-agent-factory/taotao-server.py"
+grep -Fq '"avatar": "assets/taotao-avatar-head.png"' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'f"agent:{agent_id}:{qclaw_session_suffix}"' "$ROOT/scripts/cc-connect-setup.sh"
 grep -Fq 'sync_qclaw_runtime' "$ROOT/install.sh"
 grep -Fq 'QCLAW_STATUS_TIMEOUT' "$ROOT/install.sh"
@@ -150,16 +150,16 @@ grep -Fq 'Hermes 精确 cron 需要 croniter' "$ROOT/install.sh"
 grep -Fq 'QCLAW_PERSONA_CHANGED=1 bash "$CC_SETUP"' "$ROOT/install.sh"
 grep -Fq 'CC_FLAGS+=(--cc-project-id "$CC_PROJECT_ID")' "$ROOT/install.sh"
 grep -Fq '未识别到模型能力声明，也未命中偏好表' "$ROOT/install.sh"
-grep -Fq 'Declared model capabilities win; model-map.yaml' "$ROOT/nako/scripts/map-model.sh"
-grep -Fq '"inputModalities", "input_modalities"' "$ROOT/nako/scripts/detect-models.sh"
-grep -Fq 'moonshot/kimi-k2.6' "$ROOT/nako/config/model-map.yaml"
-grep -Fq 'volcengine-plan/ark-code-latest' "$ROOT/nako/config/model-map.yaml"
-grep -Fq '## 模型能力要求' "$ROOT/docs/nako/install.md"
-grep -Fq '| `roleplay` |' "$ROOT/docs/nako/install.md"
-grep -Fq '| `general` |' "$ROOT/docs/nako/install.md"
-grep -Fq '| `vision` |' "$ROOT/docs/nako/install.md"
+grep -Fq 'Declared model capabilities win; model-map.yaml' "$ROOT/taotao/scripts/map-model.sh"
+grep -Fq '"inputModalities", "input_modalities"' "$ROOT/taotao/scripts/detect-models.sh"
+grep -Fq 'moonshot/kimi-k2.6' "$ROOT/taotao/config/model-map.yaml"
+grep -Fq 'volcengine-plan/ark-code-latest' "$ROOT/taotao/config/model-map.yaml"
+grep -Fq '## 模型能力要求' "$ROOT/docs/taotao/install.md"
+grep -Fq '| `roleplay` |' "$ROOT/docs/taotao/install.md"
+grep -Fq '| `general` |' "$ROOT/docs/taotao/install.md"
+grep -Fq '| `vision` |' "$ROOT/docs/taotao/install.md"
 grep -Fq '安装详解：模型能力要求' "$ROOT/README.md"
-grep -Fq '`agent-nako-qclaw`' "$ROOT/docs/nako/install.md"
+grep -Fq '`agent-taotao-qclaw`' "$ROOT/docs/taotao/install.md"
 grep -Fq '<agent-id>-qclaw' "$ROOT/README.md"
 grep -Fq 'for tool_name in ("image_generate", "video_generate", "tts"):' "$ROOT/install.sh"
 grep -Fq 'safe_install_pack_file "$PACK_ROOT/skills/skill-log.sh" "$OPENCLAW_SKILLS_DIR/skill-log.sh"' "$ROOT/install.sh"
@@ -170,14 +170,14 @@ grep -Fq 'Ensure-QClawRuntimeSafetyRules' "$ROOT/install.ps1"
 grep -Fq '$env:QCLAW_PERSONA_CHANGED = "1"' "$ROOT/install.ps1"
 grep -Fq '"selfie": ["FAL_KEY", "KIE_API_KEY", "SELFIE_REFERENCE_IMAGE", "SELFIE_CHARACTER_DESC", "OPENCLAW_GATEWAY_TOKEN"]' "$ROOT/install.sh"
 grep -Fq "set_env('selfie', ['FAL_KEY','KIE_API_KEY','SELFIE_REFERENCE_IMAGE','SELFIE_CHARACTER_DESC','OPENCLAW_GATEWAY_TOKEN'])" "$ROOT/install.ps1"
-grep -Fq 'set_env("selfie", ["FAL_KEY", "KIE_API_KEY", "SELFIE_REFERENCE_IMAGE", "SELFIE_CHARACTER_DESC", "OPENCLAW_GATEWAY_TOKEN"])' "$ROOT/nako/scripts/merge-config.sh"
+grep -Fq 'set_env("selfie", ["FAL_KEY", "KIE_API_KEY", "SELFIE_REFERENCE_IMAGE", "SELFIE_CHARACTER_DESC", "OPENCLAW_GATEWAY_TOKEN"])' "$ROOT/taotao/scripts/merge-config.sh"
 grep -Fq 'f"  - name: {yaml_quote(name)}"' "$ROOT/install.sh"
 ! grep -Fq 'f"  {name}:"' "$ROOT/install.sh"
-grep -Fq -- '- Avatar: assets/nako-avatar-head.png' "$ROOT/nako/agent/IDENTITY.md"
-test -f "$ROOT/nako/agent/assets/nako-avatar.svg"
-test -f "$ROOT/nako/agent/assets/nako-avatar-head.png"
-grep -Fq 'https://cdn.jsdelivr.net/gh/Lovappen/MetaPact@${AGENTS_REF}/install.sh' "$ROOT/scripts/nako-agent-factory/install.sh"
-grep -Fq 'https://cdn.jsdelivr.net/gh/Lovappen/MetaPact@{AGENTS_REF}/install.sh' "$ROOT/scripts/nako-agent-factory/nako-server.py"
+grep -Fq -- '- Avatar: assets/taotao-avatar-head.png' "$ROOT/taotao/agent/IDENTITY.md"
+test -f "$ROOT/taotao/agent/assets/taotao-avatar.svg"
+test -f "$ROOT/taotao/agent/assets/taotao-avatar-head.png"
+grep -Fq 'https://cdn.jsdelivr.net/gh/Lovappen/MetaPact@${AGENTS_REF}/install.sh' "$ROOT/scripts/taotao-agent-factory/install.sh"
+grep -Fq 'https://cdn.jsdelivr.net/gh/Lovappen/MetaPact@{AGENTS_REF}/install.sh' "$ROOT/scripts/taotao-agent-factory/taotao-server.py"
 
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
@@ -240,13 +240,13 @@ root = Path(sys.argv[1])
     encoding="utf-8",
 )
 PY
-picked="$(OPENCLAW_CONFIG="$tmp/openclaw-models.json" NON_INTERACTIVE=1 bash "$ROOT/nako/scripts/map-model.sh" roleplay)"
+picked="$(OPENCLAW_CONFIG="$tmp/openclaw-models.json" NON_INTERACTIVE=1 bash "$ROOT/taotao/scripts/map-model.sh" roleplay)"
 test "$picked" = "moonshot/kimi-k2.6"
-picked="$(OPENCLAW_CONFIG="$tmp/openclaw-capability-models.json" NON_INTERACTIVE=1 bash "$ROOT/nako/scripts/map-model.sh" roleplay)"
+picked="$(OPENCLAW_CONFIG="$tmp/openclaw-capability-models.json" NON_INTERACTIVE=1 bash "$ROOT/taotao/scripts/map-model.sh" roleplay)"
 test "$picked" = "custom/role-agent"
-picked="$(OPENCLAW_CONFIG="$tmp/openclaw-general-models.json" NON_INTERACTIVE=1 bash "$ROOT/nako/scripts/map-model.sh" general)"
+picked="$(OPENCLAW_CONFIG="$tmp/openclaw-general-models.json" NON_INTERACTIVE=1 bash "$ROOT/taotao/scripts/map-model.sh" general)"
 test "$picked" = "custom/new-text"
-picked="$(OPENCLAW_CONFIG="$tmp/openclaw-vision-models.json" NON_INTERACTIVE=1 bash "$ROOT/nako/scripts/map-model.sh" vision)"
+picked="$(OPENCLAW_CONFIG="$tmp/openclaw-vision-models.json" NON_INTERACTIVE=1 bash "$ROOT/taotao/scripts/map-model.sh" vision)"
 test "$picked" = "custom/vision-agent"
 envfile="$tmp/bash_env"
 cat > "$envfile" <<'EOF'
@@ -316,7 +316,7 @@ openclaw = json.loads((root / ".openclaw/openclaw.json").read_text(encoding="utf
 qclaw = json.loads((root / ".qclaw-state/openclaw.json").read_text(encoding="utf-8"))
 assert [x["id"] for x in openclaw["agents"]["list"]] == ["other"]
 assert [x["id"] for x in qclaw["agents"]["list"]] == ["other"]
-agent_baks = list(root.glob(".nako-agent.bak-uninstall-all-agent-test-*"))
+agent_baks = list(root.glob(".taotao-agent.bak-uninstall-all-agent-test-*"))
 cc_baks = list(root.glob(".cc-connect.bak-uninstall-all-*"))
 assert len(agent_baks) == 1, agent_baks
 assert len(cc_baks) == 1, cc_baks
@@ -398,7 +398,7 @@ type = "acp"
 work_dir = "/existing-openclaw"
 command = "openclaw"
 args = ["acp", "--session", "agent:agent-test:main"]
-env = { NAKO_AGENT_RUNTIME = "openclaw", NAKO_CCCONNECT_PROJECT = "agent-test" }
+env = { TAOTAO_AGENT_RUNTIME = "openclaw", TAOTAO_CCCONNECT_PROJECT = "agent-test" }
 
 [[projects.platforms]]
 type = "weixin"
@@ -443,7 +443,7 @@ assert f'QCLAW_HOME = "{state}"' in qclaw_project
 assert f'OPENCLAW_STATE_DIR = "{state}"' in qclaw_project
 assert f'OPENCLAW_CONFIG = "{state / "custom-openclaw.json"}"' in qclaw_project
 assert f'OPENCLAW_CONFIG_PATH = "{state / "custom-openclaw.json"}"' in qclaw_project
-assert 'NAKO_CCCONNECT_PROJECT = "agent-test-qclaw"' in qclaw_project
+assert 'TAOTAO_CCCONNECT_PROJECT = "agent-test-qclaw"' in qclaw_project
 assert f'{root / ".openclaw"}' not in qclaw_project, qclaw_project
 sessions = state / "agents" / "agent-test" / "sessions" / "sessions.json"
 assert sessions.exists()
@@ -465,7 +465,7 @@ for rel in [
     "selfie/scripts/video.sh",
     "hearing/scripts/stt.sh",
 ]:
-    assert (state / "skills" / rel).read_bytes() == (repo / "nako" / "skills" / rel).read_bytes(), rel
+    assert (state / "skills" / rel).read_bytes() == (repo / "taotao" / "skills" / rel).read_bytes(), rel
 assert list((state / "skills" / "voice" / "scripts").glob("voice.sh.bak-cc-connect-skill-*"))
 PY
 
@@ -498,8 +498,8 @@ from pathlib import Path
 root = Path(sys.argv[1])
 app = root / ".qclaw-app"
 state = root / ".qclaw-state"
-workspace = state / "workspace-agent-nako"
-session_dir = state / "agents" / "agent-nako" / "sessions"
+workspace = state / "workspace-agent-taotao"
+session_dir = state / "agents" / "agent-taotao" / "sessions"
 app.mkdir(parents=True)
 state.mkdir(parents=True)
 workspace.mkdir(parents=True)
@@ -539,7 +539,7 @@ old_session.write_text(
 (session_dir / "sessions.json").write_text(
     json.dumps(
         {
-            "agent:agent-nako:session-cc-connect": {
+            "agent:agent-taotao:session-cc-connect": {
                 "sessionId": "old-session",
                 "updatedAt": 1,
                 "label": "cc-connect 飞书/微信",
@@ -552,14 +552,14 @@ old_session.write_text(
 )
 cc_sessions = root / ".cc-connect" / "sessions"
 cc_sessions.mkdir(parents=True)
-(cc_sessions / "agent-nako_stale.json").write_text("stale", encoding="utf-8")
-(cc_sessions / "agent-nako-qclaw_stale.json").write_text("stale", encoding="utf-8")
+(cc_sessions / "agent-taotao_stale.json").write_text("stale", encoding="utf-8")
+(cc_sessions / "agent-taotao-qclaw_stale.json").write_text("stale", encoding="utf-8")
 PY
 (
   cd "$tmp3"
   HOME="$tmp3" QCLAW_HOME="$tmp3/.qclaw-app" BASH_ENV="$envfile3" \
     bash "$ROOT/scripts/cc-connect-setup.sh" \
-      --agent-id agent-nako --runtime qclaw \
+      --agent-id agent-taotao --runtime qclaw \
       --cc-connect-source skip --non-interactive >/dev/null
 )
 python3 - "$tmp3" "$ROOT" <<'PY'
@@ -570,21 +570,21 @@ from pathlib import Path
 root = Path(sys.argv[1])
 repo = Path(sys.argv[2])
 state = (root / ".qclaw-state").resolve()
-workspace = state / "workspace-agent-nako"
-source = repo / "nako" / "agent"
+workspace = state / "workspace-agent-taotao"
+source = repo / "taotao" / "agent"
 for name in ["AGENTS.md", "IDENTITY.md", "SOUL.md", "USER.md", "HEARTBEAT.md", "TOOLS.md"]:
     assert (workspace / name).read_text(encoding="utf-8") == (source / name).read_text(encoding="utf-8"), name
 identity_text = (workspace / "IDENTITY.md").read_text(encoding="utf-8")
-assert "- Avatar: assets/nako-avatar-head.png" in identity_text
-assert (workspace / "assets" / "nako-avatar.svg").exists()
-assert (workspace / "assets" / "nako-avatar-head.png").exists()
+assert "- Avatar: assets/taotao-avatar-head.png" in identity_text
+assert (workspace / "assets" / "taotao-avatar.svg").exists()
+assert (workspace / "assets" / "taotao-avatar-head.png").exists()
 qclaw_config = json.loads((state / "openclaw.json").read_text(encoding="utf-8"))
 registered = [
     item for item in qclaw_config["agents"]["list"]
-    if isinstance(item, dict) and item.get("id") == "agent-nako"
+    if isinstance(item, dict) and item.get("id") == "agent-taotao"
 ]
 assert len(registered) == 1
-assert registered[0]["identity"]["avatar"] == "assets/nako-avatar-head.png"
+assert registered[0]["identity"]["avatar"] == "assets/taotao-avatar-head.png"
 assert "vibe" not in registered[0]["identity"]
 assert registered[0]["identity"]["theme"] == "赛博世界粘人小白桃猫"
 assert registered[0]["tools"]["deny"] == ["image_generate", "video_generate", "tts"]
@@ -592,14 +592,14 @@ assert not (workspace / "BOOTSTRAP.md").exists()
 state_file = workspace / ".openclaw" / "workspace-state.json"
 setup_state = json.loads(state_file.read_text(encoding="utf-8"))
 assert setup_state.get("setupCompletedAt"), setup_state
-sessions_file = state / "agents" / "agent-nako" / "sessions" / "sessions.json"
+sessions_file = state / "agents" / "agent-taotao" / "sessions" / "sessions.json"
 sessions = json.loads(sessions_file.read_text(encoding="utf-8"))
-entry = sessions["agent:agent-nako:session-cc-connect"]
+entry = sessions["agent:agent-taotao:session-cc-connect"]
 assert entry["sessionId"] != "old-session"
 assert entry["systemSent"] is False
 assert Path(entry["sessionFile"]).exists()
-assert (root / ".cc-connect" / "sessions" / "agent-nako_stale.json").exists()
-assert not (root / ".cc-connect" / "sessions" / "agent-nako-qclaw_stale.json").exists()
+assert (root / ".cc-connect" / "sessions" / "agent-taotao_stale.json").exists()
+assert not (root / ".cc-connect" / "sessions" / "agent-taotao-qclaw_stale.json").exists()
 PY
 
 tmp4="$(mktemp -d)"
@@ -631,7 +631,7 @@ from pathlib import Path
 root = Path(sys.argv[1])
 app = root / ".qclaw-app"
 state = root / ".qclaw-state"
-workspace = state / "workspace-agent-nako"
+workspace = state / "workspace-agent-taotao"
 app.mkdir(parents=True)
 state.mkdir(parents=True)
 workspace.mkdir(parents=True)
@@ -656,11 +656,11 @@ workspace.mkdir(parents=True)
     encoding="utf-8",
 )
 (workspace / "AGENTS.md").write_text(
-    "# AGENTS.md - Your Workspace\n\n## Tools\n\n**Skill script path rule:** Resolve scripts from `$NAKO_SKILLS_DIR` first.\n\n**ACP is not webchat:** old rule\n\n@custom.md\n",
+    "# AGENTS.md - Your Workspace\n\n## Tools\n\n**Skill script path rule:** Resolve scripts from `$TAOTAO_SKILLS_DIR` first.\n\n**ACP is not webchat:** old rule\n\n@custom.md\n",
     encoding="utf-8",
 )
 (workspace / "TOOLS.md").write_text(
-    "# TOOLS.md - custom\n\n- **脚本路径解析**：先用 `$NAKO_SKILLS_DIR`。\n- **ACP 不是 webchat**：old rule\n",
+    "# TOOLS.md - custom\n\n- **脚本路径解析**：先用 `$TAOTAO_SKILLS_DIR`。\n- **ACP 不是 webchat**：old rule\n",
     encoding="utf-8",
 )
 PY
@@ -668,7 +668,7 @@ PY
   cd "$tmp4"
   HOME="$tmp4" QCLAW_HOME="$tmp4/.qclaw-app" BASH_ENV="$envfile4" \
     bash "$ROOT/scripts/cc-connect-setup.sh" \
-      --agent-id agent-nako --runtime qclaw \
+      --agent-id agent-taotao --runtime qclaw \
       --cc-connect-source skip --non-interactive >/dev/null
 )
 python3 - "$tmp4" <<'PY'
@@ -678,26 +678,26 @@ from pathlib import Path
 
 root = Path(sys.argv[1])
 state = (root / ".qclaw-state").resolve()
-workspace = state / "workspace-agent-nako"
+workspace = state / "workspace-agent-taotao"
 identity_text = (workspace / "IDENTITY.md").read_text(encoding="utf-8")
 agents_text = (workspace / "AGENTS.md").read_text(encoding="utf-8")
 tools_text = (workspace / "TOOLS.md").read_text(encoding="utf-8")
 assert "# IDENTITY - custom" in identity_text
 assert "custom line" in identity_text
-assert "- Avatar: assets/nako-avatar-head.png" in identity_text
+assert "- Avatar: assets/taotao-avatar-head.png" in identity_text
 assert "@custom.md" in agents_text
 assert "Installed skill scripts are read-only runtime artifacts" in agents_text
 assert "# TOOLS.md - custom" in tools_text
 assert "不要热修已安装脚本" in tools_text
-assert (workspace / "assets" / "nako-avatar.svg").exists()
-assert (workspace / "assets" / "nako-avatar-head.png").exists()
+assert (workspace / "assets" / "taotao-avatar.svg").exists()
+assert (workspace / "assets" / "taotao-avatar-head.png").exists()
 qclaw_config = json.loads((state / "openclaw.json").read_text(encoding="utf-8"))
 registered = [
     item for item in qclaw_config["agents"]["list"]
-    if isinstance(item, dict) and item.get("id") == "agent-nako"
+    if isinstance(item, dict) and item.get("id") == "agent-taotao"
 ]
 assert len(registered) == 1
-assert registered[0]["identity"]["avatar"] == "assets/nako-avatar-head.png"
+assert registered[0]["identity"]["avatar"] == "assets/taotao-avatar-head.png"
 assert "vibe" not in registered[0]["identity"]
 assert registered[0]["identity"]["theme"] == "赛博世界粘人小白桃猫"
 assert registered[0]["tools"]["deny"] == ["image_generate", "video_generate", "tts"]
@@ -709,7 +709,7 @@ from pathlib import Path
 
 root = Path(sys.argv[1])
 state = root / ".qclaw-state"
-session_dir = state / "agents" / "agent-nako" / "sessions"
+session_dir = state / "agents" / "agent-taotao" / "sessions"
 session_dir.mkdir(parents=True, exist_ok=True)
 old_session = session_dir / "env-force-session.jsonl"
 old_session.write_text(
@@ -726,7 +726,7 @@ orphan_session.write_text(
 (session_dir / "sessions.json").write_text(
     json.dumps(
         {
-            "agent:agent-nako:session-cc-connect": {
+            "agent:agent-taotao:session-cc-connect": {
                 "sessionId": "env-force-session",
                 "updatedAt": 1,
                 "label": "cc-connect 飞书/微信",
@@ -743,7 +743,7 @@ mkdir -p "$tmp4/.cc-connect/sessions"
   cd "$tmp4"
   HOME="$tmp4" QCLAW_HOME="$tmp4/.qclaw-app" QCLAW_PERSONA_CHANGED=1 BASH_ENV="$envfile4" \
     bash "$ROOT/scripts/cc-connect-setup.sh" \
-      --agent-id agent-nako --runtime qclaw \
+      --agent-id agent-taotao --runtime qclaw \
       --cc-connect-source skip --non-interactive >/dev/null
 )
 python3 - "$tmp4" <<'PY'
@@ -753,13 +753,13 @@ from pathlib import Path
 
 root = Path(sys.argv[1])
 state = (root / ".qclaw-state").resolve()
-sessions_file = state / "agents" / "agent-nako" / "sessions" / "sessions.json"
+sessions_file = state / "agents" / "agent-taotao" / "sessions" / "sessions.json"
 sessions = json.loads(sessions_file.read_text(encoding="utf-8"))
-entry = sessions["agent:agent-nako:session-cc-connect"]
+entry = sessions["agent:agent-taotao:session-cc-connect"]
 assert entry["sessionId"] != "env-force-session"
 assert entry["systemSent"] is False
-assert list((state / "agents" / "agent-nako" / "sessions").glob("env-force-session.jsonl.bak-cc-connect-stale-*"))
-assert list((state / "agents" / "agent-nako" / "sessions").glob("orphan-session.jsonl.bak-cc-connect-stale-*"))
+assert list((state / "agents" / "agent-taotao" / "sessions").glob("env-force-session.jsonl.bak-cc-connect-stale-*"))
+assert list((state / "agents" / "agent-taotao" / "sessions").glob("orphan-session.jsonl.bak-cc-connect-stale-*"))
 PY
 
 tmp5="$(mktemp -d)"
@@ -807,7 +807,7 @@ type = "acp"
 work_dir = "/old"
 command = "old"
 args = ["old"]
-env = { NAKO_AGENT_RUNTIME = "hermes" }
+env = { TAOTAO_AGENT_RUNTIME = "hermes" }
 
 [[projects.platforms]]
 type = "feishu"
@@ -846,12 +846,12 @@ assert f'CC_CONNECT_DATA_DIR = "{root / ".cc-connect"}"' in project
 assert f'CC_CONNECT_API_DATA_DIR = "{root / ".cc-connect"}"' in project
 assert f'CC_CONNECT_SESSION_DIR = "{root / ".cc-connect" / "sessions"}"' in project
 assert f'CC_CONNECT_CONFIG = "{root / ".cc-connect" / "config.toml"}"' in project
-assert 'NAKO_OUTPUT_MODE = "acp"' in project
-assert 'NAKO_CCCONNECT_PROJECT = "agent-test-hermes"' in project
-assert 'NAKO_AGENT_WORKSPACE = "' in project
-assert 'NAKO_SKILLS_DIR = "' in project
-assert 'NAKO_MEDIA_HOME = "' in project
-assert 'NAKO_AGENT_RUNTIME = "hermes"' in project
+assert 'TAOTAO_OUTPUT_MODE = "acp"' in project
+assert 'TAOTAO_CCCONNECT_PROJECT = "agent-test-hermes"' in project
+assert 'TAOTAO_AGENT_WORKSPACE = "' in project
+assert 'TAOTAO_SKILLS_DIR = "' in project
+assert 'TAOTAO_MEDIA_HOME = "' in project
+assert 'TAOTAO_AGENT_RUNTIME = "hermes"' in project
 assert 'enable_feishu_card = false' in project
 assert 'reply_to_trigger = false' in project
 assert 'enable_feishu_card = true' not in project
@@ -985,7 +985,7 @@ base_url = "https://ilinkai.weixin.qq.com"
 EOF
 (
   cd "$tmp_rebind"
-  printf 'y\n' | NAKO_CONFIRM_STDIN=1 CC_REBIND_MARKER="$tmp_rebind/rebind-marker" HOME="$tmp_rebind" PATH="$tmp_rebind/bin:$PATH" BASH_ENV="$envfile_rebind" \
+  printf 'y\n' | TAOTAO_CONFIRM_STDIN=1 CC_REBIND_MARKER="$tmp_rebind/rebind-marker" HOME="$tmp_rebind" PATH="$tmp_rebind/bin:$PATH" BASH_ENV="$envfile_rebind" \
     bash "$ROOT/scripts/cc-connect-setup.sh" \
       --agent-id agent-test --runtime openclaw \
       --cc-connect-source skip --with-weixin >/dev/null

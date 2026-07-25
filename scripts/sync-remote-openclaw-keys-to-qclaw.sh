@@ -8,7 +8,7 @@ HELPER="$SCRIPT_DIR/internal/sync-provider-keys-to-openclaw-json.sh"
 
 REMOTE="${REMOTE_PROVIDER_KEYS_HOST:-openclaw@192.168.31.213}"
 REMOTE_ENV="${REMOTE_PROVIDER_KEYS_ENV:-~/.openclaw/skills/.env}"
-AGENT_ID="${AGENT_ID:-agent-nako}"
+AGENT_ID="${AGENT_ID:-agent-taotao}"
 CONFIG=""
 QCLAW_HOME_OVERRIDE=""
 SSH_BIN="${SSH_BIN:-ssh}"
@@ -35,7 +35,7 @@ Usage:
 Options:
   --remote <user@host>       SSH target. Default: openclaw@192.168.31.213.
   --remote-env <path>        Remote env file. Default: ~/.openclaw/skills/.env.
-  --agent-id <id>            Agent id for local QClaw env discovery. Default: agent-nako.
+  --agent-id <id>            Agent id for local QClaw env discovery. Default: agent-taotao.
   --config <path>            Explicit local QClaw openclaw.json path.
   --qclaw-home <path>        Override local QCLAW_HOME.
   --ssh-bin <path>           SSH binary or test shim. Default: ssh.

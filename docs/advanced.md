@@ -2,7 +2,7 @@
 
 这份文档面向整个 Agents 仓库，不绑定某一个 agent。所有 agent 都建议遵循同一套结构：通用玩法放在根目录 `docs/`，某个 agent 的特色玩法放在 `docs/<agent-name>/`。
 
-如果你正在调 nako，先读这里，再看 [docs/nako/advanced.md](nako/advanced.md)。
+如果你正在调 taotao，先读这里，再看 [docs/taotao/advanced.md](taotao/advanced.md)。
 
 ## 推荐目录结构
 
@@ -295,7 +295,7 @@ OPENCLAW_OUTPUT_MODE=acp
 最稳的路径是复制现有 pack：
 
 ```bash
-cp -R nako your-agent
+cp -R taotao your-agent
 ```
 
 至少改这些地方：

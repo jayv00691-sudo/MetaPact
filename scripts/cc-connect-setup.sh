@@ -11,7 +11,7 @@
 #   bash scripts/cc-connect-setup.sh [options]
 #
 # Flags:
-#   --agent-id <id>      agent id (默认 agent-nako)
+#   --agent-id <id>      agent id (默认 agent-taotao)
 #   --runtime <name>     openclaw|hermes|qclaw (默认 openclaw)
 #   --display-name <n>   cc-connect 内显示名 (默认按 runtime 生成)
 #   --cc-project-id <id> cc-connect project id (默认 openclaw 用 agent id，其他 runtime 加后缀)
@@ -65,7 +65,7 @@ confirm(){
   local q="$1" def="${2:-n}" reply hint="[y/N]"
   [ "$def" = "y" ] && hint="[Y/n]"
   echo -en "${C_CYAN}?${C_NC} $q $hint: "
-  if [ "${NAKO_CONFIRM_STDIN:-0}" = "1" ]; then
+  if [ "${TAOTAO_CONFIRM_STDIN:-0}" = "1" ]; then
     read -r reply || reply=""
   elif { : </dev/tty; } 2>/dev/null; then
     read -r reply </dev/tty || reply=""
@@ -86,8 +86,8 @@ CC_CONNECT_LAZYCAT_REF="${CC_CONNECT_LAZYCAT_REF:-lazycat/v1.3.3}"
 CC_CONNECT_LAZYCAT_RELEASE_BASE="${CC_CONNECT_LAZYCAT_RELEASE_BASE:-https://github.com/CodeEagle/cc-connect/releases/download/$CC_CONNECT_LAZYCAT_VERSION}"
 CC_CONNECT_GO_MIN_VERSION="${CC_CONNECT_GO_MIN_VERSION:-1.25.0}"
 CC_CONNECT_GO_DOWNLOAD_VERSION="${CC_CONNECT_GO_DOWNLOAD_VERSION:-1.25.0}"
-AGENT_ID="agent-nako"
-RUNTIME="${NAKO_AGENT_RUNTIME:-openclaw}"
+AGENT_ID="agent-taotao"
+RUNTIME="${TAOTAO_AGENT_RUNTIME:-openclaw}"
 DISPLAY_NAME=""
 CC_PROJECT_ID="${CC_PROJECT_ID:-${CC_CONNECT_PROJECT_ID:-}}"
 CC_CONNECT_CHANGED=0
@@ -114,7 +114,7 @@ if [ -f "$CC_SETUP_SCRIPT" ]; then
 else
   CC_SETUP_REPO_ROOT=""
 fi
-NAKO_AGENT_SOURCE_DIR="${NAKO_AGENT_SOURCE_DIR:-${CC_SETUP_REPO_ROOT:+$CC_SETUP_REPO_ROOT/nako/agent}}"
+TAOTAO_AGENT_SOURCE_DIR="${TAOTAO_AGENT_SOURCE_DIR:-${CC_SETUP_REPO_ROOT:+$CC_SETUP_REPO_ROOT/taotao/agent}}"
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -139,7 +139,7 @@ Usage:
   bash scripts/cc-connect-setup.sh [options]
 
 Flags:
-  --agent-id <id>      agent id (默认 agent-nako)
+  --agent-id <id>      agent id (默认 agent-taotao)
   --runtime <name>     openclaw|hermes|qclaw (默认 openclaw)
   --display-name <n>   cc-connect 内显示名 (默认按 runtime 生成)
   --cc-project-id <id> cc-connect project id (默认 openclaw 用 agent id，其他 runtime 加后缀)
@@ -566,18 +566,18 @@ print("reset" if reset_existing else "ok")
 PY
 }
 
-ensure_qclaw_nako_persona() {
-  [ -n "${NAKO_AGENT_SOURCE_DIR:-}" ] || return 0
-  [ -d "$NAKO_AGENT_SOURCE_DIR" ] || return 0
-  if [ "${NAKO_CC_CONNECT_SEED_PERSONA:-0}" != "1" ]; then
+ensure_qclaw_taotao_persona() {
+  [ -n "${TAOTAO_AGENT_SOURCE_DIR:-}" ] || return 0
+  [ -d "$TAOTAO_AGENT_SOURCE_DIR" ] || return 0
+  if [ "${TAOTAO_CC_CONNECT_SEED_PERSONA:-0}" != "1" ]; then
     case "$AGENT_ID" in
-      agent-nako*) ;;
+      agent-taotao*) ;;
       *) return 0 ;;
     esac
   fi
 
   local result
-  result="$(python3 - "$NAKO_AGENT_SOURCE_DIR" "$QCLAW_WORKSPACE" <<'PY'
+  result="$(python3 - "$TAOTAO_AGENT_SOURCE_DIR" "$QCLAW_WORKSPACE" <<'PY'
 import json
 import re
 import shutil
@@ -625,13 +625,13 @@ def ensure_qclaw_identity_sync_fields(path):
     text = read(path)
     updated = text
     legacy_avatars = {
-        "assets/nako-avatar.svg",
+        "assets/taotao-avatar.svg",
         "https://pulseact.lovappen.cn/test/act_ci_build/dlc-promotion/act-gengen/images/e.png",
     }
     for legacy_avatar in legacy_avatars:
         updated = re.sub(
             rf"(?m)^-\s*Avatar:\s*{re.escape(legacy_avatar)}\s*$",
-            "- Avatar: assets/nako-avatar-head.png",
+            "- Avatar: assets/taotao-avatar-head.png",
             updated,
         )
     seen = set()
@@ -643,7 +643,7 @@ def ensure_qclaw_identity_sync_fields(path):
         ("Name", "桃桃"),
         ("Emoji", "🐾"),
         ("Vibe", "赛博世界粘人小白桃猫"),
-        ("Avatar", "assets/nako-avatar-head.png"),
+        ("Avatar", "assets/taotao-avatar-head.png"),
     ]
     missing = [(key, value) for key, value in fields if key.lower() not in seen]
     if not missing:
@@ -682,13 +682,13 @@ def ensure_qclaw_runtime_safety_rules(workspace):
         workspace / "AGENTS.md",
         "**Skill script path rule:**",
         "Installed skill scripts are read-only runtime artifacts",
-        "**Installed skill scripts are read-only runtime artifacts:** Never edit files under `$HOME/.qclaw/skills`, `$HOME/.openclaw/skills`, or `$HOME/.hermes/skills/nako` to debug a live chat. If a skill script is wrong, report the failing command and ask the operator to patch the source repository, then reinstall or rerun cc-connect setup. Do not use `sed -i`, `cp`, `mv`, or an editor against installed skill scripts.",
+        "**Installed skill scripts are read-only runtime artifacts:** Never edit files under `$HOME/.qclaw/skills`, `$HOME/.openclaw/skills`, or `$HOME/.hermes/skills/taotao` to debug a live chat. If a skill script is wrong, report the failing command and ask the operator to patch the source repository, then reinstall or rerun cc-connect setup. Do not use `sed -i`, `cp`, `mv`, or an editor against installed skill scripts.",
     ) or changed
     changed = insert_after_anchor(
         workspace / "TOOLS.md",
         "- **脚本路径解析**",
         "不要热修已安装脚本",
-        "- **不要热修已安装脚本**：`$HOME/.qclaw/skills`、`$HOME/.openclaw/skills`、`$HOME/.hermes/skills/nako` 是安装产物，不是工作区源码。会话里不要用 `sed -i`、`cp`、`mv` 或编辑器修改这些脚本；发现脚本问题只报告命令、日志和现象，由操作者改仓库源码后重新安装/重配。",
+        "- **不要热修已安装脚本**：`$HOME/.qclaw/skills`、`$HOME/.openclaw/skills`、`$HOME/.hermes/skills/taotao` 是安装产物，不是工作区源码。会话里不要用 `sed -i`、`cp`、`mv` 或编辑器修改这些脚本；发现脚本问题只报告命令、日志和现象，由操作者改仓库源码后重新安装/重配。",
     ) or changed
     return changed
 
@@ -749,7 +749,7 @@ PY
 )"
   if [ "$result" = "changed" ]; then
     QCLAW_PERSONA_CHANGED=1
-    info "QClaw Nako 人设已写入: $QCLAW_WORKSPACE"
+    info "QClaw Taotao 人设已写入: $QCLAW_WORKSPACE"
   fi
 }
 
@@ -846,13 +846,13 @@ default_identity = {
     "name": "桃桃",
     "emoji": "🐾",
     "theme": "赛博世界粘人小白桃猫",
-    "avatar": "assets/nako-avatar-head.png",
+    "avatar": "assets/taotao-avatar-head.png",
 }
 legacy_default_avatars = {
-    "assets/nako-avatar.svg",
+    "assets/taotao-avatar.svg",
     "https://pulseact.lovappen.cn/test/act_ci_build/dlc-promotion/act-gengen/images/e.png",
 }
-if agent_id.startswith("agent-nako"):
+if agent_id.startswith("agent-taotao"):
     base = normalize_identity(identity)
     if base.get("avatar") in legacy_default_avatars:
         base["avatar"] = default_identity["avatar"]
@@ -870,7 +870,7 @@ if not name:
     name = agent_id
 
 def apply_qclaw_script_media_policy(item):
-    if not agent_id.startswith("agent-nako"):
+    if not agent_id.startswith("agent-taotao"):
         return item
     tools = item.get("tools")
     if not isinstance(tools, dict):
@@ -927,7 +927,7 @@ PY
 }
 
 sync_qclaw_pack_skills() {
-  local src="$CC_SETUP_REPO_ROOT/nako/skills" dst="$QCLAW_HOME/skills" result
+  local src="$CC_SETUP_REPO_ROOT/taotao/skills" dst="$QCLAW_HOME/skills" result
   [ -d "$src" ] || return 0
   result="$(python3 - "$src" "$dst" <<'PY'
 import filecmp
@@ -1674,7 +1674,7 @@ PY
 uninstall_agent_runtime_data() {
   local ts backup_root qclaw_root qclaw_app_config qclaw_config_path qclaw_state_dir state_config_path
   ts="$(date +%Y%m%d-%H%M%S)"
-  backup_root="$HOME/.nako-agent.bak-uninstall-all-$AGENT_ID-$ts"
+  backup_root="$HOME/.taotao-agent.bak-uninstall-all-$AGENT_ID-$ts"
   step "移除 agent runtime 数据: $AGENT_ID"
 
   remove_agent_from_openclaw_config "$HOME/.openclaw/openclaw.json" "$backup_root" "openclaw" || true
@@ -1682,7 +1682,7 @@ uninstall_agent_runtime_data() {
   backup_path_to_dir "$HOME/.openclaw/agents/$AGENT_ID" "$backup_root" "openclaw-agent-$AGENT_ID"
 
   backup_path_to_dir "$HERMES_HOME/workspace/$AGENT_ID" "$backup_root" "hermes-workspace-$AGENT_ID"
-  backup_path_to_dir "$HERMES_HOME/skills/nako/.env.$AGENT_ID" "$backup_root" "hermes-env-$AGENT_ID"
+  backup_path_to_dir "$HERMES_HOME/skills/taotao/.env.$AGENT_ID" "$backup_root" "hermes-env-$AGENT_ID"
   backup_path_to_dir "$HERMES_HOME/skills/openclaw-imports/.env.$AGENT_ID" "$backup_root" "hermes-env-$AGENT_ID"
 
   qclaw_root="$(expand_path "$QCLAW_HOME")"
@@ -1809,12 +1809,12 @@ if [ "$RUNTIME" = "openclaw" ]; then
   export OPENCLAW_HOME="$HOME/.openclaw"
   export OPENCLAW_OUTPUT_MODE="acp"
   export OPENCLAW_CCCONNECT_PROJECT="$CC_PROJECT_ID"
-  export NAKO_OUTPUT_MODE="acp"
-  export NAKO_CCCONNECT_PROJECT="$CC_PROJECT_ID"
-  export NAKO_AGENT_WORKSPACE="$WORKSPACE"
-  export NAKO_SKILLS_DIR="$HOME/.openclaw/skills"
-  export NAKO_MEDIA_HOME="$HOME/.openclaw/media"
-  export NAKO_AGENT_RUNTIME="openclaw"
+  export TAOTAO_OUTPUT_MODE="acp"
+  export TAOTAO_CCCONNECT_PROJECT="$CC_PROJECT_ID"
+  export TAOTAO_AGENT_WORKSPACE="$WORKSPACE"
+  export TAOTAO_SKILLS_DIR="$HOME/.openclaw/skills"
+  export TAOTAO_MEDIA_HOME="$HOME/.openclaw/media"
+  export TAOTAO_AGENT_RUNTIME="openclaw"
   gateway_token="$(python3 - "$HOME/.openclaw/openclaw.json" <<'PY'
 import json
 import sys
@@ -1837,7 +1837,7 @@ elif [ "$RUNTIME" = "hermes" ]; then
     err "选择 Hermes runtime，但找不到 hermes 命令。请先安装 Hermes，或设置 HERMES_BIN=/path/to/hermes"
     exit 1
   }
-  mkdir -p "$HERMES_WORKSPACE" "$HERMES_HOME/skills/nako" "$HERMES_HOME/media"
+  mkdir -p "$HERMES_WORKSPACE" "$HERMES_HOME/skills/taotao" "$HERMES_HOME/media"
   check_runtime_launch "Hermes" "$HERMES_WORKSPACE" "$HERMES_BIN" acp || exit 1
 elif [ "$RUNTIME" = "qclaw" ]; then
   QCLAW_NODE_BIN="$(resolve_qclaw_node_bin)" || {
@@ -1850,7 +1850,7 @@ elif [ "$RUNTIME" = "qclaw" ]; then
   }
   mkdir -p "$QCLAW_WORKSPACE"
   sync_qclaw_pack_skills
-  ensure_qclaw_nako_persona
+  ensure_qclaw_taotao_persona
   QCLAW_AGENT_REGISTRATION_STATUS="$(ensure_qclaw_agent_registration)"
   if [ "$QCLAW_AGENT_REGISTRATION_STATUS" = "changed" ]; then
     QCLAW_PERSONA_CHANGED=1
@@ -1929,19 +1929,19 @@ if runtime == "hermes":
     command = hermes_bin or "hermes"
     work_dir = hermes_workspace
     args = ["acp"]
-    hermes_skills = str(Path(hermes_home) / "skills" / "nako")
+    hermes_skills = str(Path(hermes_home) / "skills" / "taotao")
     hermes_media = str(Path(hermes_home) / "media")
     env = {
         "HOME": home,
         "HERMES_HOME": hermes_home,
         "PATH": path_value,
         **cc_env,
-        "NAKO_OUTPUT_MODE": "acp",
-        "NAKO_CCCONNECT_PROJECT": cc_project_id,
-        "NAKO_AGENT_WORKSPACE": hermes_workspace,
-        "NAKO_SKILLS_DIR": hermes_skills,
-        "NAKO_MEDIA_HOME": hermes_media,
-        "NAKO_AGENT_RUNTIME": "hermes",
+        "TAOTAO_OUTPUT_MODE": "acp",
+        "TAOTAO_CCCONNECT_PROJECT": cc_project_id,
+        "TAOTAO_AGENT_WORKSPACE": hermes_workspace,
+        "TAOTAO_SKILLS_DIR": hermes_skills,
+        "TAOTAO_MEDIA_HOME": hermes_media,
+        "TAOTAO_AGENT_RUNTIME": "hermes",
     }
 elif runtime == "qclaw":
     command = qclaw_node_bin or "node"
@@ -1957,12 +1957,12 @@ elif runtime == "qclaw":
         **cc_env,
         "OPENCLAW_OUTPUT_MODE": "acp",
         "OPENCLAW_CCCONNECT_PROJECT": cc_project_id,
-        "NAKO_OUTPUT_MODE": "acp",
-        "NAKO_CCCONNECT_PROJECT": cc_project_id,
-        "NAKO_AGENT_WORKSPACE": qclaw_workspace,
-        "NAKO_SKILLS_DIR": str(Path(qclaw_home) / "skills"),
-        "NAKO_MEDIA_HOME": str(Path(qclaw_home) / "media"),
-        "NAKO_AGENT_RUNTIME": "qclaw",
+        "TAOTAO_OUTPUT_MODE": "acp",
+        "TAOTAO_CCCONNECT_PROJECT": cc_project_id,
+        "TAOTAO_AGENT_WORKSPACE": qclaw_workspace,
+        "TAOTAO_SKILLS_DIR": str(Path(qclaw_home) / "skills"),
+        "TAOTAO_MEDIA_HOME": str(Path(qclaw_home) / "media"),
+        "TAOTAO_AGENT_RUNTIME": "qclaw",
     }
     gateway_token = gateway_auth_token(qclaw_config_path)
     if gateway_token:
@@ -1979,12 +1979,12 @@ else:
         **cc_env,
         "OPENCLAW_OUTPUT_MODE": "acp",
         "OPENCLAW_CCCONNECT_PROJECT": cc_project_id,
-        "NAKO_OUTPUT_MODE": "acp",
-        "NAKO_CCCONNECT_PROJECT": cc_project_id,
-        "NAKO_AGENT_WORKSPACE": openclaw_workspace,
-        "NAKO_SKILLS_DIR": str(Path(openclaw_home) / "skills"),
-        "NAKO_MEDIA_HOME": str(Path(openclaw_home) / "media"),
-        "NAKO_AGENT_RUNTIME": "openclaw",
+        "TAOTAO_OUTPUT_MODE": "acp",
+        "TAOTAO_CCCONNECT_PROJECT": cc_project_id,
+        "TAOTAO_AGENT_WORKSPACE": openclaw_workspace,
+        "TAOTAO_SKILLS_DIR": str(Path(openclaw_home) / "skills"),
+        "TAOTAO_MEDIA_HOME": str(Path(openclaw_home) / "media"),
+        "TAOTAO_AGENT_RUNTIME": "openclaw",
     }
     gateway_token = gateway_auth_token(Path(openclaw_home) / "openclaw.json")
     if gateway_token:
@@ -2018,7 +2018,7 @@ found = False
 changed = global_changed
 
 def project_runtime(part):
-    match = re.search(r'NAKO_AGENT_RUNTIME\s*=\s*"([^"]+)"', part)
+    match = re.search(r'TAOTAO_AGENT_RUNTIME\s*=\s*"([^"]+)"', part)
     return match.group(1) if match else ""
 
 for part in parts:
@@ -2115,7 +2115,7 @@ ensure_cc_connect_running() {
   if [ "$(cc_connect_has_startable_projects)" != "yes" ]; then
     cc-connect daemon stop --work-dir "$HOME/.cc-connect" >/dev/null 2>&1 || true
     stop_cc_connect_processes
-    dim "cc-connect 还没有平台绑定，跳过启动；扫码完成后 Nako Factory 会自动重启"
+    dim "cc-connect 还没有平台绑定，跳过启动；扫码完成后 Taotao Factory 会自动重启"
     return 0
   fi
 

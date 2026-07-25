@@ -58,12 +58,12 @@ NODE
 
 recovery_workspace="$TMP_DIR/recovery-workspace"
 make_workspace "$recovery_workspace"
-OPENCLAW_AGENT_WORKSPACE="$recovery_workspace" bash "$ROOT/nako/agent/scripts/mood-recovery.sh" >/dev/null
+OPENCLAW_AGENT_WORKSPACE="$recovery_workspace" bash "$ROOT/taotao/agent/scripts/mood-recovery.sh" >/dev/null
 assert_preserved_state "$recovery_workspace/memory/heartbeat-state.json" 0
 
 heartbeat_workspace="$TMP_DIR/heartbeat-workspace"
 make_workspace "$heartbeat_workspace" 20
-OPENCLAW_AGENT_WORKSPACE="$heartbeat_workspace" bash "$ROOT/nako/agent/scripts/heartbeat-check.sh" >/dev/null
+OPENCLAW_AGENT_WORKSPACE="$heartbeat_workspace" bash "$ROOT/taotao/agent/scripts/heartbeat-check.sh" >/dev/null
 node - "$heartbeat_workspace/memory/heartbeat-state.json" <<'NODE'
 const fs = require("fs");
 const state = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));

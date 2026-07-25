@@ -1,15 +1,15 @@
-# install.ps1 — Nako agent pack installer for Windows PowerShell 7+
+# install.ps1 — Taotao agent pack installer for Windows PowerShell 7+
 #
 # Usage:
 #   iwr -UseBasicParsing "https://raw.githubusercontent.com/Lovappen/MetaPact/main/install.ps1" -OutFile "$env:TEMP\metapact-install.ps1"
 #   pwsh -NoProfile -ExecutionPolicy Bypass -File "$env:TEMP\metapact-install.ps1" -Runtime qclaw -WithWeixin
-#   # or: pwsh install.ps1 [-Force] [-AgentId agent-nako] [-Runtime openclaw|hermes|qclaw] [-NonInteractive] [-SkipSkills] [-SkipModels] [-ResetSecrets] [-WithFeishu] [-WithWeixin] [-CcConnectSource auto|npm|lazycat|skip]
+#   # or: pwsh install.ps1 [-Force] [-AgentId agent-taotao] [-Runtime openclaw|hermes|qclaw] [-NonInteractive] [-SkipSkills] [-SkipModels] [-ResetSecrets] [-WithFeishu] [-WithWeixin] [-CcConnectSource auto|npm|lazycat|skip]
 
 [CmdletBinding()]
 param(
   [switch]$Force,
-  [string]$Agent = "nako",
-  [string]$AgentId = "agent-nako",
+  [string]$Agent = "taotao",
+  [string]$AgentId = "agent-taotao",
   [ValidateSet("openclaw","hermes","qclaw")]
   [string]$Runtime = "openclaw",
   [switch]$NonInteractive,
@@ -44,11 +44,11 @@ function Initialize-Utf8Console {
 Initialize-Utf8Console
 
 $ErrorActionPreference = "Stop"
-if ($env:NAKO_AGENT_RUNTIME -and -not $PSBoundParameters.ContainsKey("Runtime")) {
-  if ($env:NAKO_AGENT_RUNTIME -in @("openclaw","hermes","qclaw")) {
-    $Runtime = $env:NAKO_AGENT_RUNTIME
+if ($env:TAOTAO_AGENT_RUNTIME -and -not $PSBoundParameters.ContainsKey("Runtime")) {
+  if ($env:TAOTAO_AGENT_RUNTIME -in @("openclaw","hermes","qclaw")) {
+    $Runtime = $env:TAOTAO_AGENT_RUNTIME
   } else {
-    Write-Host "[✗] NAKO_AGENT_RUNTIME 只支持 openclaw|hermes|qclaw" -ForegroundColor Red
+    Write-Host "[✗] TAOTAO_AGENT_RUNTIME 只支持 openclaw|hermes|qclaw" -ForegroundColor Red
     exit 1
   }
 }
@@ -139,14 +139,14 @@ if ($PSCommandPath) {
   if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     ErrL "git required"; exit 1
   }
-  $TmpDl = Join-Path $env:TEMP ("nako-pack-" + [guid]::NewGuid().ToString('N'))
+  $TmpDl = Join-Path $env:TEMP ("taotao-pack-" + [guid]::NewGuid().ToString('N'))
   Write-Host "正在克隆 MetaPact 仓库 → $TmpDl ..."
   git clone --depth 1 https://github.com/Lovappen/MetaPact.git $TmpDl 2>$null | Out-Null
   $RepoRoot = $TmpDl
 }
-$PackRoot = Join-Path $RepoRoot "nako"
-if ($Agent -ne "nako") {
-  ErrL "Agent '$Agent' 不存在；当前仓库只提供 nako"
+$PackRoot = Join-Path $RepoRoot "taotao"
+if ($Agent -ne "taotao") {
+  ErrL "Agent '$Agent' 不存在；当前仓库只提供 taotao"
   exit 1
 }
 $ScriptDir = Join-Path $PackRoot "scripts"
@@ -195,15 +195,15 @@ function Convert-CcSetupFlagsToPowerShellArgs([string[]]$Flags) {
 function Convert-PathForBash($path) {
   $winPath = [System.IO.Path]::GetFullPath($path)
   $bashCmd = (Get-Command bash -ErrorAction Stop).Source
-  $env:NAKO_PS_PATH_FOR_BASH = $winPath
+  $env:TAOTAO_PS_PATH_FOR_BASH = $winPath
   try {
-    $converted = & $bashCmd -lc 'winPath="$NAKO_PS_PATH_FOR_BASH"; if command -v wslpath >/dev/null 2>&1; then wslpath -a "$winPath"; elif command -v cygpath >/dev/null 2>&1; then cygpath -u "$winPath"; else printf "%s\n" "$winPath"; fi'
+    $converted = & $bashCmd -lc 'winPath="$TAOTAO_PS_PATH_FOR_BASH"; if command -v wslpath >/dev/null 2>&1; then wslpath -a "$winPath"; elif command -v cygpath >/dev/null 2>&1; then cygpath -u "$winPath"; else printf "%s\n" "$winPath"; fi'
     if ($LASTEXITCODE -eq 0 -and $converted) {
       return ($converted | Select-Object -First 1)
     }
   } catch {
   } finally {
-    Remove-Item Env:\NAKO_PS_PATH_FOR_BASH -ErrorAction SilentlyContinue
+    Remove-Item Env:\TAOTAO_PS_PATH_FOR_BASH -ErrorAction SilentlyContinue
   }
   return $winPath
 }
@@ -241,8 +241,8 @@ function Invoke-CcSetup([string[]]$Flags) {
 }
 
 function Get-CcConnectHomeForStatus {
-  $homeSeed = if ($env:NAKO_HOME) {
-    $env:NAKO_HOME
+  $homeSeed = if ($env:TAOTAO_HOME) {
+    $env:TAOTAO_HOME
   } elseif ($env:USERPROFILE) {
     $env:USERPROFILE
   } elseif ($HOME) {
@@ -365,7 +365,7 @@ if ($Runtime -eq "qclaw") {
 } elseif ($Runtime -eq "hermes") {
   $OpenclawHome = $HermesHome
   $OpenclawConfig = Join-Path $HermesHome "openclaw-compat.json"
-  $OpenclawSkills = Join-Path $HermesHome "skills\nako"
+  $OpenclawSkills = Join-Path $HermesHome "skills\taotao"
   $AgentWorkspace = Join-Path $HermesHome "workspace\$AgentId"
 } else {
   $OpenclawHome = $DefaultOpenclawHome
@@ -873,7 +873,7 @@ function Safe-InstallPackFile($src, $dst) {
 }
 
 function Test-DefaultWorkspaceTemplate($path) {
-  if ($env:NAKO_OVERWRITE_DEFAULT_WORKSPACE_TEMPLATES -ne "1") { return $false }
+  if ($env:TAOTAO_OVERWRITE_DEFAULT_WORKSPACE_TEMPLATES -ne "1") { return $false }
   if (-not (Test-Path $path)) { return $false }
   $base = Split-Path -Leaf $path
   $text = Get-Content $path -Raw
@@ -946,12 +946,12 @@ function Ensure-QClawRuntimeSafetyRules($workspace) {
     (Join-Path $workspace "AGENTS.md") `
     "**Skill script path rule:**" `
     "Installed skill scripts are read-only runtime artifacts" `
-    '**Installed skill scripts are read-only runtime artifacts:** Never edit files under `$HOME/.qclaw/skills`, `$HOME/.openclaw/skills`, or `$HOME/.hermes/skills/nako` to debug a live chat. If a skill script is wrong, report the failing command and ask the operator to patch the source repository, then reinstall or rerun cc-connect setup. Do not use `sed -i`, `cp`, `mv`, or an editor against installed skill scripts.') -or $changed
+    '**Installed skill scripts are read-only runtime artifacts:** Never edit files under `$HOME/.qclaw/skills`, `$HOME/.openclaw/skills`, or `$HOME/.hermes/skills/taotao` to debug a live chat. If a skill script is wrong, report the failing command and ask the operator to patch the source repository, then reinstall or rerun cc-connect setup. Do not use `sed -i`, `cp`, `mv`, or an editor against installed skill scripts.') -or $changed
   $changed = (Insert-RuleAfterAnchor `
     (Join-Path $workspace "TOOLS.md") `
     "- **脚本路径解析**" `
     "不要热修已安装脚本" `
-    '- **不要热修已安装脚本**：`$HOME/.qclaw/skills`、`$HOME/.openclaw/skills`、`$HOME/.hermes/skills/nako` 是安装产物，不是工作区源码。会话里不要用 `sed -i`、`cp`、`mv` 或编辑器修改这些脚本；发现脚本问题只报告命令、日志和现象，由操作者改仓库源码后重新安装/重配。') -or $changed
+    '- **不要热修已安装脚本**：`$HOME/.qclaw/skills`、`$HOME/.openclaw/skills`、`$HOME/.hermes/skills/taotao` 是安装产物，不是工作区源码。会话里不要用 `sed -i`、`cp`、`mv` 或编辑器修改这些脚本；发现脚本问题只报告命令、日志和现象，由操作者改仓库源码后重新安装/重配。') -or $changed
   return $changed
 }
 
@@ -1020,7 +1020,7 @@ if (-not $SkipSkills) {
 # ─── Install persona ───────────────────────────────────────────────────────
 Step "6. 安装 agent 人设 → $AgentWorkspace"
 New-Item -ItemType Directory -Path $AgentWorkspace -Force | Out-Null
-$env:NAKO_OVERWRITE_DEFAULT_WORKSPACE_TEMPLATES = "1"
+$env:TAOTAO_OVERWRITE_DEFAULT_WORKSPACE_TEMPLATES = "1"
 foreach ($f in @("AGENTS.md","IDENTITY.md","SOUL.md","USER.md","HEARTBEAT.md","TOOLS.md")) {
   Safe-InstallFile (Join-Path $PackRoot "agent\$f") (Join-Path $AgentWorkspace $f)
 }
@@ -1032,7 +1032,7 @@ if (Test-Path $agentAssets) {
     Safe-InstallFile $_.FullName (Join-Path $workspaceAssets $_.Name)
   }
 }
-Remove-Item Env:\NAKO_OVERWRITE_DEFAULT_WORKSPACE_TEMPLATES -ErrorAction SilentlyContinue
+Remove-Item Env:\TAOTAO_OVERWRITE_DEFAULT_WORKSPACE_TEMPLATES -ErrorAction SilentlyContinue
 Complete-PreseededWorkspace $AgentWorkspace
 if ($Runtime -eq "qclaw") {
   if (Ensure-QClawRuntimeSafetyRules $AgentWorkspace) {
@@ -1043,9 +1043,9 @@ $identityPath = Join-Path $AgentWorkspace "IDENTITY.md"
 if (Test-Path $identityPath) {
   $identityText = Get-Content $identityPath -Raw
   $identityUpdated = $identityText
-  foreach ($legacyAvatar in @("assets/nako-avatar.svg", "https://pulseact.lovappen.cn/test/act_ci_build/dlc-promotion/act-gengen/images/e.png")) {
+  foreach ($legacyAvatar in @("assets/taotao-avatar.svg", "https://pulseact.lovappen.cn/test/act_ci_build/dlc-promotion/act-gengen/images/e.png")) {
     $pattern = "(?m)^-\s*Avatar:\s*$([regex]::Escape($legacyAvatar))\s*$"
-    $identityUpdated = [regex]::Replace($identityUpdated, $pattern, "- Avatar: assets/nako-avatar-head.png")
+    $identityUpdated = [regex]::Replace($identityUpdated, $pattern, "- Avatar: assets/taotao-avatar-head.png")
   }
   if ($identityUpdated -ne $identityText) {
     Set-Content -Path $identityPath -Value $identityUpdated -NoNewline -Encoding UTF8
@@ -1078,7 +1078,7 @@ try {
 } catch {}
 
 if ($Runtime -eq "hermes") {
-  $hermesSkillsDisplay = "~/.hermes/skills/nako"
+  $hermesSkillsDisplay = "~/.hermes/skills/taotao"
   foreach ($docPath in @((Join-Path $AgentWorkspace "TOOLS.md"), $memoryPath, (Join-Path $AgentWorkspace "SOUL.md"))) {
     if (-not (Test-Path $docPath)) { continue }
     try {
@@ -1090,10 +1090,10 @@ if ($Runtime -eq "hermes") {
       $next = [regex]::Replace($next, "(?m)^- \*\*provider\*\*：``MINIMAX_API_KEY`` 优先，``VOLCENGINE_API_KEY`` 备选.*$", "- **provider**：``MINIMAX_API_KEY`` 优先，``VOLCENGINE_API_KEY`` 备选；key 从 ``$hermesSkillsDisplay/.env`` 读取，兼容本 agent ``skills/.env``")
       $next = [regex]::Replace($next, "(?m)^- \*\*provider\*\*：``FAL_KEY`` 优先，``KIE_API_KEY`` 备选.*$", "- **provider**：``FAL_KEY`` 优先，``KIE_API_KEY`` 备选；key 从 ``$hermesSkillsDisplay/.env`` 读取，兼容本 agent ``skills/.env``")
       $next = $next.Replace("~/.openclaw/skills", $hermesSkillsDisplay)
-      $next = $next.Replace("OPENCLAW_OUTPUT_MODE", "NAKO_OUTPUT_MODE")
-      $next = $next.Replace("OPENCLAW_CCCONNECT_PROJECT", "NAKO_CCCONNECT_PROJECT")
-      $next = $next.Replace("OPENCLAW_CONFIG_PATH", "NAKO_CONFIG")
-      $next = $next.Replace("OPENCLAW_CONFIG", "NAKO_CONFIG")
+      $next = $next.Replace("OPENCLAW_OUTPUT_MODE", "TAOTAO_OUTPUT_MODE")
+      $next = $next.Replace("OPENCLAW_CCCONNECT_PROJECT", "TAOTAO_CCCONNECT_PROJECT")
+      $next = $next.Replace("OPENCLAW_CONFIG_PATH", "TAOTAO_CONFIG")
+      $next = $next.Replace("OPENCLAW_CONFIG", "TAOTAO_CONFIG")
       $next = $next.Replace("cc-connect / openclaw 多渠道层", "cc-connect / Hermes 多渠道层")
       $next = $next.Replace("openclaw cron", "Hermes/外部调度")
       $next = $next.Replace("openclaw 原生 feishu channel", "Feishu 直连模式")
@@ -1235,7 +1235,7 @@ function Sync-QClawPackSkills($qclawSkills) {
 
 function Sync-HermesRuntime {
   $hermesWorkspace = Join-Path $HermesHome "workspace\$AgentId"
-  $hermesSkills = Join-Path $HermesHome "skills\nako"
+  $hermesSkills = Join-Path $HermesHome "skills\taotao"
   New-Item -ItemType Directory -Path $hermesWorkspace, $hermesSkills -Force | Out-Null
   if ($AgentWorkspace -ne $hermesWorkspace) { Copy-DirectoryContents $AgentWorkspace $hermesWorkspace }
   if ($OpenclawSkills -ne $hermesSkills) { Copy-DirectoryContents $OpenclawSkills $hermesSkills }
@@ -1258,22 +1258,22 @@ function Sync-QClawRuntime {
   Sync-QClawPackSkills $qclawSkills
   Ensure-QClawRuntimeSafetyRules $qclawWorkspace | Out-Null
 
-  $env:NAKO_PS_QCLAW_HOME = $QclawHome
-  $env:NAKO_PS_QCLAW_CONFIG = $OpenclawConfig
-  $env:NAKO_PS_OPENCLAW_CONFIG = $OpenclawConfig
-  $env:NAKO_PS_AGENT_ID = $AgentId
-  $env:NAKO_PS_PRIMARY = $Primary
+  $env:TAOTAO_PS_QCLAW_HOME = $QclawHome
+  $env:TAOTAO_PS_QCLAW_CONFIG = $OpenclawConfig
+  $env:TAOTAO_PS_OPENCLAW_CONFIG = $OpenclawConfig
+  $env:TAOTAO_PS_AGENT_ID = $AgentId
+  $env:TAOTAO_PS_PRIMARY = $Primary
   Invoke-PythonInline @'
 import json
 import os
 import time
 from pathlib import Path
 
-qclaw_home = Path(os.environ["NAKO_PS_QCLAW_HOME"])
-qclaw_config = Path(os.environ["NAKO_PS_QCLAW_CONFIG"])
-openclaw_config = Path(os.environ["NAKO_PS_OPENCLAW_CONFIG"])
-agent_id = os.environ["NAKO_PS_AGENT_ID"]
-primary = os.environ.get("NAKO_PS_PRIMARY", "")
+qclaw_home = Path(os.environ["TAOTAO_PS_QCLAW_HOME"])
+qclaw_config = Path(os.environ["TAOTAO_PS_QCLAW_CONFIG"])
+openclaw_config = Path(os.environ["TAOTAO_PS_OPENCLAW_CONFIG"])
+agent_id = os.environ["TAOTAO_PS_AGENT_ID"]
+primary = os.environ.get("TAOTAO_PS_PRIMARY", "")
 config_path = qclaw_config
 source_path = openclaw_config
 
@@ -1320,10 +1320,10 @@ default_identity = {
     "name": "桃桃",
     "emoji": "🐾",
     "theme": "赛博世界粘人小白桃猫",
-    "avatar": "assets/nako-avatar-head.png",
+    "avatar": "assets/taotao-avatar-head.png",
 }
 legacy_default_avatars = {
-    "assets/nako-avatar.svg",
+    "assets/taotao-avatar.svg",
     "https://pulseact.lovappen.cn/test/act_ci_build/dlc-promotion/act-gengen/images/e.png",
 }
 
@@ -1343,7 +1343,7 @@ def normalize_identity(identity):
 
 def apply_default_identity(identity):
     result = normalize_identity(identity)
-    if agent_id.startswith("agent-nako"):
+    if agent_id.startswith("agent-taotao"):
         if result.get("avatar") in legacy_default_avatars:
             result["avatar"] = default_identity["avatar"]
         for key, value in default_identity.items():
@@ -1352,7 +1352,7 @@ def apply_default_identity(identity):
     return result
 
 def apply_qclaw_script_media_policy(item):
-    if not agent_id.startswith("agent-nako"):
+    if not agent_id.startswith("agent-taotao"):
         return item
     tools = item.get("tools")
     if not isinstance(tools, dict):
@@ -1415,7 +1415,7 @@ old = config_path.read_text(encoding="utf-8", errors="ignore") if config_path.ex
 new = json.dumps(cfg, ensure_ascii=False, indent=2) + "\n"
 if old != new:
     if config_path.exists():
-        backup = config_path.with_name(f"openclaw.json.bak-nako-qclaw-{time.strftime('%Y%m%d-%H%M%S')}")
+        backup = config_path.with_name(f"openclaw.json.bak-taotao-qclaw-{time.strftime('%Y%m%d-%H%M%S')}")
         backup.write_text(old, encoding="utf-8")
     config_path.write_text(new, encoding="utf-8")
 '@

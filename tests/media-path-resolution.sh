@@ -21,8 +21,8 @@ time=2026-05-14 level=INFO msg="downloaded audio media, saved to $audio_path"
 LOG
 
 resolved_image="$(
-  NAKO_RUNTIME_HOME="$runtime" \
-  bash "$ROOT/nako/skills/vision/scripts/resolve.sh" img-key-1
+  TAOTAO_RUNTIME_HOME="$runtime" \
+  bash "$ROOT/taotao/skills/vision/scripts/resolve.sh" img-key-1
 )"
 test "$resolved_image" = "$image_path"
 
@@ -48,10 +48,10 @@ SH
 chmod +x "$TMP_DIR/bin/whisper"
 
 transcript="$(
-  NAKO_RUNTIME_HOME="$runtime" \
+  TAOTAO_RUNTIME_HOME="$runtime" \
   SKILL_LOG_FILE="$TMP_DIR/skill.jsonl" \
   WHISPER_BIN="$TMP_DIR/bin/whisper" \
-  bash "$ROOT/nako/skills/hearing/scripts/stt.sh" aud-key-1
+  bash "$ROOT/taotao/skills/hearing/scripts/stt.sh" aud-key-1
 )"
 test "$transcript" = "transcribed $audio_path"
 

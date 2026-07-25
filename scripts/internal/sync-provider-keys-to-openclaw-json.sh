@@ -5,8 +5,8 @@ set -euo pipefail
 
 CONFIG=""
 ENV_FILE=""
-RUNTIME="${NAKO_AGENT_RUNTIME:-}"
-AGENT_ID="${AGENT_ID:-agent-nako}"
+RUNTIME="${TAOTAO_AGENT_RUNTIME:-}"
+AGENT_ID="${AGENT_ID:-agent-taotao}"
 BACKUP=1
 
 usage() {
@@ -25,9 +25,9 @@ Usage:
 
 Options:
   --config <path>        Explicit openclaw.json path.
-  --runtime <name>       openclaw|qclaw. Default: $NAKO_AGENT_RUNTIME, otherwise
+  --runtime <name>       openclaw|qclaw. Default: $TAOTAO_AGENT_RUNTIME, otherwise
                          auto-detect QClaw when only ~/.qclaw exists.
-  --agent-id <id>        Agent id for workspace env discovery. Default: agent-nako.
+  --agent-id <id>        Agent id for workspace env discovery. Default: agent-taotao.
   --env-file <path|->    Read KEY=VALUE lines before applying process env.
   --no-backup            Do not create a .bak file.
   -h, --help             Show this help.

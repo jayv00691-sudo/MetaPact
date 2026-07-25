@@ -7,7 +7,7 @@ trap 'rm -rf "$tmp"' EXIT
 
 config="$tmp/openclaw.json"
 envfile="$tmp/provider.env"
-mkdir -p "$tmp/.openclaw/skills" "$tmp/.openclaw/workspace/agent-nako/skills"
+mkdir -p "$tmp/.openclaw/skills" "$tmp/.openclaw/workspace/agent-taotao/skills"
 python3 - "$config" <<'PY'
 import json
 import sys
@@ -47,7 +47,7 @@ MINIMAX_GROUP_ID=default-group
 FAL_KEY=default-fal
 SELFIE_REFERENCE_IMAGE=https://example.test/default-ref.png
 EOF
-cat > "$tmp/.openclaw/workspace/agent-nako/skills/.env" <<'EOF'
+cat > "$tmp/.openclaw/workspace/agent-taotao/skills/.env" <<'EOF'
 FAL_KEY=workspace-fal
 SELFIE_REFERENCE_IMAGE=https://example.test/workspace-ref.png
 EOF
